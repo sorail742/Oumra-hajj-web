@@ -30,6 +30,18 @@ backend (`Oumra-hadj-project`, TypeScript strict partout).
   `@typescript-eslint/no-explicit-any` en erreur — voir
   `config-templates/eslint.config.mjs`.
 
+## Taille des fichiers — 400 lignes maximum, sans exception
+
+Voir ADR-0003 pour la justification complète et la portée exacte. En bref :
+tout fichier `.ts`/`.tsx` écrit à la main sous `src/` reste sous 400 lignes,
+vérifié par ESLint (`max-lines`), pas par la relecture. Un fichier qui
+approche la limite se découpe par responsabilité (sous-composant, hook
+extrait, module dédié dans `lib/`) — jamais repoussé « pour plus tard ».
+
+N'entrent pas dans cette limite : `src/lib/api/generated.ts` (généré,
+jamais édité à la main), les verrous/artefacts, les fichiers de
+données/traduction (`messages/fr.json`, `openapi.json`), la documentation.
+
 ## Authentification et API
 
 - Le jeton vit dans un cookie `httpOnly` posé par les Route Handlers de

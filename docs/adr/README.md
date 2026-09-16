@@ -16,12 +16,15 @@ texte existant), même convention que le backend
 | --------------------------------------------------- | --------------------------------------------------------------- | ------- |
 | [0001](0001-stack-nextjs-app-router.md)             | Next.js App Router comme stack frontend                         | Accepté |
 | [0002](0002-jeton-cookie-httponly-proxy-refresh.md) | Jeton en cookie httpOnly, proxy avec renouvellement automatique | Accepté |
+| [0003](0003-limite-400-lignes-par-fichier.md)       | Limite de 400 lignes par fichier de code                        | Accepté |
 
-Les deux sont passées à `accepté` le 2026-09-16 : le scaffold réel a été
-créé sur cette base (Next.js App Router, proxy `src/app/api/[...chemin]`,
-cookies `oumra_access`/`oumra_refresh`). Toute évolution ultérieure du choix
-se fait par un nouvel ADR qui remplace celui-ci, pas par une réécriture du
-texte existant.
+0001 et 0002 sont passées à `accepté` le 2026-09-16 : le scaffold réel a
+été créé sur cette base (Next.js App Router, proxy
+`src/app/api/[...chemin]`, cookies `oumra_access`/`oumra_refresh`). 0003
+est acceptée le même jour sur décision explicite de l'utilisateur — voir
+son texte pour la portée exacte (code source, pas documentation). Toute
+évolution ultérieure d'un choix accepté se fait par un nouvel ADR qui le
+remplace, pas par une réécriture du texte existant.
 
 ## Quand créer un nouvel ADR
 

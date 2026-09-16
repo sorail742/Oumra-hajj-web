@@ -91,6 +91,12 @@ et en dériver le type. Jamais `any`, jamais `@ts-ignore` sans justification
     durée de vie côté backend (voir ADR 0008 backend) — ne jamais les
     stocker, les précharger en liste, ni les exposer dans un attribut `src`
     persistant. Consommer, afficher, oublier.
+15. **Aucun fichier de code source écrit à la main ne dépasse 400 lignes**
+    (voir ADR-0003) — non négociable, vérifié par ESLint (`max-lines`), pas
+    laissé à la revue. Un fichier qui approche la limite se découpe par
+    responsabilité, jamais poussé au-delà « pour plus tard ». Exceptions
+    documentées dans l'ADR : `src/lib/api/generated.ts`, verrous/artefacts,
+    fichiers de données/traduction, documentation.
 
 ## Authentification — ce qui diffère de smartsms-frontend
 
