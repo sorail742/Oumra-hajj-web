@@ -1,0 +1,6 @@
+.next
+node_modules
+coverage
+storybook-static
+pnpm-lock.yaml
+src/lib/api/generated.ts

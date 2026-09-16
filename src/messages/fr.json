@@ -1,0 +1,31 @@
+{
+  "common": {
+    "appName": "Oumra & Hadj",
+    "loading": "Chargement…",
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "empty": "Aucune donnée pour le moment."
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "packages": "Forfaits",
+    "bookings": "Réservations",
+    "documents": "Documents",
+    "payments": "Paiements",
+    "reviews": "Avis",
+    "rites": "Rites",
+    "tripSummary": "Livret souvenir",
+    "legalDocuments": "Conformité",
+    "calendar": "Calendrier",
+    "groups": "Groupes",
+    "messaging": "Messagerie",
+    "settings": "Paramètres"
+  },
+  "auth": {
+    "agencyLoginTitle": "Connexion agence / admin",
+    "otpLoginTitle": "Connexion pèlerin / guide",
+    "registerAgency": "Inscrire une agence",
+    "forgotPassword": "Mot de passe oublié"
+  }
+}
