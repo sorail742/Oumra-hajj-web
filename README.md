@@ -40,7 +40,7 @@ l'éditer à la main.
   automatique du jeton (access + refresh en rotation) — voir ADR-0002.
 - `lib/api/{backend,client,query-keys,response-interpreter,types}.ts`,
   `lib/auth/{cookie,session,permissions}.ts`, `lib/format/index.ts`.
-- `middleware.ts`, i18n (`next-intl`, `fr` uniquement), providers (Query,
+- `src/proxy.ts` (convention Next.js 16), i18n (`next-intl`, `fr` uniquement), providers (Query,
   thème, `<Toaster>`), `AppShell` minimal, pages publiques/authentifiées
   placeholder.
 
