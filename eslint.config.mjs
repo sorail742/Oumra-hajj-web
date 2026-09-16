@@ -55,6 +55,18 @@ const config = [
       ],
 
       /**
+       * 400 lignes maximum par fichier de code — voir ADR-0003. Non
+       * négociable : un fichier qui approche la limite se découpe par
+       * responsabilité, jamais désactivé au cas par cas. Compte brut
+       * (commentaires et lignes vides inclus) pour rester un seuil simple
+       * à interpréter, pas une formule à débattre.
+       */
+      "max-lines": [
+        "error",
+        { max: 400, skipBlankLines: false, skipComments: false },
+      ],
+
+      /**
        * Un dossier `features/x` n'importe jamais depuis `features/y`.
        *
        * C'est la règle qui permet à plusieurs contributeurs de travailler en
