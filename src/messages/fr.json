@@ -33,6 +33,24 @@
     "registerAgency": "Inscrire une agence",
     "forgotPassword": "Mot de passe oublié"
   },
+  "bookings": {
+    "title": "Réservations",
+    "description": "Suivi des dossiers de réservation.",
+    "stepPayment": "Paiement",
+    "stepVisa": "Visa",
+    "stepFlight": "Billet d'avion",
+    "stepVaccination": "Certificat de vaccination",
+    "stepDocuments": "Documents",
+    "columnPackage": "Forfait",
+    "columnStatus": "Statut",
+    "columnCreated": "Créée le",
+    "emptyTitle": "Aucune réservation pour le moment.",
+    "emptyDescription": "Les réservations apparaîtront ici une fois un forfait réservé.",
+    "detailTitle": "Dossier de réservation",
+    "stepsTitle": "Étapes du dossier",
+    "notFoundTitle": "Réservation introuvable.",
+    "roleUnsupportedTitle": "Aucune liste de réservations pour ce rôle."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
