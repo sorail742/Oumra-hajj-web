@@ -5,7 +5,7 @@ import Link from "next/link";
  * vers l'un des deux parcours d'authentification (voir
  * `docs/socle-frontend.md` §5) : le middleware laisse `/` public et ne
  * redirige pas automatiquement un utilisateur déjà connecté depuis cette
- * page (voir `src/middleware.ts`).
+ * page (voir `src/proxy.ts`).
  */
 export default function Home() {
   return (

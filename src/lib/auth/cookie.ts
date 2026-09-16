@@ -1,7 +1,8 @@
 /**
  * Noms et options des cookies de session — **sans aucune dépendance
- * runtime**, pour que `middleware.ts` (Edge) puisse importer
- * `NOM_COOKIE_ACCES` sans tirer `next/headers`, indisponible côté Edge.
+ * runtime**, pour que `src/proxy.ts` (Edge, convention Next.js 16 —
+ * anciennement `middleware.ts`) puisse importer `NOM_COOKIE_ACCES` sans
+ * tirer `next/headers`, indisponible côté Edge.
  *
  * Deux cookies, pas un — voir ADR-0002 de ce kit : le backend
  * Oumra-hadj-project a un couple access/refresh en rotation, contrairement
