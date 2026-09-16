@@ -4,6 +4,8 @@ import { IBM_Plex_Mono, Source_Sans_3 } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
+import { lireJetons } from "@/lib/auth/session";
+import { decoderRole } from "@/lib/auth/jwt";
 import "./globals.css";
 
 /**
@@ -35,6 +37,8 @@ export default async function RootLayout({
   children: ReactNode;
 }) {
   const messages = await getMessages();
+  const { accessToken } = await lireJetons();
+  const role = decoderRole(accessToken);
 
   return (
     <html lang="fr" suppressHydrationWarning>
@@ -42,7 +46,7 @@ export default async function RootLayout({
         className={`${sourceSans3.variable} ${ibmPlexMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <Providers>{children}</Providers>
+          <Providers role={role}>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>

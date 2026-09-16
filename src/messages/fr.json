@@ -5,7 +5,12 @@
     "retry": "Réessayer",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "empty": "Aucune donnée pour le moment."
+    "empty": "Aucune donnée pour le moment.",
+    "errorTitle": "Une erreur est survenue.",
+    "errorDescription": "Vérifiez votre connexion, puis réessayez.",
+    "tablePage": "Page {page} sur {total}",
+    "tablePrevious": "Précédent",
+    "tableNext": "Suivant"
   },
   "nav": {
     "dashboard": "Tableau de bord",
@@ -27,5 +32,19 @@
     "otpLoginTitle": "Connexion pèlerin / guide",
     "registerAgency": "Inscrire une agence",
     "forgotPassword": "Mot de passe oublié"
+  },
+  "packages": {
+    "title": "Forfaits",
+    "description": "Forfaits Oumra et Hadj proposés par les agences.",
+    "filterType": "Type",
+    "filterTypeAll": "Tous",
+    "filterMaxBudget": "Budget maximum (GNF)",
+    "columnTitle": "Forfait",
+    "columnType": "Type",
+    "columnPrice": "Prix",
+    "columnCapacity": "Places",
+    "columnStatus": "Statut",
+    "emptyTitle": "Aucun forfait ne correspond à ces critères.",
+    "emptyDescription": "Essayez d'élargir le budget ou de changer le type de pèlerinage."
   }
 }
