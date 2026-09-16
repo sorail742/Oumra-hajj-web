@@ -33,7 +33,7 @@ function estPublic(pathname: string): boolean {
   );
 }
 
-export function middleware(request: NextRequest): NextResponse {
+export function proxy(request: NextRequest): NextResponse {
   const { pathname, search } = request.nextUrl;
   const aSession = request.cookies.has(NOM_COOKIE_ACCES);
   const routePublique = estPublic(pathname);

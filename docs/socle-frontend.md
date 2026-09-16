@@ -337,7 +337,10 @@ mort » chez eux ; ici c'est le contraire, l'omettre laisserait échouer
 plusieurs requêtes simultanées après une expiration au lieu d'une seule
 tentative de renouvellement.
 
-**`middleware.ts`** ne vérifie que la **présence** du cookie d'accès, jamais
+**`src/proxy.ts`** (convention `proxy.ts` de Next.js 16, qui remplace
+`middleware.ts` — renommé au scaffold du 2026-09-16 via
+`npx @next/codemod middleware-to-proxy`, export `proxy()` au lieu de
+`middleware()`) ne vérifie que la **présence** du cookie d'accès, jamais
 sa validité — le backend reste seule source de vérité. Un cookie présent
 mais expiré passe le middleware, puis le proxy le refuse et déclenche le
 renouvellement décrit ci-dessus.
