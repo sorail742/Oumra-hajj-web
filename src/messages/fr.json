@@ -109,6 +109,24 @@
     "agencyReviewsTitle": "Avis de l'agence",
     "agencyReviewsEmptyTitle": "Aucun avis pour cette agence pour le moment."
   },
+  "rites": {
+    "title": "Rites",
+    "description": "Fiches de rites et suivi de votre progression.",
+    "sheetsTitle": "Fiches de rites",
+    "religiousContentNotice": "Contenu à valider par une personne qualifiée",
+    "viewSheet": "Consulter",
+    "close": "Fermer",
+    "progressTitle": "Ma progression",
+    "columnRite": "Rite",
+    "columnCompleted": "Terminé",
+    "columnTawaf": "Tawaf",
+    "columnSai": "Sa'i",
+    "completedYes": "Oui",
+    "completedNo": "Non",
+    "emptyTitle": "Aucune fiche de rite publiée pour le moment.",
+    "progressEmptyTitle": "Aucune progression enregistrée pour le moment.",
+    "progressRoleUnsupportedTitle": "Le suivi de progression est réservé à l'espace pèlerin."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",

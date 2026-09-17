@@ -85,7 +85,7 @@ export const keys = {
 
   rites: {
     all: ["rites"] as const,
-    sheets: () => [...keys.rites.all, "sheets"] as const,
+    sheets: (f: Filtres = {}) => [...keys.rites.all, "sheets", f] as const,
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
   },
 
