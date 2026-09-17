@@ -66,6 +66,28 @@
     "emptyTitle": "Aucun document déposé pour le moment.",
     "emptyDescription": "Téléversez votre passeport pour démarrer votre dossier."
   },
+  "payments": {
+    "title": "Paiements",
+    "description": "Tranches de paiement et remboursements.",
+    "columnBooking": "Réservation",
+    "columnAmount": "Montant",
+    "columnMethod": "Moyen",
+    "columnStatus": "Statut",
+    "methodMobileMoneyOrange": "Mobile Money Orange",
+    "methodMobileMoneyMtn": "Mobile Money MTN",
+    "methodCard": "Carte",
+    "refundAction": "Demander un remboursement",
+    "refundDialogTitle": "Demande de remboursement",
+    "refundDialogDescription": "Le taux dépend du statut actuel de la réservation.",
+    "refundRateLabel": "Taux de remboursement",
+    "refundAmountLabel": "Montant remboursé",
+    "refundNotEligible": "Ce paiement n'est plus remboursable au statut actuel de la réservation.",
+    "refundConfirm": "Confirmer le remboursement",
+    "refundSuccess": "Demande de remboursement envoyée.",
+    "emptyTitle": "Aucun paiement pour le moment.",
+    "emptyDescription": "Les paiements apparaîtront ici une fois une tranche réglée.",
+    "roleUnsupportedTitle": "Aucune liste de paiements pour ce rôle."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
