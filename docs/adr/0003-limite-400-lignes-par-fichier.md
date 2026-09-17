@@ -142,3 +142,43 @@ la même raison que `features/x` n'important jamais `features/y` est
 vérifiée par ESLint plutôt que rappelée en revue : une règle non négociable
 qui dépend de la vigilance humaine à chaque revue finit par être oubliée
 une fois — l'outillage ne l'oublie jamais.
+
+## Addendum — 2026-09-17
+
+Recoupé contre `smartsms-frontend` (projet frère, sur demande explicite de
+l'utilisateur de vérifier ce qu'il avait de nouveau à adapter ici) : leur
+commit `efcdf68` a introduit la même règle le 2026-09-16, avec deux
+différences qui méritent d'être tranchées, pas copiées telles quelles.
+
+**Adopté** — `skipBlankLines: true, skipComments: true`. Leur mesure sur
+leur propre dépôt : un compte incluant les commentaires pénalise
+exactement la documentation abondante qu'ils encouragent (« ce projet
+documente abondamment le pourquoi en commentaire »). Ce projet-ci a le
+même style de commentaires denses (voir n'importe quel fichier de
+`src/lib/` ou `src/features/`) — le même raisonnement s'applique mot pour
+mot. `eslint.config.mjs` mis à jour en conséquence.
+
+**Non adopté** — leur sévérité `warn`. Chez eux, un choix de migration
+assumé : la règle a été posée alors que six fichiers dépassaient déjà 400
+lignes (`DataTable.tsx` à 588, entre autres), avec `warn` comme mesure de
+transition explicitement temporaire (« `max-lines` passera en `error` une
+fois cette liste vidée »). `oumra-hadj-web` n'a pas cette dette : aucun
+fichier n'a jamais dépassé le seuil depuis le scaffold initial (voir
+mesure ci-dessus, 154 lignes maximum). Rien ne justifie d'affaiblir la
+règle à `warn` ici — `error` reste la sévérité qui correspond à la
+décision d'origine (« incontournable et intolérable »).
+
+**Ajouté** — `max-depth: ['warn', 4]` et deux exemptions à `max-lines`
+(`**/*.test.{ts,tsx}`, `src/components/ui/**`), avec le même raisonnement
+qu'eux : un composant React est une fonction dont le JSX fait mentir
+`complexity`/`max-lines-per-function` (ni l'un ni l'autre n'est adopté ici
+non plus), un fichier de test long est souvent un fichier de test complet,
+et des primitives shadcn générées ne se découpent pas sans compliquer
+chaque mise à jour du générateur pour un bénéfice nul.
+
+**Repéré à cette occasion, sans lien direct avec cette ADR** : leur
+historique a aussi révélé un bug réel sur leurs modales (contenu sans
+padding cohérent, #66 de leur dépôt) qui a motivé une vérification de nos
+propres `Dialog` — `src/components/ui/dialog.tsx` ne contraignait pas la
+hauteur d'un contenu long, corrigé séparément (voir le commit qui
+accompagne cet addendum).
