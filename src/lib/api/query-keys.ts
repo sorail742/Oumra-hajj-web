@@ -91,6 +91,9 @@ export const keys = {
 
   groups: {
     all: ["groups"] as const,
+    mine: () => [...keys.groups.all, "mine"] as const,
+    assigned: () => [...keys.groups.all, "assigned"] as const,
+    joined: () => [...keys.groups.all, "joined"] as const,
     detail: (id: string) => [...keys.groups.all, "detail", id] as const,
   },
 
