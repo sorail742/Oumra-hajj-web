@@ -88,6 +88,27 @@
     "emptyDescription": "Les paiements apparaîtront ici une fois une tranche réglée.",
     "roleUnsupportedTitle": "Aucune liste de paiements pour ce rôle."
   },
+  "reviews": {
+    "trustCardTitle": "Score de confiance",
+    "newAgency": "Agence nouvellement inscrite — pas encore assez de données pour un score.",
+    "score": "Score",
+    "reviewAverage": "Note moyenne",
+    "reviewCount": "Avis",
+    "completionRate": "Taux de complétion",
+    "badgeTrusted": "Confiance",
+    "badgeVerified": "Vérifiée",
+    "myReviewsTitle": "Mes avis",
+    "myReviewsDescription": "Avis laissés sur vos réservations.",
+    "columnBooking": "Réservation",
+    "columnRating": "Note",
+    "columnComment": "Commentaire",
+    "columnDate": "Date",
+    "myReviewsEmptyTitle": "Vous n'avez laissé aucun avis pour le moment.",
+    "myReviewsEmptyDescription": "Un avis peut être déposé une fois une réservation confirmée ou terminée.",
+    "roleUnsupportedTitle": "Aucun avis pour ce rôle.",
+    "agencyReviewsTitle": "Avis de l'agence",
+    "agencyReviewsEmptyTitle": "Aucun avis pour cette agence pour le moment."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
