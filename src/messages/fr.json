@@ -127,6 +127,25 @@
     "progressEmptyTitle": "Aucune progression enregistrée pour le moment.",
     "progressRoleUnsupportedTitle": "Le suivi de progression est réservé à l'espace pèlerin."
   },
+  "groups": {
+    "title": "Groupes",
+    "description": "Groupes de voyage et suivi de dossier.",
+    "columnTitle": "Groupe",
+    "columnMembers": "Pèlerins",
+    "columnGuide": "Guide",
+    "guideAssigned": "Assigné",
+    "guideUnassigned": "Non assigné",
+    "emptyTitle": "Aucun groupe pour le moment.",
+    "roleUnsupportedTitle": "Aucune liste de groupes pour ce rôle.",
+    "detailTitle": "Détail du groupe",
+    "itineraryTitle": "Itinéraire",
+    "itineraryEmptyTitle": "Aucune étape d'itinéraire publiée pour le moment.",
+    "membersCount": "{count} pèlerin(s)",
+    "sosButtonLabel": "Alerte SOS",
+    "sosButtonHint": "Maintenez le bouton pour envoyer l'alerte",
+    "sosSent": "Alerte SOS envoyée.",
+    "sosError": "L'alerte SOS n'a pas pu être envoyée. Réessayez, ou contactez votre guide directement."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
