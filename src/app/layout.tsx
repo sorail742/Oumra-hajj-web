@@ -5,7 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 import { lireJetons } from "@/lib/auth/session";
-import { decoderRole } from "@/lib/auth/jwt";
+import { decoderPayloadUtile } from "@/lib/auth/jwt";
 import "./globals.css";
 
 /**
@@ -38,7 +38,7 @@ export default async function RootLayout({
 }) {
   const messages = await getMessages();
   const { accessToken } = await lireJetons();
-  const role = decoderRole(accessToken);
+  const { role, userId } = decoderPayloadUtile(accessToken);
 
   return (
     <html lang="fr" suppressHydrationWarning>
@@ -46,7 +46,9 @@ export default async function RootLayout({
         className={`${sourceSans3.variable} ${ibmPlexMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <Providers role={role}>{children}</Providers>
+          <Providers role={role} userId={userId}>
+            {children}
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

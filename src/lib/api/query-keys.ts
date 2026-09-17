@@ -99,8 +99,10 @@ export const keys = {
 
   messaging: {
     all: ["messaging"] as const,
-    byBooking: (bookingId: string) =>
-      [...keys.messaging.all, "booking", bookingId] as const,
+    conversation: (bookingId: string, channel: string) =>
+      [...keys.messaging.all, "conversation", bookingId, channel] as const,
+    messages: (conversationId: string) =>
+      [...keys.messaging.all, "messages", conversationId] as const,
   },
 
   auth: {

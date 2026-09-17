@@ -4,26 +4,41 @@ import { createContext, useContext, type ReactNode } from "react";
 import type { Role } from "./permissions";
 
 /**
- * Rôle de l'utilisateur courant, côté client — pour `<Can>` et la
- * navigation uniquement. Posé une fois par rendu serveur (voir
- * `app/layout.tsx`, qui décode le rôle depuis le cookie d'accès via
- * `lib/auth/jwt.ts`) et propagé ici en contexte plutôt que redécodé dans
+ * Identité de l'utilisateur courant, côté client — rôle pour `<Can>` et la
+ * navigation, `userId` pour aligner un message envoyé/reçu dans
+ * `ConversationView`. Posée une fois par rendu serveur (voir
+ * `app/layout.tsx`, qui décode le payload depuis le cookie d'accès via
+ * `lib/auth/jwt.ts`) et propagée ici en contexte plutôt que redécodée dans
  * chaque composant client. **Ne remplace jamais une vérification backend**
  * (voir `CLAUDE.md`, règle 12) — aucune route `/me` n'existe à ce jour pour
- * rafraîchir ce rôle en cours de session sans navigation.
+ * rafraîchir cette identité en cours de session sans navigation.
  */
-const RoleContext = createContext<Role | undefined>(undefined);
+interface SessionIdentite {
+  role: Role | undefined;
+  userId: string | undefined;
+}
+
+const SessionContext = createContext<SessionIdentite>({
+  role: undefined,
+  userId: undefined,
+});
 
 export function RoleProvider({
   role,
+  userId = undefined,
   children,
-}: {
-  role: Role | undefined;
-  children: ReactNode;
-}) {
-  return <RoleContext.Provider value={role}>{children}</RoleContext.Provider>;
+}: { children: ReactNode } & Partial<SessionIdentite>) {
+  return (
+    <SessionContext.Provider value={{ role, userId }}>
+      {children}
+    </SessionContext.Provider>
+  );
 }
 
 export function useRole(): Role | undefined {
-  return useContext(RoleContext);
+  return useContext(SessionContext).role;
+}
+
+export function useUserId(): string | undefined {
+  return useContext(SessionContext).userId;
 }

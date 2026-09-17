@@ -146,6 +146,16 @@
     "sosSent": "Alerte SOS envoyée.",
     "sosError": "L'alerte SOS n'a pas pu être envoyée. Réessayez, ou contactez votre guide directement."
   },
+  "messaging": {
+    "sectionTitle": "Messagerie",
+    "channelAgency": "Agence",
+    "channelGuide": "Guide",
+    "emptyTitle": "Aucun message pour le moment.",
+    "emptyDescription": "Écrivez le premier message pour démarrer la conversation.",
+    "placeholder": "Écrire un message…",
+    "send": "Envoyer",
+    "sendError": "Le message n'a pas pu être envoyé. Réessayez."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
