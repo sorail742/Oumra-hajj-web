@@ -13,22 +13,39 @@ import { NOM_COOKIE_ACCES } from "@/lib/auth/cookie";
  */
 
 /**
- * Pages accessibles sans session — à adapter aux deux parcours réels
- * (`docs/socle-frontend.md` §5) : OTP pour pèlerin/guide, email + mot de
- * passe pour agence/admin.
+ * Pages du **parcours d'authentification** — à adapter aux deux parcours
+ * réels (`docs/socle-frontend.md` §5) : OTP pour pèlerin/guide, email + mot
+ * de passe pour agence/admin. Un utilisateur déjà connecté qui atterrit ici
+ * est renvoyé vers `/dashboard` : ça n'a de sens que pour ces pages-là, pas
+ * pour du contenu public consultable qu'on est ou non connecté.
  */
-const PREFIXES_PUBLICS = [
+const PREFIXES_AUTH = [
   "/login",
   "/otp",
   "/register-agency",
   "/forgot-password",
 ];
 
-function estPublic(pathname: string): boolean {
-  if (pathname === "/") {
-    return true;
-  }
-  return PREFIXES_PUBLICS.some(
+/**
+ * Contenu **public** côté backend, consultable avec ou sans session — pas
+ * seulement « accessible sans compte » comme `PREFIXES_AUTH`. `/packages`
+ * (`GET /packages` → `listPublic`) et `/agencies` (`GET /reviews/agency/:id`
+ * et `.../trust-score` → `@Public()`, voir `docs/contrat-api.md`) s'y
+ * trouvent parce que le backend les sert sans jeton — un écart découvert en
+ * construisant l'écran public de score de confiance agence : sans cette
+ * liste, ce middleware imposait une redirection `/login` sur un contenu que
+ * le backend rend librement.
+ *
+ * **À revoir dès qu'un écran de gestion authentifié (créer/éditer un
+ * forfait, par ex.) atterrit sous l'un de ces préfixes** : la vérification
+ * ci-dessous les couvrirait par erreur (`startsWith`, pas une
+ * correspondance exacte de route) — scinder les préfixes à ce moment-là,
+ * pas avant.
+ */
+const PREFIXES_PUBLIC_CONTENU = ["/packages", "/agencies"];
+
+function correspond(pathname: string, prefixes: string[]): boolean {
+  return prefixes.some(
     (prefixe) => pathname === prefixe || pathname.startsWith(`${prefixe}/`),
   );
 }
@@ -36,13 +53,17 @@ function estPublic(pathname: string): boolean {
 export function proxy(request: NextRequest): NextResponse {
   const { pathname, search } = request.nextUrl;
   const aSession = request.cookies.has(NOM_COOKIE_ACCES);
-  const routePublique = estPublic(pathname);
+  const pageAuth = correspond(pathname, PREFIXES_AUTH);
+  const contenuPublic =
+    pathname === "/" ||
+    pageAuth ||
+    correspond(pathname, PREFIXES_PUBLIC_CONTENU);
 
-  if (aSession && routePublique && pathname !== "/") {
+  if (aSession && pageAuth) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  if (!aSession && !routePublique) {
+  if (!aSession && !contenuPublic) {
     const destination = new URL("/login", request.url);
     destination.searchParams.set("next", `${pathname}${search}`);
     return NextResponse.redirect(destination);
