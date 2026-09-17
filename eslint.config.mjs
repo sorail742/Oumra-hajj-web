@@ -55,16 +55,30 @@ const config = [
       ],
 
       /**
-       * 400 lignes maximum par fichier de code — voir ADR-0003. Non
-       * négociable : un fichier qui approche la limite se découpe par
-       * responsabilité, jamais désactivé au cas par cas. Compte brut
-       * (commentaires et lignes vides inclus) pour rester un seuil simple
-       * à interpréter, pas une formule à débattre.
+       * 400 lignes maximum par fichier de code — voir ADR-0003 (dont
+       * l'addendum du 2026-09-17). Non négociable : un fichier qui approche
+       * la limite se découpe par responsabilité, jamais désactivé au cas
+       * par cas. `skipBlankLines`/`skipComments` : recoupé contre
+       * `smartsms-frontend`, qui a adopté la même règle et mesuré sur son
+       * propre dépôt qu'un seuil comptant les commentaires pénalise
+       * exactement la documentation abondante que ce projet encourage —
+       * même raisonnement ici, sans reprendre leur sévérité `warn` (chez
+       * eux un choix de migration sur une base existante de six fichiers
+       * déjà hors seuil ; sans base existante ici, `error` s'applique dès
+       * le premier jour).
        */
       "max-lines": [
         "error",
-        { max: 400, skipBlankLines: false, skipComments: false },
+        { max: 400, skipBlankLines: true, skipComments: true },
       ],
+
+      /**
+       * Une imbrication au-delà de 4 niveaux signale une logique à
+       * extraire — même ajout, même raisonnement que `smartsms-frontend`
+       * (pas de `max-lines-per-function`/`complexity` : un composant React
+       * est une fonction, son JSX les fait mentir).
+       */
+      "max-depth": ["warn", 4],
 
       /**
        * Un dossier `features/x` n'importe jamais depuis `features/y`.
@@ -88,6 +102,28 @@ const config = [
           ],
         },
       ],
+    },
+  },
+
+  {
+    // Un fichier de test long est souvent un fichier de test complet — voir
+    // ADR-0003 (addendum du 2026-09-17), même exemption que smartsms-frontend.
+    files: ["**/*.test.{ts,tsx}"],
+    rules: {
+      "max-lines": "off",
+    },
+  },
+
+  {
+    /**
+     * `components/ui/` — primitives générées par shadcn, alignées sur
+     * l'amont. Les découper compliquerait chaque mise à jour du générateur
+     * pour un bénéfice nul : ce sont des définitions de variantes, pas de
+     * la logique métier — même exemption que smartsms-frontend.
+     */
+    files: ["src/components/ui/**"],
+    rules: {
+      "max-lines": "off",
     },
   },
 ];
