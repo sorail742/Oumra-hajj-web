@@ -1,16 +1,24 @@
 import { roleSchema, type Role } from "./permissions";
 
 /**
- * Décodage **non vérifié** du rôle porté par l'access token — pour l'UI
- * seulement (`<Can>`, navigation). Ne vérifie ni la signature ni
- * l'expiration : ce n'est pas son rôle. Le backend reste la seule source de
- * vérité de sécurité (voir `CLAUDE.md`, règle 12) — un rôle mal décodé ici
- * ne peut jamais élargir un accès, seulement masquer ou montrer un bouton
- * qu'un appel API refuserait de toute façon si le jeton était invalide.
+ * Décodage **non vérifié** du payload de l'access token — pour l'UI
+ * seulement (`<Can>`, navigation, alignement des messages dans
+ * `ConversationView`). Ne vérifie ni la signature ni l'expiration : ce
+ * n'est pas son rôle. Le backend reste la seule source de vérité de
+ * sécurité (voir `CLAUDE.md`, règle 12) — un champ mal décodé ici ne peut
+ * jamais élargir un accès, seulement masquer un bouton ou mal aligner une
+ * bulle de message qu'un appel API refuserait ou accepterait de toute
+ * façon selon le vrai jeton.
  */
 
 interface PayloadMinimal {
+  sub?: unknown;
   role?: unknown;
+}
+
+export interface PayloadUtile {
+  userId: string | undefined;
+  role: Role | undefined;
 }
 
 function decoderSegmentBase64Url(segment: string): unknown {
@@ -19,20 +27,26 @@ function decoderSegmentBase64Url(segment: string): unknown {
   return JSON.parse(texte);
 }
 
-/** Extrait `role` du payload d'un JWT — `undefined` si le jeton est absent, malformé, ou porte un rôle inconnu. */
-export function decoderRole(accessToken: string | undefined): Role | undefined {
+/** `{ userId: undefined, role: undefined }` si le jeton est absent ou malformé. */
+export function decoderPayloadUtile(
+  accessToken: string | undefined,
+): PayloadUtile {
+  const vide: PayloadUtile = { userId: undefined, role: undefined };
   if (!accessToken) {
-    return undefined;
+    return vide;
   }
   const segments = accessToken.split(".");
   if (segments.length !== 3 || !segments[1]) {
-    return undefined;
+    return vide;
   }
   try {
     const payload = decoderSegmentBase64Url(segments[1]) as PayloadMinimal;
-    const resultat = roleSchema.safeParse(payload.role);
-    return resultat.success ? resultat.data : undefined;
+    const role = roleSchema.safeParse(payload.role);
+    return {
+      userId: typeof payload.sub === "string" ? payload.sub : undefined,
+      role: role.success ? role.data : undefined,
+    };
   } catch {
-    return undefined;
+    return vide;
   }
 }

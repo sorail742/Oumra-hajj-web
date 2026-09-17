@@ -16,9 +16,11 @@ import type { Role } from "@/lib/auth/permissions";
  */
 export function Providers({
   role,
+  userId,
   children,
 }: {
   role: Role | undefined;
+  userId: string | undefined;
   children: ReactNode;
 }) {
   const [queryClient] = useState(
@@ -36,7 +38,7 @@ export function Providers({
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <RoleProvider role={role}>
+        <RoleProvider role={role} userId={userId}>
           {children}
           <Toaster richColors position="top-right" />
         </RoleProvider>

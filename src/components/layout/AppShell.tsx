@@ -23,6 +23,7 @@ export async function AppShell({ children }: { children: ReactNode }) {
     { href: "/payments", label: t("payments") },
     { href: "/reviews", label: t("reviews") },
     { href: "/rites", label: t("rites") },
+    { href: "/groups", label: t("groups") },
     { href: "/settings", label: t("settings") },
   ];
 
