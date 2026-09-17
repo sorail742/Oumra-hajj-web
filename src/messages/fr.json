@@ -51,6 +51,21 @@
     "notFoundTitle": "Réservation introuvable.",
     "roleUnsupportedTitle": "Aucune liste de réservations pour ce rôle."
   },
+  "documents": {
+    "title": "Documents",
+    "description": "Documents déposés pour vos réservations.",
+    "columnType": "Document",
+    "columnStatus": "Statut",
+    "columnRejectionReason": "Motif de refus",
+    "view": "Voir le document",
+    "opening": "Ouverture…",
+    "typePassport": "Passeport",
+    "typeVisa": "Visa",
+    "typeFlightTicket": "Billet d'avion",
+    "typeVaccinationCertificate": "Certificat de vaccination",
+    "emptyTitle": "Aucun document déposé pour le moment.",
+    "emptyDescription": "Téléversez votre passeport pour démarrer votre dossier."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
