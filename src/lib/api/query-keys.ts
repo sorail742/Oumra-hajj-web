@@ -54,8 +54,22 @@ export const keys = {
 
   payments: {
     all: ["payments"] as const,
+    mine: () => [...keys.payments.all, "mine"] as const,
+    agency: () => [...keys.payments.all, "agency"] as const,
+    detail: (id: string) => [...keys.payments.all, "detail", id] as const,
     byBooking: (bookingId: string) =>
       [...keys.payments.all, "booking", bookingId] as const,
+    /**
+     * Statut de réservation minimal, pour l'aperçu du barème de
+     * remboursement (`RefundRequestFlow`). Clé distincte de
+     * `keys.bookings.detail` : un `features/x` n'importe jamais depuis
+     * `features/y` (voir `CLAUDE.md` règle 2), donc ce hook reparse sa
+     * propre forme minimale plutôt que de réutiliser le cache du domaine
+     * `bookings` — partager la clé mélangerait deux formes différentes
+     * sous la même entrée de cache.
+     */
+    bookingStatus: (bookingId: string) =>
+      [...keys.payments.all, "booking-status", bookingId] as const,
   },
 
   reviews: {
