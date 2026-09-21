@@ -24,6 +24,7 @@ export async function AppShell({ children }: { children: ReactNode }) {
     { href: "/reviews", label: t("reviews") },
     { href: "/rites", label: t("rites") },
     { href: "/groups", label: t("groups") },
+    { href: "/legal-documents", label: t("legalDocuments") },
     { href: "/settings", label: t("settings") },
   ];
 

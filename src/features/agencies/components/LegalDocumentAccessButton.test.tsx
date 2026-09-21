@@ -2,12 +2,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
-import { DocumentAccessButton } from "./DocumentAccessButton";
+import { LegalDocumentAccessButton } from "./LegalDocumentAccessButton";
 import messages from "@/messages/fr.json";
 
 /**
- * Incarnation directe de `CLAUDE.md` règle 14 : l'URL signée n'est jamais
- * réutilisée d'un clic à l'autre, jamais assignée à un `src` persistant.
+ * Même garde-fou que `DocumentAccessButton.test.tsx` (règle 14) — une URL
+ * signée n'est jamais réutilisée d'un clic à l'autre.
  */
 const get = vi.fn();
 vi.mock("@/lib/api/client", () => ({
@@ -19,41 +19,18 @@ function afficher() {
   return render(
     <QueryClientProvider client={queryClient}>
       <NextIntlClientProvider locale="fr" messages={messages}>
-        <DocumentAccessButton documentId="doc-1" />
+        <LegalDocumentAccessButton documentId="doc-1" />
       </NextIntlClientProvider>
     </QueryClientProvider>,
   );
 }
 
-describe("DocumentAccessButton", () => {
+describe("LegalDocumentAccessButton", () => {
   beforeEach(() => {
     get.mockReset();
   });
 
-  it("ouvre un onglet vierge avant l'appel réseau, puis le navigue vers l'URL reçue", async () => {
-    get.mockResolvedValue({
-      url: "https://backend.local/signed/1",
-      expiresAt: "2026-01-01T00:05:00Z",
-    });
-    const fausseFenetre = { location: { href: "" } };
-    const openSpy = vi
-      .spyOn(window, "open")
-      .mockReturnValue(fausseFenetre as unknown as Window);
-
-    afficher();
-    fireEvent.click(screen.getByRole("button"));
-
-    expect(openSpy).toHaveBeenCalledWith("", "_blank", "noopener,noreferrer");
-    await waitFor(() =>
-      expect(fausseFenetre.location.href).toBe(
-        "https://backend.local/signed/1",
-      ),
-    );
-
-    openSpy.mockRestore();
-  });
-
-  it("refait un appel réseau frais à chaque clic, jamais une URL réutilisée depuis un cache", async () => {
+  it("refait un appel réseau frais à chaque clic", async () => {
     get
       .mockResolvedValueOnce({
         url: "https://backend.local/signed/1",

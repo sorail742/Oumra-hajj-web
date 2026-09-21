@@ -53,6 +53,16 @@ export const statusRegistry = {
     in_progress: { label: "En cours", tone: "progress" },
     done: { label: "Terminée", tone: "success" },
   },
+  /**
+   * `LegalDocumentComplianceStatus` — 10ᵉ enum, ajouté au registre en
+   * construisant le domaine conformité documentaire agence (voir
+   * `docs/design-system.md` §7, `LegalDocumentComplianceList` : « distingue
+   * visuellement expired (state-danger) de expiring_soon (state-warning) »).
+   */
+  legalDocument: {
+    expired: { label: "Expiré", tone: "danger" },
+    expiring_soon: { label: "Expire bientôt", tone: "warning" },
+  },
 } as const satisfies Record<string, Record<string, StatusEntry>>;
 
 export type StatusKind = keyof typeof statusRegistry;

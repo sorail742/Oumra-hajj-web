@@ -156,6 +156,18 @@
     "send": "Envoyer",
     "sendError": "Le message n'a pas pu être envoyé. Réessayez."
   },
+  "agencyCompliance": {
+    "title": "Conformité documentaire",
+    "description": "Documents légaux dont l'échéance approche ou est dépassée.",
+    "columnDocument": "Document",
+    "columnExpiry": "Échéance",
+    "columnStatus": "Statut",
+    "view": "Voir le document",
+    "opening": "Ouverture…",
+    "emptyTitle": "Aucune alerte de conformité pour le moment.",
+    "emptyDescription": "Tous vos documents légaux sont à jour ou sans échéance renseignée.",
+    "roleUnsupportedTitle": "Réservé à l'espace agence."
+  },
   "packages": {
     "title": "Forfaits",
     "description": "Forfaits Oumra et Hadj proposés par les agences.",
@@ -169,5 +181,51 @@
     "columnStatus": "Statut",
     "emptyTitle": "Aucun forfait ne correspond à ces critères.",
     "emptyDescription": "Essayez d'élargir le budget ou de changer le type de pèlerinage."
+  },
+  "agencies": {
+    "title": "Validation des agences",
+    "description": "Liste des agences inscrites en attente de validation.",
+    "emptyTitle": "Aucune agence pour le moment.",
+    "emptyDescription": "Les agences nouvellement inscrites apparaîtront ici.",
+    "columns": {
+      "legalName": "Nom de l'agence",
+      "contactEmail": "Email",
+      "contactPhone": "Téléphone",
+      "status": "Statut"
+    },
+    "actions": {
+      "approve": "Valider",
+      "reject": "Rejeter",
+      "confirmApprove": "Confirmez-vous la validation de cette agence ?",
+      "promptRejectReason": "Veuillez indiquer le motif du rejet :",
+      "approveSuccess": "Agence validée avec succès.",
+      "approveError": "Une erreur est survenue lors de la validation.",
+      "rejectSuccess": "Agence rejetée avec succès.",
+      "rejectError": "Une erreur est survenue lors du rejet."
+    }
+  },
+  "calendar": {
+    "pageTitle": "Calendrier (ICS)",
+    "pageDescription": "Synchronisez les événements de votre agence avec votre calendrier personnel (Outlook, Google Calendar, Apple Calendar).",
+    "cardTitle": "Abonnement iCalendar",
+    "cardDescription": "Utilisez ce lien pour vous abonner au calendrier dynamique de vos forfaits et départs.",
+    "copyAction": "Copier le lien",
+    "copySuccess": "Lien copié dans le presse-papiers.",
+    "copyError": "Impossible de copier le lien.",
+    "warningTitle": "Attention",
+    "warningDescription": "La régénération du lien révoquera l'accès à l'ancien lien. Vous devrez mettre à jour vos applications de calendrier avec le nouveau lien.",
+    "regenerateAction": "Régénérer le lien",
+    "regenerateWarning": "Confirmez-vous la régénération du lien ? Vos calendriers actuels ne se synchroniseront plus.",
+    "regenerateSuccess": "Lien de calendrier régénéré avec succès.",
+    "regenerateError": "Une erreur est survenue lors de la régénération du lien."
+  },
+  "tripSummary": {
+    "emptyTitle": "Livret souvenir indisponible",
+    "emptyDescription": "Le livret souvenir n'est pas encore disponible pour ce pèlerinage.",
+    "defaultPackageTitle": "Forfait de Pèlerinage",
+    "defaultAgencyName": "Agence non spécifiée",
+    "pilgrimsTitle": "Pèlerins",
+    "completedRites": "{count} rite(s) accompli(s)",
+    "noPilgrimsFound": "Aucun détail de pèlerin disponible pour ce livret."
   }
 }
