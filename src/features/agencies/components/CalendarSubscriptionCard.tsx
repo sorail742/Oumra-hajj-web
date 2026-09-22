@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Copy, RefreshCw, AlertTriangle } from "lucide-react";
-import { useCalendarSubscription, useRegenerateCalendarSubscription } from "../api/use-calendar";
+import {
+  useCalendarSubscription,
+  useRegenerateCalendarSubscription,
+} from "../api/use-calendar";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -33,18 +36,23 @@ export function CalendarSubscriptionCard() {
         },
         onError: () => {
           toast.error(t("regenerateError"));
-        }
+        },
       });
     }
   };
 
   return (
-    <AsyncBoundary query={query} skeleton={<div className="h-40 bg-muted animate-pulse rounded-lg" />}>
+    <AsyncBoundary
+      query={query}
+      skeleton={<div className="h-40 bg-muted animate-pulse rounded-lg" />}
+    >
       {(subscription) => (
         <div className="rounded-lg border p-6 space-y-4 max-w-2xl">
           <div className="space-y-1">
             <h3 className="text-lg font-medium">{t("cardTitle")}</h3>
-            <p className="text-sm text-muted-foreground">{t("cardDescription")}</p>
+            <p className="text-sm text-muted-foreground">
+              {t("cardDescription")}
+            </p>
           </div>
 
           <div className="flex items-center gap-2">
@@ -76,7 +84,9 @@ export function CalendarSubscriptionCard() {
               disabled={regenerateMutation.isPending}
               className="gap-2"
             >
-              <RefreshCw className={`h-4 w-4 ${regenerateMutation.isPending ? 'animate-spin' : ''}`} />
+              <RefreshCw
+                className={`h-4 w-4 ${regenerateMutation.isPending ? "animate-spin" : ""}`}
+              />
               {t("regenerateAction")}
             </Button>
           </div>
@@ -85,4 +95,3 @@ export function CalendarSubscriptionCard() {
     </AsyncBoundary>
   );
 }
-

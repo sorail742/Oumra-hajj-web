@@ -18,4 +18,3 @@ export const tripSummarySchema = z.object({
 
 export type TripSummary = z.infer<typeof tripSummarySchema>;
 export type TripSummaryPilgrim = z.infer<typeof tripSummaryPilgrimSchema>;
-

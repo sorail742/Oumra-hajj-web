@@ -3,7 +3,11 @@
 import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
-import { useAgencies, useApproveAgency, useRejectAgency } from "../api/use-agencies";
+import {
+  useAgencies,
+  useApproveAgency,
+  useRejectAgency,
+} from "../api/use-agencies";
 import type { Agency } from "../api/schemas";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DataTable } from "@/components/shared/DataTable";
@@ -111,7 +115,9 @@ export function AgenciesListScreen() {
                       size="sm"
                       className="text-success w-full"
                       onClick={() => handleApprove(a.id)}
-                      disabled={approveMutation.isPending || rejectMutation.isPending}
+                      disabled={
+                        approveMutation.isPending || rejectMutation.isPending
+                      }
                     >
                       {t("actions.approve")}
                     </Button>
@@ -120,7 +126,9 @@ export function AgenciesListScreen() {
                       size="sm"
                       className="text-destructive w-full"
                       onClick={() => handleReject(a.id)}
-                      disabled={approveMutation.isPending || rejectMutation.isPending}
+                      disabled={
+                        approveMutation.isPending || rejectMutation.isPending
+                      }
                     >
                       {t("actions.reject")}
                     </Button>
@@ -134,4 +142,3 @@ export function AgenciesListScreen() {
     </div>
   );
 }
-

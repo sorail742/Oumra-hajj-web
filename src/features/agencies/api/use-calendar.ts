@@ -17,7 +17,9 @@ export function useCalendarSubscription() {
   return useQuery({
     queryKey: keys.agencies.calendarSubscription(),
     queryFn: async () => {
-      const data = await api.get<unknown>("/api/agencies/me/calendar-subscription");
+      const data = await api.get<unknown>(
+        "/api/agencies/me/calendar-subscription",
+      );
       return calendarSubscriptionSchema.parse(data);
     },
     enabled: role === "agency",
@@ -29,7 +31,9 @@ export function useRegenerateCalendarSubscription() {
 
   return useMutation({
     mutationFn: async () => {
-      const data = await api.post<unknown>("/api/agencies/me/calendar-subscription/regenerate");
+      const data = await api.post<unknown>(
+        "/api/agencies/me/calendar-subscription/regenerate",
+      );
       return calendarSubscriptionSchema.parse(data);
     },
     onSuccess: (data) => {
@@ -37,4 +41,3 @@ export function useRegenerateCalendarSubscription() {
     },
   });
 }
-
