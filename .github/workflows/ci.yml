@@ -37,7 +37,14 @@ jobs:
       - name: Typecheck
         run: pnpm tsc --noEmit
 
+      - name: Security Audit
+        run: pnpm audit --prod
+
+      - name: Unit Tests
+        run: pnpm test --run
+
       - name: Build Next.js
         run: pnpm build
         env:
           NEXT_PUBLIC_API_URL: http://localhost:3000
+
