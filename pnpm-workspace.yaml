@@ -1,8 +1,10 @@
+packages:
+  - "."
+
 allowBuilds:
-  '@parcel/watcher': true
-  '@sentry/cli': set this to true or false
-  '@swc/core': true
-  core-js: set this to true or false
-  esbuild: true
-  sharp: false
-  unrs-resolver: false
+  - "@parcel/watcher"
+  - "@sentry/cli"
+  - "@swc/core"
+  - "core-js"
+  - "esbuild"
+  - "unrs-resolver"
