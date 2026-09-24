@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 
@@ -8,6 +8,9 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
     globals: true,
+    // Les specs Playwright (`pnpm test:e2e`) vivent dans `e2e/` : Vitest ne
+    // doit pas les charger, elles s'exécutent dans un runner distinct.
+    exclude: [...configDefaults.exclude, "e2e/**"],
     // `forks` (défaut) démarre un processus Node par fichier de test, donc
     // un jsdom par fichier — signalé à chaque exécution (« jsdom was
     // created N times, 45-84% of tracked time ») et responsable d'un crash
