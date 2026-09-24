@@ -5,3 +5,4 @@ test('has title', async ({ page }) => {
   // Basic smoke test to ensure the page loads and has some title
   await expect(page).toHaveTitle(/Oumra/i);
 });
+
