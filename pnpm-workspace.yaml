@@ -2,9 +2,9 @@ packages:
   - "."
 
 allowBuilds:
-  - "@parcel/watcher"
-  - "@sentry/cli"
-  - "@swc/core"
-  - "core-js"
-  - "esbuild"
-  - "unrs-resolver"
+  "@parcel/watcher": true
+  "@sentry/cli": true
+  "@swc/core": true
+  "core-js": true
+  "esbuild": true
+  "unrs-resolver": true
