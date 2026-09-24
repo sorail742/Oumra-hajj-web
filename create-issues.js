@@ -1,4 +1,5 @@
-const { execSync } = require('child_process');
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-unused-vars */
+const { execSync } = require("child_process");
 
 const issues = [
   {
@@ -56,7 +57,7 @@ const issues = [
   {
     title: "[Phase 3] Infrastructure de Production (Infra)",
     body: "Déploiement final et monitoring.\n\n### Sous-tâches\n- [ ] Configuration du déploiement (Vercel ou Dockerfile)\n- [ ] Sécurisation des Variables d'environnement de Production\n- [ ] Intégration du Monitoring & Logs (Sentry)\n- [ ] Analytics d'usage (PostHog)\n- [ ] Tests End-to-End critiques (Playwright)",
-  }
+  },
 ];
 
 console.log("Création de " + issues.length + " issues dans GitHub...");
@@ -64,7 +65,7 @@ console.log("Création de " + issues.length + " issues dans GitHub...");
 for (const issue of issues) {
   try {
     const cmd = `gh issue create --title "${issue.title}" --body "${issue.body}"`;
-    execSync(cmd, { stdio: 'inherit' });
+    execSync(cmd, { stdio: "inherit" });
     console.log(`Issue créée : ${issue.title}`);
   } catch (err) {
     console.error(`Erreur lors de la création de l'issue : ${issue.title}`);
@@ -72,4 +73,3 @@ for (const issue of issues) {
 }
 
 console.log("Terminé !");
-
