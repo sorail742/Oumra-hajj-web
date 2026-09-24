@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Copy, RefreshCw, AlertTriangle } from "lucide-react";
 import {
@@ -15,14 +14,11 @@ export function CalendarSubscriptionCard() {
   const t = useTranslations("calendar");
   const query = useCalendarSubscription();
   const regenerateMutation = useRegenerateCalendarSubscription();
-  const [isCopied, setIsCopied] = useState(false);
 
   const handleCopy = async (url: string) => {
     try {
       await navigator.clipboard.writeText(url);
-      setIsCopied(true);
       toast.success(t("copySuccess"));
-      setTimeout(() => setIsCopied(false), 2000);
     } catch {
       toast.error(t("copyError"));
     }
