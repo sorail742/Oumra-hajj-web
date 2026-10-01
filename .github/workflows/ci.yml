@@ -1,10 +1,12 @@
 name: CI
 
+# `main` = production, `develop` = intégration : toute PR vers l'une ou
+# l'autre doit passer la CI (même règle que le backend).
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "develop"]
   pull_request:
-    branches: ["main"]
+    branches: ["main", "develop"]
 
 jobs:
   build-and-test:
@@ -14,15 +16,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Sans `version` : l'action lit `packageManager` (pnpm@12.3.4) dans
+      # package.json. Une version explicite différente fait échouer l'action.
       - name: Install pnpm
         uses: pnpm/action-setup@v3
-        with:
-          version: 9
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -45,6 +47,4 @@ jobs:
 
       - name: Build Next.js
         run: pnpm build
-        env:
-          NEXT_PUBLIC_API_URL: http://localhost:3000
 
