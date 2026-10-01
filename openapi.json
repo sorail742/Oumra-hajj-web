@@ -1202,6 +1202,58 @@
         ]
       }
     },
+    "/api/v1/bookings/{id}/family-view-link": {
+      "get": {
+        "operationId": "BookingsController_getFamilyViewLink",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["bookings"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/bookings/{id}/family-view-link/regenerate": {
+      "post": {
+        "operationId": "BookingsController_regenerateFamilyViewLink",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["bookings"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/payments/initiate": {
       "post": {
         "operationId": "PaymentsController_initiate",
@@ -1392,6 +1444,32 @@
       "get": {
         "operationId": "DocumentsController_listMine",
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["documents"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/documents/expiry-alerts": {
+      "get": {
+        "operationId": "DocumentsController_getExpiryAlerts",
+        "parameters": [
+          {
+            "name": "bookingId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""
@@ -2343,6 +2421,9 @@
               "flight_ticket",
               "vaccination_certificate"
             ]
+          },
+          "expiresAt": {
+            "type": "string"
           }
         },
         "required": ["bookingId", "type"]
