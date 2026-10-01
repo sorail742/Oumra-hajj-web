@@ -236,5 +236,18 @@
     "reviewTitle": "Votre avis",
     "rating": "{rating} / 5",
     "noReview": "Aucun avis déposé pour ce voyage."
+  },
+  "fileDropzone": {
+    "zoneLabel": "Zone de dépôt de document",
+    "prompt": "Glissez un document ici, ou cliquez pour le choisir",
+    "dropHere": "Déposez le document",
+    "hint": "PDF, JPEG ou PNG — {max} maximum",
+    "remove": "Retirer le fichier",
+    "submit": "Envoyer",
+    "sending": "Envoi en cours…",
+    "tooLarge": "Ce fichier dépasse la taille maximale de {max}.",
+    "invalidType": "Format non accepté. Utilisez un PDF, un JPEG ou un PNG.",
+    "tooMany": "Un seul document à la fois.",
+    "invalid": "Ce fichier ne peut pas être utilisé."
   }
 }

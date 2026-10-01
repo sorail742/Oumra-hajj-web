@@ -116,3 +116,18 @@ export function formatRelatif(iso: string | Date): string {
 }
 
 export const FUSEAU_PRODUIT = FUSEAU;
+
+/** Taille de fichier lisible (« 2,4 Mo »), base 1024, format français. */
+export function formatTaille(octets: number): string {
+  const unites = ["o", "Ko", "Mo", "Go"] as const;
+  let valeur = octets;
+  let indice = 0;
+  while (valeur >= 1024 && indice < unites.length - 1) {
+    valeur /= 1024;
+    indice += 1;
+  }
+  const nombre = new Intl.NumberFormat("fr-FR", {
+    maximumFractionDigits: indice === 0 ? 0 : 1,
+  }).format(valeur);
+  return `${nombre} ${unites[indice]}`;
+}

@@ -46,6 +46,11 @@ async function requete<T>(
   options: OptionsRequete = {},
 ): Promise<T> {
   const { body, params, headers, ...reste } = options;
+  // `multipart/form-data` (dépôt de documents) : le navigateur pose lui-même
+  // l'en-tête avec la frontière (`boundary`) — ne jamais le forcer ni
+  // sérialiser le corps en JSON.
+  const estFormulaire = body instanceof FormData;
+  const enJson = body !== undefined && !estFormulaire;
 
   let reponse: Response;
   try {
@@ -53,10 +58,11 @@ async function requete<T>(
       ...reste,
       signal: reste.signal ?? AbortSignal.timeout(DELAI_MS),
       headers: {
-        ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
+        ...(enJson ? { "Content-Type": "application/json" } : {}),
         ...headers,
       },
-      ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+      ...(estFormulaire ? { body } : {}),
+      ...(enJson ? { body: JSON.stringify(body) } : {}),
     });
   } catch (cause) {
     // Le serveur n'a pas répondu — à distinguer d'un 5xx, qui est une réponse.
