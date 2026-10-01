@@ -6,18 +6,12 @@ import { useTranslations } from "next-intl";
 import { useMyDocuments } from "../api/use-documents";
 import type { PilgrimDocument } from "../api/schemas";
 import { DocumentAccessButton } from "./DocumentAccessButton";
+import { CLE_TRADUCTION_TYPE } from "../lib/document-type";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DataTable } from "@/components/shared/DataTable";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { TableSkeleton } from "@/components/shared/TableSkeleton";
-
-const CLE_TRADUCTION_TYPE: Record<PilgrimDocument["type"], string> = {
-  passport: "typePassport",
-  visa: "typeVisa",
-  flight_ticket: "typeFlightTicket",
-  vaccination_certificate: "typeVaccinationCertificate",
-};
 
 export function DocumentsListScreen() {
   const t = useTranslations("documents");
