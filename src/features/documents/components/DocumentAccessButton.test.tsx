@@ -30,12 +30,12 @@ describe("DocumentAccessButton", () => {
     get.mockReset();
   });
 
-  it("ouvre un onglet vierge avant l'appel réseau, puis le navigue vers l'URL reçue", async () => {
+  it("ouvre un onglet vierge avant l'appel réseau, puis le navigue vers l'URL absolue reçue", async () => {
     get.mockResolvedValue({
       url: "https://backend.local/signed/1",
       expiresAt: "2026-01-01T00:05:00Z",
     });
-    const fausseFenetre = { location: { href: "" } };
+    const fausseFenetre = { location: { href: "" }, opener: {} };
     const openSpy = vi
       .spyOn(window, "open")
       .mockReturnValue(fausseFenetre as unknown as Window);
@@ -43,10 +43,34 @@ describe("DocumentAccessButton", () => {
     afficher();
     fireEvent.click(screen.getByRole("button"));
 
-    expect(openSpy).toHaveBeenCalledWith("", "_blank", "noopener,noreferrer");
+    expect(openSpy).toHaveBeenCalledWith("", "_blank");
+    expect(fausseFenetre.opener).toBeNull();
     await waitFor(() =>
       expect(fausseFenetre.location.href).toBe(
         "https://backend.local/signed/1",
+      ),
+    );
+
+    openSpy.mockRestore();
+  });
+
+  it("réécrit un chemin relatif du backend (stockage local) vers le proxy", async () => {
+    // Forme réelle renvoyée par LocalDiskStorageProvider (ticket #41).
+    get.mockResolvedValue({
+      url: "/api/v1/documents/files/jeton-factice",
+      expiresAt: "2026-01-01T00:05:00Z",
+    });
+    const fausseFenetre = { location: { href: "" }, opener: {} };
+    const openSpy = vi
+      .spyOn(window, "open")
+      .mockReturnValue(fausseFenetre as unknown as Window);
+
+    afficher();
+    fireEvent.click(screen.getByRole("button"));
+
+    await waitFor(() =>
+      expect(fausseFenetre.location.href).toBe(
+        "/api/documents/files/jeton-factice",
       ),
     );
 

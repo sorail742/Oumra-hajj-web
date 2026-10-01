@@ -1,7 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { ouvrirDansNouvelOnglet } from "@/lib/api/url-backend";
 import { useDocumentAccessUrl } from "../api/use-documents";
 
 /**
@@ -19,10 +21,12 @@ export function DocumentAccessButton({ documentId }: { documentId: string }) {
   const { mutateAsync, isPending } = useDocumentAccessUrl();
 
   async function ouvrir() {
-    const fenetre = window.open("", "_blank", "noopener,noreferrer");
-    const { url } = await mutateAsync(documentId);
-    if (fenetre) {
-      fenetre.location.href = url;
+    try {
+      await ouvrirDansNouvelOnglet(
+        async () => (await mutateAsync(documentId)).url,
+      );
+    } catch {
+      toast.error(t("openError"));
     }
   }
 

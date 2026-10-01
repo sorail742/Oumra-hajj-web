@@ -59,6 +59,7 @@
     "columnRejectionReason": "Motif de refus",
     "view": "Voir le document",
     "opening": "Ouverture…",
+    "openError": "Impossible d'ouvrir le document. Réessayez.",
     "typePassport": "Passeport",
     "typeVisa": "Visa",
     "typeFlightTicket": "Billet d'avion",
@@ -164,6 +165,7 @@
     "columnStatus": "Statut",
     "view": "Voir le document",
     "opening": "Ouverture…",
+    "openError": "Impossible d'ouvrir le document. Réessayez.",
     "emptyTitle": "Aucune alerte de conformité pour le moment.",
     "emptyDescription": "Tous vos documents légaux sont à jour ou sans échéance renseignée.",
     "roleUnsupportedTitle": "Réservé à l'espace agence."
