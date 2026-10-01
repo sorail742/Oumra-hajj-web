@@ -28,13 +28,11 @@ describe("urlNavigateurDepuisBackend", () => {
 describe("ouvrirDansNouvelOnglet", () => {
   it("ferme l'onglet vierge si l'URL ne peut pas être obtenue", async () => {
     const close = vi.fn();
-    const openSpy = vi
-      .spyOn(window, "open")
-      .mockReturnValue({
-        location: { href: "" },
-        opener: {},
-        close,
-      } as unknown as Window);
+    const openSpy = vi.spyOn(window, "open").mockReturnValue({
+      location: { href: "" },
+      opener: {},
+      close,
+    } as unknown as Window);
 
     await expect(
       ouvrirDansNouvelOnglet(() => Promise.reject(new Error("réseau"))),
