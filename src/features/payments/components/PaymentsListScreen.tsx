@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { usePayments } from "../api/use-payments";
 import type { Payment } from "../api/schemas";
 import { RefundRequestFlow } from "./RefundRequestFlow";
+import { CLE_TRADUCTION_METHODE } from "../lib/payment-method";
 import { useRole } from "@/lib/auth/role-context";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DataTable } from "@/components/shared/DataTable";
@@ -13,12 +14,6 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { Money } from "@/components/shared/Money";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { TableSkeleton } from "@/components/shared/TableSkeleton";
-
-const CLE_TRADUCTION_METHODE: Record<Payment["method"], string> = {
-  mobile_money_orange: "methodMobileMoneyOrange",
-  mobile_money_mtn: "methodMobileMoneyMtn",
-  card: "methodCard",
-};
 
 export function PaymentsListScreen() {
   const t = useTranslations("payments");

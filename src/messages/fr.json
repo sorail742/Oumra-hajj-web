@@ -10,7 +10,10 @@
     "errorDescription": "Vérifiez votre connexion, puis réessayez.",
     "tablePage": "Page {page} sur {total}",
     "tablePrevious": "Précédent",
-    "tableNext": "Suivant"
+    "tableNext": "Suivant",
+    "copy": "Copier",
+    "copySuccess": "Copié dans le presse-papiers.",
+    "copyError": "Impossible de copier."
   },
   "nav": {
     "dashboard": "Tableau de bord",
@@ -107,7 +110,32 @@
     "refundSuccess": "Demande de remboursement envoyée.",
     "emptyTitle": "Aucun paiement pour le moment.",
     "emptyDescription": "Les paiements apparaîtront ici une fois une tranche réglée.",
-    "roleUnsupportedTitle": "Aucune liste de paiements pour ce rôle."
+    "roleUnsupportedTitle": "Aucune liste de paiements pour ce rôle.",
+    "initiate": {
+      "title": "Régler une tranche",
+      "description": "Le paiement est confirmé par l'opérateur : son statut se met à jour automatiquement.",
+      "amountLabel": "Montant (GNF)",
+      "amountInvalid": "Saisissez un montant entier supérieur à zéro.",
+      "methodLabel": "Moyen de paiement",
+      "submit": "Payer",
+      "submitting": "Envoi en cours…",
+      "referenceLabel": "Référence de paiement",
+      "copyReference": "Copier la référence",
+      "pendingTitle": "En attente de confirmation",
+      "pendingDescription": "Validez le paiement sur votre téléphone ou auprès de votre banque. Cette page se met à jour toute seule.",
+      "stillPendingDescription": "La confirmation tarde. Vous pouvez quitter cette page : le paiement apparaîtra dans votre liste dès qu'il sera confirmé.",
+      "succeededTitle": "Paiement confirmé",
+      "succeededDescription": "La tranche n° {installment} est enregistrée sur votre dossier.",
+      "failedTitle": "Paiement échoué",
+      "failedDescription": "Le paiement n'a pas abouti. Vous pouvez réessayer, avec le même moyen ou un autre.",
+      "retry": "Réessayer",
+      "newPayment": "Régler une autre tranche",
+      "statusError": "Impossible de vérifier le statut pour l'instant. Nouvel essai automatique.",
+      "errorForbidden": "Cette réservation n'est pas à votre nom.",
+      "errorNotFound": "Réservation introuvable.",
+      "errorInvalid": "Les informations saisies ont été refusées. Vérifiez le montant et le moyen de paiement.",
+      "errorGeneric": "Le paiement n'a pas pu être lancé. Réessayez dans un instant."
+    }
   },
   "reviews": {
     "trustCardTitle": "Score de confiance",
