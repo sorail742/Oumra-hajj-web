@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/format";
 import type { DossierStep } from "../api/schemas";
+import { CLE_TRADUCTION_ETAPE, ORDRE_ETAPES } from "../lib/dossier-steps";
 
 /**
  * Visualise le dossier comme une checklist ordonnée, pas un tableau — voir
@@ -15,14 +16,6 @@ export interface BookingStepTrackerProps {
   steps: DossierStep[];
 }
 
-const ORDRE: DossierStep["key"][] = [
-  "payment",
-  "visa",
-  "flight",
-  "vaccination",
-  "documents",
-];
-
 const ICONE_PAR_STATUT: Record<
   DossierStep["status"],
   { Icone: typeof CheckCircle2; classe: string }
@@ -32,21 +25,13 @@ const ICONE_PAR_STATUT: Record<
   pending: { Icone: Circle, classe: "text-muted-foreground" },
 };
 
-const CLE_TRADUCTION: Record<DossierStep["key"], string> = {
-  payment: "stepPayment",
-  visa: "stepVisa",
-  flight: "stepFlight",
-  vaccination: "stepVaccination",
-  documents: "stepDocuments",
-};
-
 export function BookingStepTracker({ steps }: BookingStepTrackerProps) {
   const t = useTranslations("bookings");
   const parCle = new Map(steps.map((s) => [s.key, s]));
 
   return (
     <ol className="space-y-3">
-      {ORDRE.map((cle) => {
+      {ORDRE_ETAPES.map((cle) => {
         const etape = parCle.get(cle);
         const statut = etape?.status ?? "pending";
         const { Icone, classe } = ICONE_PAR_STATUT[statut];
@@ -60,7 +45,7 @@ export function BookingStepTracker({ steps }: BookingStepTrackerProps) {
                 statut === "done" && "text-muted-foreground line-through",
               )}
             >
-              {t(CLE_TRADUCTION[cle])}
+              {t(CLE_TRADUCTION_ETAPE[cle])}
             </span>
             {/* Date de fin = `updatedAt` d'une étape terminée (le backend
                 n'envoie pas de `completedAt`) ; jamais affichée pour une
