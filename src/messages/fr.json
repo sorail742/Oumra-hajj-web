@@ -222,12 +222,19 @@
     "regenerateError": "Une erreur est survenue lors de la régénération du lien."
   },
   "tripSummary": {
-    "emptyTitle": "Livret souvenir indisponible",
-    "emptyDescription": "Le livret souvenir n'est pas encore disponible pour ce pèlerinage.",
-    "defaultPackageTitle": "Forfait de Pèlerinage",
-    "defaultAgencyName": "Agence non spécifiée",
-    "pilgrimsTitle": "Pèlerins",
-    "completedRites": "{count} rite(s) accompli(s)",
-    "noPilgrimsFound": "Aucun détail de pèlerin disponible pour ce livret."
+    "typeOumra": "Oumra",
+    "typeHadj": "Hadj",
+    "stepsTitle": "Étapes du dossier",
+    "paymentsTitle": "Paiements",
+    "installments": "{count, plural, =0 {Aucune tranche réglée} one {# tranche réglée} other {# tranches réglées}}",
+    "ritesTitle": "Rites accomplis",
+    "noRites": "Aucune progression de rite enregistrée pour ce voyage.",
+    "riteDone": "Accompli",
+    "riteNotDone": "Non accompli",
+    "riteWithdrawn": "Fiche de rite retirée",
+    "counters": "Tawaf : {tawaf} · Sa'i : {sai}",
+    "reviewTitle": "Votre avis",
+    "rating": "{rating} / 5",
+    "noReview": "Aucun avis déposé pour ce voyage."
   }
 }
