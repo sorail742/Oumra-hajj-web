@@ -1,9 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NextIntlClientProvider } from "next-intl";
+import { screen } from "@testing-library/react";
 import { NextDossierStepCard } from "./NextDossierStepCard";
-import messages from "@/messages/fr.json";
+import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
 vi.mock("@/lib/auth/role-context", () => ({ useRole: () => "pilgrim" }));
 const get = vi.fn();
@@ -24,16 +22,7 @@ function reservation(id: string, status: string, faites: string[]) {
 }
 
 function afficher() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-  render(
-    <QueryClientProvider client={queryClient}>
-      <NextIntlClientProvider locale="fr" messages={messages}>
-        <NextDossierStepCard />
-      </NextIntlClientProvider>
-    </QueryClientProvider>,
-  );
+  afficherAvecProviders(<NextDossierStepCard />);
 }
 
 describe("NextDossierStepCard", () => {

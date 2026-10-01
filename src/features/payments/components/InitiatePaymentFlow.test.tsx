@@ -1,11 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NextIntlClientProvider } from "next-intl";
 import { InitiatePaymentFlow } from "./InitiatePaymentFlow";
 import { ApiError } from "@/lib/api/types";
-import messages from "@/messages/fr.json";
+import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
 const get = vi.fn();
 const post = vi.fn();
@@ -43,16 +41,7 @@ function erreurApi(statusCode: number, message: string | string[]) {
 }
 
 function afficher() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-  render(
-    <QueryClientProvider client={queryClient}>
-      <NextIntlClientProvider locale="fr" messages={messages}>
-        <InitiatePaymentFlow bookingId={BOOKING} />
-      </NextIntlClientProvider>
-    </QueryClientProvider>,
-  );
+  afficherAvecProviders(<InitiatePaymentFlow bookingId={BOOKING} />);
 }
 
 async function payer(

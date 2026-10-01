@@ -1,11 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NextIntlClientProvider } from "next-intl";
 import { BookingDocumentsReview } from "./BookingDocumentsReview";
 import { ApiError } from "@/lib/api/types";
-import messages from "@/messages/fr.json";
+import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
 vi.mock("@/lib/auth/role-context", () => ({ useRole: () => "agency" }));
 
@@ -38,16 +36,26 @@ function documentFactice(
 }
 
 function afficher() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-  return render(
-    <QueryClientProvider client={queryClient}>
-      <NextIntlClientProvider locale="fr" messages={messages}>
-        <BookingDocumentsReview bookingId={BOOKING} />
-      </NextIntlClientProvider>
-    </QueryClientProvider>,
+  return afficherAvecProviders(<BookingDocumentsReview bookingId={BOOKING} />);
+}
+
+/** Ouvre la modale de refus du premier document, saisit le motif et valide. */
+async function refuserAvecMotif(
+  utilisateur: ReturnType<typeof userEvent.setup>,
+  motif: string,
+) {
+  await utilisateur.click(
+    (await screen.findAllByRole("button", { name: "Refuser" }))[0]!,
   );
+  const dialogue = await screen.findByRole("dialog");
+  await utilisateur.type(
+    within(dialogue).getByLabelText("Motif du refus"),
+    motif,
+  );
+  await utilisateur.click(
+    within(dialogue).getByRole("button", { name: "Refuser le document" }),
+  );
+  return dialogue;
 }
 
 describe("BookingDocumentsReview", () => {
@@ -87,17 +95,7 @@ describe("BookingDocumentsReview", () => {
     get.mockResolvedValue([documentFactice("doc-1", "pending")]);
     afficher();
 
-    await utilisateur.click(
-      (await screen.findAllByRole("button", { name: "Refuser" }))[0]!,
-    );
-    const dialogue = await screen.findByRole("dialog");
-    await utilisateur.type(
-      within(dialogue).getByLabelText("Motif du refus"),
-      "  a ",
-    );
-    await utilisateur.click(
-      within(dialogue).getByRole("button", { name: "Refuser le document" }),
-    );
+    const dialogue = await refuserAvecMotif(utilisateur, "  a ");
 
     expect(
       await within(dialogue).findByText(
@@ -117,17 +115,7 @@ describe("BookingDocumentsReview", () => {
     );
     afficher();
 
-    await utilisateur.click(
-      (await screen.findAllByRole("button", { name: "Refuser" }))[0]!,
-    );
-    const dialogue = await screen.findByRole("dialog");
-    await utilisateur.type(
-      within(dialogue).getByLabelText("Motif du refus"),
-      "Scan illisible",
-    );
-    await utilisateur.click(
-      within(dialogue).getByRole("button", { name: "Refuser le document" }),
-    );
+    await refuserAvecMotif(utilisateur, "Scan illisible");
 
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
     expect(patch).toHaveBeenCalledWith("/api/documents/doc-1/reject", {
@@ -148,17 +136,7 @@ describe("BookingDocumentsReview", () => {
     );
     afficher();
 
-    await utilisateur.click(
-      (await screen.findAllByRole("button", { name: "Refuser" }))[0]!,
-    );
-    const dialogue = await screen.findByRole("dialog");
-    await utilisateur.type(
-      within(dialogue).getByLabelText("Motif du refus"),
-      "Motif",
-    );
-    await utilisateur.click(
-      within(dialogue).getByRole("button", { name: "Refuser le document" }),
-    );
+    const dialogue = await refuserAvecMotif(utilisateur, "Motif");
 
     expect(
       await within(dialogue).findByText(

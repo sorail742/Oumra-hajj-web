@@ -1,9 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NextIntlClientProvider } from "next-intl";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { DocumentAccessButton } from "./DocumentAccessButton";
-import messages from "@/messages/fr.json";
+import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
 /**
  * Incarnation directe de `CLAUDE.md` règle 14 : l'URL signée n'est jamais
@@ -15,14 +13,16 @@ vi.mock("@/lib/api/client", () => ({
 }));
 
 function afficher() {
-  const queryClient = new QueryClient();
-  return render(
-    <QueryClientProvider client={queryClient}>
-      <NextIntlClientProvider locale="fr" messages={messages}>
-        <DocumentAccessButton documentId="doc-1" />
-      </NextIntlClientProvider>
-    </QueryClientProvider>,
-  );
+  return afficherAvecProviders(<DocumentAccessButton documentId="doc-1" />);
+}
+
+/** Remplace `window.open` par un faux onglet dont on observe la navigation. */
+function espionnerFenetre() {
+  const fausseFenetre = { location: { href: "" }, opener: {} as unknown };
+  const openSpy = vi
+    .spyOn(window, "open")
+    .mockReturnValue(fausseFenetre as unknown as Window);
+  return { fausseFenetre, openSpy };
 }
 
 describe("DocumentAccessButton", () => {
@@ -35,10 +35,7 @@ describe("DocumentAccessButton", () => {
       url: "https://backend.local/signed/1",
       expiresAt: "2026-01-01T00:05:00Z",
     });
-    const fausseFenetre = { location: { href: "" }, opener: {} };
-    const openSpy = vi
-      .spyOn(window, "open")
-      .mockReturnValue(fausseFenetre as unknown as Window);
+    const { fausseFenetre, openSpy } = espionnerFenetre();
 
     afficher();
     fireEvent.click(screen.getByRole("button"));
@@ -60,10 +57,7 @@ describe("DocumentAccessButton", () => {
       url: "/api/v1/documents/files/jeton-factice",
       expiresAt: "2026-01-01T00:05:00Z",
     });
-    const fausseFenetre = { location: { href: "" }, opener: {} };
-    const openSpy = vi
-      .spyOn(window, "open")
-      .mockReturnValue(fausseFenetre as unknown as Window);
+    const { fausseFenetre, openSpy } = espionnerFenetre();
 
     afficher();
     fireEvent.click(screen.getByRole("button"));
