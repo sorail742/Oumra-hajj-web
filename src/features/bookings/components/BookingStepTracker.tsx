@@ -62,9 +62,12 @@ export function BookingStepTracker({ steps }: BookingStepTrackerProps) {
             >
               {t(CLE_TRADUCTION[cle])}
             </span>
-            {etape?.completedAt ? (
+            {/* Date de fin = `updatedAt` d'une étape terminée (le backend
+                n'envoie pas de `completedAt`) ; jamais affichée pour une
+                étape en cours, dont `updatedAt` n'est pas une fin. */}
+            {etape?.status === "done" ? (
               <span className="text-muted-foreground ml-auto text-xs">
-                {formatDate(etape.completedAt)}
+                {formatDate(etape.updatedAt)}
               </span>
             ) : null}
           </li>

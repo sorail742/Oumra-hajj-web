@@ -5,20 +5,19 @@ import { z } from "zod";
  * relu le 2026-10-01) — même forme pour `GET /documents/mine`,
  * `GET /documents?bookingId=` et les réponses de `PATCH .../validate` et
  * `.../reject`. Optionnels mappés `?? undefined` côté backend : absents du
- * JSON, jamais `null`. `storageRef` est une référence interne de stockage,
- * jamais une URL à afficher (règle 14).
+ * JSON, jamais `null`. `pilgrimId` et `storageRef` (référence interne de
+ * stockage) sont volontairement hors schéma : zod les retire de la donnée
+ * parsée, ils ne circulent donc pas dans l'interface (règle 14).
  */
 export const documentSchema = z.object({
   id: z.string(),
   bookingId: z.string(),
-  pilgrimId: z.string(),
   type: z.enum([
     "passport",
     "visa",
     "flight_ticket",
     "vaccination_certificate",
   ]),
-  storageRef: z.string(),
   status: z.enum(["pending", "validated", "rejected"]),
   rejectionReason: z.string().optional(),
   expiresAt: z.string().optional(),

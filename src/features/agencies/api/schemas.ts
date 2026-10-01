@@ -42,7 +42,8 @@ export type AgencyValidationStatus = z.infer<
 export const legalDocumentSchema = z.object({
   id: z.string(),
   label: z.string(),
-  storageRef: z.string(),
+  // `storageRef` (référence interne de stockage) volontairement hors
+  // schéma : retiré par zod, jamais exposé à l'interface (règle 14).
   uploadedAt: z.string(),
   expiresAt: z.string().optional(),
 });

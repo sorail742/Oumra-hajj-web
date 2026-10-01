@@ -46,7 +46,6 @@
     "stepDocuments": "Documents",
     "columnPackage": "Forfait",
     "columnStatus": "Statut",
-    "columnCreated": "Créée le",
     "emptyTitle": "Aucune réservation pour le moment.",
     "emptyDescription": "Les réservations apparaîtront ici une fois un forfait réservé.",
     "detailTitle": "Dossier de réservation",
