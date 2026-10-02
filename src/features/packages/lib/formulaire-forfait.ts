@@ -19,6 +19,11 @@ export interface MessagesFormulaire {
 
 const ENTIER_POSITIF = /^\d+$/;
 
+/** Dates `AAAA-MM-JJ` : la fin ne précède pas le début. */
+function finApresDebut(debut: string, fin: string): boolean {
+  return fin.localeCompare(debut) >= 0;
+}
+
 export function schemaFormulaireForfait(m: MessagesFormulaire) {
   const date = z.string().min(1, m.required);
   const etape = z
@@ -29,7 +34,7 @@ export function schemaFormulaireForfait(m: MessagesFormulaire) {
       startDate: date,
       endDate: date,
     })
-    .refine((e) => e.endDate >= e.startDate, {
+    .refine((e) => finApresDebut(e.startDate, e.endDate), {
       path: ["endDate"],
       message: m.endBeforeStart,
     });
@@ -55,7 +60,7 @@ export function schemaFormulaireForfait(m: MessagesFormulaire) {
       stages: z.array(etape).min(1, m.stagesRequired),
       inclusions: z.string(),
     })
-    .refine((v) => v.endDate >= v.startDate, {
+    .refine((v) => finApresDebut(v.startDate, v.endDate), {
       path: ["endDate"],
       message: m.endBeforeStart,
     });
