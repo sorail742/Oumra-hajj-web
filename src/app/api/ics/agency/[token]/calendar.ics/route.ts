@@ -29,9 +29,9 @@ export async function GET(
     return new Response(null, { status: 404 });
   }
 
-  let reponse: Response;
+  let fluxBackend: Response;
   try {
-    reponse = await fetch(
+    fluxBackend = await fetch(
       `${urlBackend()}${PREFIXE_API_BACKEND}/calendar/agency/${token}/calendar.ics`,
       { cache: "no-store" },
     );
@@ -39,13 +39,15 @@ export async function GET(
     return new Response(null, { status: 502 });
   }
 
-  if (!reponse.ok) {
+  if (!fluxBackend.ok) {
     // Jeton inconnu ou révoqué (regénéré) : 404, sans relayer le corps
     // d'erreur JSON du backend à un client calendrier.
-    return new Response(null, { status: reponse.status === 404 ? 404 : 502 });
+    return new Response(null, {
+      status: fluxBackend.status === 404 ? 404 : 502,
+    });
   }
 
-  return new Response(await reponse.text(), {
+  return new Response(await fluxBackend.text(), {
     status: 200,
     headers: {
       "Content-Type": "text/calendar; charset=utf-8",
