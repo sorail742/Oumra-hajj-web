@@ -136,7 +136,19 @@
     "detailTitle": "Dossier de réservation",
     "stepsTitle": "Étapes du dossier",
     "notFoundTitle": "Réservation introuvable.",
-    "roleUnsupportedTitle": "Aucune liste de réservations pour ce rôle."
+    "roleUnsupportedTitle": "Aucune liste de réservations pour ce rôle.",
+    "reserve": {
+      "action": "Réserver ce forfait",
+      "pending": "Réservation en cours…",
+      "loginToBook": "Se connecter pour réserver",
+      "loginHint": "Connexion par SMS, sans mot de passe.",
+      "pilgrimOnly": "La réservation se fait depuis un compte pèlerin.",
+      "unavailable": "Ce forfait n'accepte plus de réservation : il est complet ou clôturé.",
+      "forbidden": "Seul un compte pèlerin peut réserver un forfait.",
+      "error": "La réservation n'a pas abouti. Réessayez dans un instant.",
+      "closed": "Ce forfait n'est plus ouvert à la réservation."
+    },
+    "createdBanner": "Réservation enregistrée. Réglez la première tranche ci-dessous pour confirmer votre place."
   },
   "documents": {
     "title": "Documents",
@@ -314,7 +326,38 @@
     "columnCapacity": "Places",
     "columnStatus": "Statut",
     "emptyTitle": "Aucun forfait ne correspond à ces critères.",
-    "emptyDescription": "Essayez d'élargir le budget ou de changer le type de pèlerinage."
+    "emptyDescription": "Essayez d'élargir le budget ou de changer le type de pèlerinage.",
+    "typeOumra": "Oumra",
+    "typeHadj": "Hadj",
+    "filterFamilySize": "Nombre de voyageurs",
+    "filterStartFrom": "Départ à partir du",
+    "filterStartTo": "Départ jusqu'au",
+    "filterReset": "Effacer les filtres",
+    "seatsLeft": "{count, plural, =0 {Complet} one {# place restante} other {# places restantes}}",
+    "seatsOf": "{taken} sur {capacity} places réservées",
+    "duration": "{days, plural, one {# jour} other {# jours}}",
+    "from": "Départ le {date}",
+    "perPerson": "par pèlerin",
+    "viewDetail": "Voir le forfait",
+    "resultCount": "{count, plural, =0 {Aucun forfait} one {# forfait} other {# forfaits}}",
+    "detail": {
+      "back": "Tous les forfaits",
+      "dates": "Du {start} au {end}",
+      "itinerary": "Itinéraire",
+      "itineraryEmpty": "L'agence n'a pas encore détaillé les étapes de ce forfait.",
+      "hotel": "Hôtel",
+      "distance": "{meters, plural, one {# mètre} other {# mètres}} de la mosquée",
+      "stageDates": "Du {start} au {end}",
+      "inclusions": "Ce qui est inclus",
+      "inclusionsEmpty": "Aucune prestation détaillée pour l'instant.",
+      "about": "À propos de ce forfait",
+      "agency": "Agence organisatrice",
+      "agencyLink": "Voir le profil et les avis de l'agence",
+      "price": "Prix",
+      "availability": "Disponibilité",
+      "notFoundTitle": "Ce forfait n'existe pas ou n'est plus disponible.",
+      "notFoundAction": "Revenir aux forfaits"
+    }
   },
   "agencies": {
     "title": "Validation des agences",
@@ -424,7 +467,8 @@
       "trust": "Confiance",
       "faq": "Questions",
       "pilgrim": "Espace pèlerin",
-      "agency": "Connexion agence"
+      "agency": "Connexion agence",
+      "packages": "Forfaits"
     },
     "hero": {
       "eyebrow": "Oumra · Hadj — depuis la Guinée",

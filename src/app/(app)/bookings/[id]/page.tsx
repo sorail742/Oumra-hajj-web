@@ -13,15 +13,23 @@ import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaym
  */
 export default async function BookingDetailPage({
   params,
-}: {
+  searchParams,
+}: Readonly<{
   params: Promise<{ id: string }>;
-}) {
+  searchParams: Promise<{ nouvelle?: string }>;
+}>) {
   const { id } = await params;
+  const { nouvelle } = await searchParams;
   const t = await getTranslations("bookings");
 
   return (
     <div className="space-y-8">
       <PageHeader title={t("detailTitle")} />
+      {nouvelle === "1" && (
+        <output className="bg-state-success-bg text-state-success block rounded-lg px-4 py-3 text-sm font-medium">
+          {t("createdBanner")}
+        </output>
+      )}
       <BookingDetailScreen id={id} />
       <Can role="pilgrim">
         <InitiatePaymentFlow bookingId={id} />

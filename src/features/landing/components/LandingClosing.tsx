@@ -207,6 +207,11 @@ export function LandingFooter() {
         <nav aria-label={t("footer.ariaLabel")}>
           <ColonnePied titre={t("footer.spaces")}>
             <li>
+              <Link href={ROUTES_ACCUEIL.forfaits} className={lienPied}>
+                {t("nav.packages")}
+              </Link>
+            </li>
+            <li>
               <Link href={ROUTES_ACCUEIL.pelerin} className={lienPied}>
                 {t("footer.pilgrim")}
               </Link>

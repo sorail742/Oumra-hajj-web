@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
@@ -35,5 +35,25 @@ export function useBooking(id: string) {
       const donnees = await api.get<unknown>(`/api/bookings/${id}`);
       return bookingSchema.parse(donnees);
     },
+  });
+}
+
+/**
+ * `POST /bookings` (pèlerin) — le backend réserve la place, crée les cinq
+ * étapes du dossier et la checklist de préparation. Invalide les forfaits
+ * (places prises) et les réservations.
+ */
+export function useCreerReservation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (packageId: string) =>
+      bookingSchema.parse(
+        await api.post<unknown>("/api/bookings", { packageId }),
+      ),
+    onSuccess: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: keys.packages.all }),
+        queryClient.invalidateQueries({ queryKey: keys.bookings.all }),
+      ]),
   });
 }

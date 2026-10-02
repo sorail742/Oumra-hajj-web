@@ -23,6 +23,7 @@ const variantes = {
 
 export const ROUTES_ACCUEIL = {
   accueil: "/",
+  forfaits: "/packages",
   pelerin: "/otp",
   agence: "/login",
   inscriptionAgence: "/register-agency",
