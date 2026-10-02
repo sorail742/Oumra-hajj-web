@@ -11,6 +11,8 @@ import {
   useMyMicroCourseProgress,
 } from "../api/use-micro-courses";
 import type { MicroCourse } from "../api/schemas";
+import { DeleteMicroCourseDialog } from "./DeleteMicroCourseDialog";
+import { MicroCourseFormDialog } from "./MicroCourseFormDialog";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { Can } from "@/components/shared/Can";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -121,6 +123,12 @@ export function MicroCourseDetailScreen({ id }: Readonly<{ id: string }>) {
               )}
               <Can role="pilgrim">
                 <Progression courseId={cours.id} />
+              </Can>
+              <Can role="admin">
+                <div className="flex gap-2 border-t pt-4">
+                  <MicroCourseFormDialog cours={cours} />
+                  <DeleteMicroCourseDialog id={cours.id} title={cours.title} />
+                </div>
               </Can>
             </article>
           )}

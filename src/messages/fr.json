@@ -1082,6 +1082,33 @@
     "progressError": "La progression n'a pas pu être enregistrée. Réessayez.",
     "openVideo": "Ouvrir la vidéo dans un nouvel onglet",
     "back": "Tous les micro-cours",
-    "notFound": "Ce micro-cours n'existe pas ou plus."
+    "notFound": "Ce micro-cours n'existe pas ou plus.",
+    "manage": {
+      "add": "Ajouter un cours",
+      "addTitle": "Nouveau micro-cours",
+      "edit": "Modifier",
+      "editTitle": "Modifier le micro-cours",
+      "description": "Vidéo courte hébergée sur votre stockage, lue directement dans la page.",
+      "title": "Titre",
+      "videoUrl": "URL de la vidéo (https)",
+      "category": "Catégorie",
+      "minutes": "Minutes",
+      "seconds": "Secondes",
+      "order": "Ordre",
+      "descriptionLabel": "Description (facultatif)",
+      "titleTooShort": "Le titre doit contenir au moins 3 caractères.",
+      "urlInvalid": "Saisissez une adresse https valide.",
+      "numberInvalid": "Saisissez un nombre entier.",
+      "secondsInvalid": "Entre 0 et 59.",
+      "save": "Enregistrer",
+      "created": "Micro-cours ajouté.",
+      "updated": "Micro-cours modifié.",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer « {title} » ?",
+      "deleteBody": "Le cours disparaît du catalogue et la progression des pèlerins sur ce cours est perdue.",
+      "deleteConfirm": "Supprimer le cours",
+      "deleted": "Micro-cours supprimé.",
+      "error": "L'opération n'a pas abouti. Réessayez."
+    }
   }
 }

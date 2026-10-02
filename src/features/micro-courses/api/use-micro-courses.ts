@@ -5,7 +5,11 @@ import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
 import { useRole } from "@/lib/auth/role-context";
-import { microCourseProgressSchema, microCourseSchema } from "./schemas";
+import {
+  microCourseProgressSchema,
+  microCourseSchema,
+  type MicroCourse,
+} from "./schemas";
 
 /** Micro-cours de préparation (ticket #82) — catalogue public. */
 export function useMicroCourses(category?: string) {
@@ -78,4 +82,38 @@ export function estTermine(
   return (progression ?? []).some(
     (p) => p.courseId === courseId && p.isCompleted,
   );
+}
+
+/** Champs modifiables d'un cours par l'administrateur (ticket #83). */
+export type SaisieCours = Pick<
+  MicroCourse,
+  "title" | "videoUrl" | "durationSeconds" | "order" | "category"
+> & { description?: string };
+
+/** Création (`POST /micro-courses`) ou modification (`PATCH .../:id`). */
+export function useEnregistrerCours(id?: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (cours: SaisieCours) =>
+      microCourseSchema.parse(
+        id
+          ? await api.patch<unknown>(
+              `/api/micro-courses/${encodeURIComponent(id)}`,
+              cours,
+            )
+          : await api.post<unknown>("/api/micro-courses", cours),
+      ),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: keys.microCourses.all }),
+  });
+}
+
+export function useSupprimerCours(id: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () =>
+      api.delete<unknown>(`/api/micro-courses/${encodeURIComponent(id)}`),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: keys.microCourses.all }),
+  });
 }
