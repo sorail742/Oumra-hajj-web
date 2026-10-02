@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MOYENS_PAIEMENT } from "../lib/payment-method";
 
 /**
  * `GET /payments/mine`/`/payments/agency`/`/payments/{id}` ne publient pas
@@ -13,7 +14,7 @@ export const paymentSchema = z.object({
   amount: z.number(),
   currency: z.string(),
   installmentNumber: z.number(),
-  method: z.enum(["mobile_money_orange", "mobile_money_mtn", "card"]),
+  method: z.enum(MOYENS_PAIEMENT),
   status: z.enum(["pending", "succeeded", "failed", "refunded"]),
   providerReference: z.string(),
   receiptRef: z.string().optional(),

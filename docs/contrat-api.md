@@ -127,6 +127,21 @@ L'autorisation tient au jeton opaque dans l'URL elle-même. **Ne jamais faire
 passer cet appel par le proxy authentifié `/api/[...chemin]`** — c'est un
 appel public direct au backend, à traiter comme tel dans `lib/api/`.
 
+Mise en œuvre (ticket #42) : `subscriptionUrl` renvoyé par le backend est un
+chemin relatif à **son** origine, inutilisable par un client calendrier. Le
+frontend publie à la place
+`<origine de l'app>/api/ics/agency/<token>/calendar.ics`, servi par un
+Route Handler **public** dédié (`src/app/api/ics/agency/[token]/calendar.ics/route.ts`)
+qui ne lit aucun cookie et ne transmet aucun jeton de session — distinct du
+proxy authentifié, hors du `matcher` de `src/proxy.ts`. `BACKEND_URL` reste
+ainsi côté serveur (ADR-0002).
+
+**URL d'accès aux documents (ticket #41)** : `GET /documents/:id/access-url`
+et `GET /agencies/me/legal-documents/:id/access-url` renvoient soit un chemin
+relatif `/api/v1/...` (stockage local), soit une URL absolue (stockage cloud).
+Toujours les résoudre via `urlNavigateurDepuisBackend`
+(`src/lib/api/url-backend.ts`), jamais les assigner telles quelles.
+
 ---
 
 ## Contenu religieux — contrainte à porter jusqu'à l'écran

@@ -1,9 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { NextIntlClientProvider } from "next-intl";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { LegalDocumentAccessButton } from "./LegalDocumentAccessButton";
-import messages from "@/messages/fr.json";
+import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
 /**
  * Même garde-fou que `DocumentAccessButton.test.tsx` (règle 14) — une URL
@@ -15,13 +13,8 @@ vi.mock("@/lib/api/client", () => ({
 }));
 
 function afficher() {
-  const queryClient = new QueryClient();
-  return render(
-    <QueryClientProvider client={queryClient}>
-      <NextIntlClientProvider locale="fr" messages={messages}>
-        <LegalDocumentAccessButton documentId="doc-1" />
-      </NextIntlClientProvider>
-    </QueryClientProvider>,
+  return afficherAvecProviders(
+    <LegalDocumentAccessButton documentId="doc-1" />,
   );
 }
 

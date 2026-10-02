@@ -37,11 +37,20 @@ export interface ErrorResponse {
  * disponibles. Voir `docs/design-system.md` § Erreurs de soumission pour la
  * stratégie d'affichage qui en découle.
  */
+/** Valeur de `error` posée par `interpreterReponse` sur un corps illisible. */
+export const ERREUR_CORPS_ILLISIBLE = "UnexpectedResponse";
+
 export class ApiError extends Error {
   readonly statusCode: number;
   readonly path: string;
   /** Présent seulement si `message` était un tableau (erreur de validation). */
   readonly fieldErrors: string[] | undefined;
+  /**
+   * Vrai quand le corps reçu n'était pas au format NestJS et que l'erreur a
+   * été fabriquée par `interpreterReponse` — son message n'est alors pas un
+   * message du backend (voir `form-errors.ts`).
+   */
+  readonly estCorpsIllisible: boolean;
 
   constructor(body: ErrorResponse) {
     const message = Array.isArray(body.message)
@@ -52,6 +61,7 @@ export class ApiError extends Error {
     this.statusCode = body.statusCode;
     this.path = body.path;
     this.fieldErrors = Array.isArray(body.message) ? body.message : undefined;
+    this.estCorpsIllisible = body.error === ERREUR_CORPS_ILLISIBLE;
   }
 }
 

@@ -5,7 +5,7 @@ import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
 import { useRole } from "@/lib/auth/role-context";
-import { agencySchema, type Agency } from "./schemas";
+import { agencySchema } from "./schemas";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 

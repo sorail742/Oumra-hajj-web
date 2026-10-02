@@ -9,11 +9,10 @@ updates:
     ignore:
       - dependency-name: "eslint*"
         update-types: ["version-update:semver-major"]
-  
+
   # Maintain Docker dependencies
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-

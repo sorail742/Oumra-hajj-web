@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 
@@ -7,6 +7,10 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
+    // `e2e/` contient les tests Playwright (`pnpm test:e2e`, voir
+    // `playwright.config.ts`) : ils pilotent un vrai navigateur et ne
+    // s'exécutent pas sous Vitest/jsdom.
+    exclude: [...configDefaults.exclude, "e2e/**"],
     globals: true,
     // `forks` (défaut) démarre un processus Node par fichier de test, donc
     // un jsdom par fichier — signalé à chaque exécution (« jsdom was

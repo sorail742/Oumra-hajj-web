@@ -1,84 +1,58 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Calendar, MapPin } from "lucide-react";
 import { useTripSummary } from "../api/use-trip-summary";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
-import { EmptyState } from "@/components/shared/EmptyState";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 import { formatDate } from "@/lib/format";
-import { Users, Calendar, MapPin } from "lucide-react";
+import {
+  PaymentsSection,
+  ReviewSection,
+  RitesSection,
+  StepsSection,
+} from "./TripSummarySections";
 
+/**
+ * Livret souvenir (idée #23) — n'affiche que ce que `TripSummaryShape`
+ * contient réellement : pas de photos ni de Duas, absents du backend
+ * (voir le commentaire de `trip-summary.types.ts`).
+ */
 export function TripSummaryBooklet({ bookingId }: { bookingId: string }) {
   const t = useTranslations("tripSummary");
   const query = useTripSummary(bookingId);
 
   return (
-    <div className="space-y-6">
-      <AsyncBoundary
-        query={query}
-        skeleton={<div className="h-64 bg-muted animate-pulse rounded-lg" />}
-        empty={
-          <EmptyState
-            title={t("emptyTitle")}
-            description={t("emptyDescription")}
-          />
-        }
-      >
-        {(summary) => (
-          <div className="space-y-8">
-            <div className="rounded-xl border bg-card p-6 md:p-8 shadow-sm text-center space-y-4">
-              <h2 className="text-2xl font-serif text-primary">
-                {summary.packageTitle || t("defaultPackageTitle")}
-              </h2>
-              <div className="text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <MapPin className="h-4 w-4" />
-                  {summary.agencyName || t("defaultAgencyName")}
-                </span>
-              </div>
-
-              {(summary.startDate || summary.endDate) && (
-                <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full text-sm mt-4">
-                  <Calendar className="h-4 w-4" />
-                  {summary.startDate && formatDate(summary.startDate)}
-                  {summary.startDate && summary.endDate && " — "}
-                  {summary.endDate && formatDate(summary.endDate)}
-                </div>
-              )}
+    <AsyncBoundary
+      query={query}
+      skeleton={<div className="h-64 bg-muted animate-pulse rounded-lg" />}
+    >
+      {(summary) => (
+        <div className="space-y-8">
+          <div className="rounded-xl border bg-card p-6 md:p-8 shadow-sm text-center space-y-3">
+            <div className="text-sm text-muted-foreground">
+              {t(summary.pilgrimageType === "hadj" ? "typeHadj" : "typeOumra")}
             </div>
-
-            {summary.pilgrims && summary.pilgrims.length > 0 && (
-              <div className="space-y-4">
-                <h3 className="text-lg font-medium flex items-center gap-2">
-                  <Users className="h-5 w-5" />
-                  {t("pilgrimsTitle")}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {summary.pilgrims.map((pilgrim) => (
-                    <div key={pilgrim.id} className="rounded-lg border p-4">
-                      <div className="font-medium">
-                        {pilgrim.firstName} {pilgrim.lastName}
-                      </div>
-                      {pilgrim.completedRitesCount !== undefined && (
-                        <div className="text-sm text-muted-foreground mt-1">
-                          {t("completedRites", {
-                            count: pilgrim.completedRitesCount,
-                          })}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {!summary.pilgrims?.length && (
-              <div className="text-center text-sm text-muted-foreground p-8 border border-dashed rounded-lg">
-                {t("noPilgrimsFound")}
-              </div>
-            )}
+            <h2 className="text-2xl text-primary">{summary.packageTitle}</h2>
+            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-2">
+                <MapPin className="h-4 w-4" aria-hidden />
+                {summary.agencyName}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Calendar className="h-4 w-4" aria-hidden />
+                {formatDate(summary.startDate)} — {formatDate(summary.endDate)}
+              </span>
+            </div>
+            <StatusBadge kind="booking" value={summary.status} />
           </div>
-        )}
-      </AsyncBoundary>
-    </div>
+
+          <StepsSection steps={summary.steps} />
+          <PaymentsSection summary={summary} />
+          <RitesSection rites={summary.rites} />
+          <ReviewSection review={summary.review} />
+        </div>
+      )}
+    </AsyncBoundary>
   );
 }
