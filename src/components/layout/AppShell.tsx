@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { LogoutButton } from "./LogoutButton";
 
 /**
  * Coquille de l'espace authentifié — sidebar + header + zone de contenu.
@@ -14,6 +15,7 @@ import { getTranslations } from "next-intl/server";
  */
 export async function AppShell({ children }: { children: ReactNode }) {
   const t = await getTranslations("nav");
+  const tAccueil = await getTranslations("landing");
 
   const liens = [
     { href: "/dashboard", label: t("dashboard") },
@@ -32,7 +34,7 @@ export async function AppShell({ children }: { children: ReactNode }) {
     <div data-slot="app-shell" className="flex h-svh">
       <aside className="bg-sidebar border-sidebar-border hidden w-(--sidebar-width) shrink-0 flex-col border-r lg:flex">
         <div className="text-sidebar-foreground flex h-14 items-center border-b px-4 text-sm font-semibold">
-          Oumra &amp; Hadj
+          {tAccueil("brand")}
         </div>
         <nav className="scrollbar-fine flex-1 space-y-1 overflow-y-auto p-2">
           {liens.map((lien) => (
@@ -48,8 +50,9 @@ export async function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="bg-background flex h-14 shrink-0 items-center border-b px-4">
-          <span className="text-sm font-medium">Oumra &amp; Hadj</span>
+        <header className="bg-background flex h-14 shrink-0 items-center justify-between border-b px-4">
+          <span className="text-sm font-medium">{tAccueil("brand")}</span>
+          <LogoutButton />
         </header>
         <main className="scrollbar-fine flex-1 overflow-y-auto p-6">
           {children}

@@ -1,18 +1,50 @@
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { AgencyLoginForm } from "@/features/auth/components/AgencyLoginForm";
+import { AuthShell } from "@/features/auth/components/AuthShell";
+import { BandeauSucces } from "@/features/auth/components/champs";
+
 /**
- * Connexion agence / admin — email + mot de passe (`POST /auth/agency/login`,
- * voir `docs/socle-frontend.md` §5). Placeholder structurel : le formulaire
- * réel (react-hook-form + zod) est un écran métier, hors du périmètre de ce
- * socle — voir `docs/socle-frontend.md` §1.
+ * Connexion agence / admin — email + mot de passe, session ouverte par
+ * `/api/session/agency` (cookies `httpOnly`, ADR-0002).
  */
-export default function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: Readonly<{
+  searchParams: Promise<{ next?: string; registered?: string }>;
+}>) {
+  const { next, registered } = await searchParams;
+  const t = await getTranslations("auth");
+
   return (
-    <main className="flex min-h-svh items-center justify-center p-6">
-      <div className="w-full max-w-(--content-form) space-y-2 text-center">
-        <h1 className="text-xl font-semibold">Connexion agence / admin</h1>
-        <p className="text-muted-foreground text-sm">
-          Formulaire email + mot de passe à construire (Phase 2).
-        </p>
-      </div>
-    </main>
+    <AuthShell
+      title={t("agency.title")}
+      subtitle={t("agency.subtitle")}
+      footer={
+        <>
+          <p>
+            {t("agency.noAccount")}{" "}
+            <Link
+              href="/register-agency"
+              className="text-primary font-medium hover:underline"
+            >
+              {t("agency.register")}
+            </Link>
+          </p>
+          <p>
+            {t("agency.pilgrimLink")}{" "}
+            <Link
+              href="/otp"
+              className="text-primary font-medium hover:underline"
+            >
+              {t("agency.pilgrimAction")}
+            </Link>
+          </p>
+        </>
+      }
+    >
+      {registered === "1" && <BandeauSucces message={t("agency.registered")} />}
+      <AgencyLoginForm next={next} />
+    </AuthShell>
   );
 }

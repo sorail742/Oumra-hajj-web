@@ -3,9 +3,13 @@ import { useTranslations } from "next-intl";
 import { ArrowRight, Check } from "lucide-react";
 import { HeroMockup } from "./HeroMockup";
 import { LienAction, ROUTES_ACCUEIL } from "./landing-links";
-import { CielEtoile } from "./illustrations/CielEtoile";
-import { Croissant, PavageKhatam, Rosace } from "./illustrations/Geometrie";
-import { SilhouetteMecque } from "./illustrations/SilhouetteMecque";
+import { CielEtoile } from "@/components/shared/illustrations/CielEtoile";
+import {
+  Croissant,
+  PavageKhatam,
+  Rosace,
+} from "@/components/shared/illustrations/Geometrie";
+import { SilhouetteMecque } from "@/components/shared/illustrations/SilhouetteMecque";
 
 /**
  * Bandeau d'accueil : ciel de nuit sur la Mecque, en-tête transparent,

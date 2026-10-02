@@ -10,7 +10,11 @@ import {
 } from "lucide-react";
 import { LienAction, ROUTES_ACCUEIL } from "./landing-links";
 import { EnTeteSection } from "./LandingSections";
-import { Croissant, PavageKhatam, Rosace } from "./illustrations/Geometrie";
+import {
+  Croissant,
+  PavageKhatam,
+  Rosace,
+} from "@/components/shared/illustrations/Geometrie";
 
 /**
  * Fin de page d'accueil : garanties (bandeau de nuit), questions
