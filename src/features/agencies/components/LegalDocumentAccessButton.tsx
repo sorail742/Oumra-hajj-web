@@ -11,9 +11,9 @@ import { useLegalDocumentAccessUrl } from "../api/use-legal-documents";
  */
 export function LegalDocumentAccessButton({
   documentId,
-}: {
+}: Readonly<{
   documentId: string;
-}) {
+}>) {
   const t = useTranslations("agencyCompliance");
   const { mutateAsync, isPending } = useLegalDocumentAccessUrl();
 
