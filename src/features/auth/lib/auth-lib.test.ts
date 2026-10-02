@@ -76,3 +76,15 @@ describe("normaliserEmail", () => {
     expect(normaliserEmail("")).toBeNull();
   });
 });
+
+describe("normaliserEmail — cas limites", () => {
+  it.each([
+    "a@b@c.d",
+    "@exemple.test",
+    "nom@exemple",
+    "nom@.test",
+    "nom@exemple.",
+  ])("refuse %s", (saisie) => {
+    expect(normaliserEmail(saisie)).toBeNull();
+  });
+});
