@@ -14,9 +14,15 @@ const variantes = {
   primaire: "bg-primary text-primary-foreground hover:bg-primary-hover",
   secondaire: "border border-input bg-card text-foreground hover:bg-muted",
   discret: "text-primary underline-offset-4 hover:underline",
+  // Sur le ciel de nuit du bandeau d'accueil (ADR-0005).
+  or: "bg-landing-gold text-landing-silhouette shadow-float hover:brightness-110",
+  verre:
+    "border border-landing-glass-border bg-landing-glass text-landing-on-night backdrop-blur hover:bg-landing-glass-border",
+  nuit: "text-landing-on-night underline-offset-4 hover:underline",
 } as const;
 
 export const ROUTES_ACCUEIL = {
+  accueil: "/",
   pelerin: "/otp",
   agence: "/login",
   inscriptionAgence: "/register-agency",
