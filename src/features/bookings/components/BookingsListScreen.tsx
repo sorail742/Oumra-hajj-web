@@ -10,7 +10,6 @@ import { useRole } from "@/lib/auth/role-context";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DataTable } from "@/components/shared/DataTable";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { RelativeTime } from "@/components/shared/RelativeTime";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { TableSkeleton } from "@/components/shared/TableSkeleton";
 
@@ -39,14 +38,6 @@ export function BookingsListScreen() {
         cell: ({ row }) => (
           <StatusBadge kind="booking" value={row.original.status} />
         ),
-      },
-      {
-        accessorKey: "createdAt",
-        header: t("columnCreated"),
-        cell: ({ row }) =>
-          row.original.createdAt ? (
-            <RelativeTime iso={row.original.createdAt} />
-          ) : null,
       },
     ],
     [t],
@@ -81,11 +72,6 @@ export function BookingsListScreen() {
                 <span className="font-mono text-xs">{b.id}</span>
                 <StatusBadge kind="booking" value={b.status} />
               </div>
-              {b.createdAt ? (
-                <div className="text-muted-foreground mt-1 text-xs">
-                  <RelativeTime iso={b.createdAt} />
-                </div>
-              ) : null}
             </Link>
           )}
         />

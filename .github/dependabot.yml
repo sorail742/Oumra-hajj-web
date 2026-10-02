@@ -3,17 +3,21 @@ updates:
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
     directory: "/"
+    # `develop` = intégration, `main` = production (voir CLAUDE.md) : une
+    # mise à jour passe par la CI de `develop` avant d'atteindre `main`.
+    # Sans cette ligne, Dependabot vise la branche par défaut du dépôt.
+    target-branch: "develop"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 10
     ignore:
       - dependency-name: "eslint*"
         update-types: ["version-update:semver-major"]
-  
+
   # Maintain Docker dependencies
   - package-ecosystem: "docker"
     directory: "/"
+    target-branch: "develop"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
-

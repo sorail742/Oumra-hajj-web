@@ -1,16 +1,12 @@
 import { z } from "zod";
 
 /**
- * `GET /packages` (`PackagesController_listPublic`, public, sans JWT) ne
- * publie pas de schéma de réponse dans `openapi.json` — seuls les DTO
- * d'écriture (`CreatePackageDto`, `PackageStageDto`) y figurent. Champs
- * d'écriture repris tels quels ; `id`/`agencyId`/`status` ajoutés comme
- * certainement présents sur une entité persistée. **À revérifier contre une
- * réponse réelle** avant de considérer ce schéma stable — voir
- * `docs/contrat-api.md` § Ne pas halluciner un champ absent de la réponse
- * observée.
+ * `PackageShape` / `PackageStageShape`
+ * (`Oumra-hadj-project/src/types/package.types.ts`, relu le 2026-10-01) —
+ * champs requis là où le backend les garantit.
  */
 export const packageStageSchema = z.object({
+  id: z.string(),
   city: z.string(),
   hotelName: z.string(),
   distanceToMosqueMeters: z.number().optional(),
@@ -27,11 +23,12 @@ export const packageSchema = z.object({
   startDate: z.string(),
   endDate: z.string(),
   price: z.number(),
-  currency: z.string().optional(),
+  currency: z.string(),
   capacity: z.number(),
+  seatsTaken: z.number(),
   status: z.enum(["open", "full", "closed"]),
   stages: z.array(packageStageSchema),
-  inclusions: z.array(z.string()).optional(),
+  inclusions: z.array(z.string()),
 });
 
 export type Package = z.infer<typeof packageSchema>;

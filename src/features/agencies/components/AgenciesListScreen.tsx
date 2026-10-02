@@ -41,17 +41,17 @@ export function AgenciesListScreen() {
       { accessorKey: "contactEmail", header: t("columns.contactEmail") },
       { accessorKey: "contactPhone", header: t("columns.contactPhone") },
       {
-        accessorKey: "status",
+        accessorKey: "validationStatus",
         header: t("columns.status"),
         cell: ({ row }) => (
-          <StatusBadge kind="agency" value={row.original.status} />
+          <StatusBadge kind="agency" value={row.original.validationStatus} />
         ),
       },
       {
         id: "actions",
         header: "",
         cell: ({ row }) => {
-          const isPending = row.original.status === "pending";
+          const isPending = row.original.validationStatus === "pending";
           if (!isPending) return null;
           return (
             <div className="flex gap-2 justify-end">
@@ -102,13 +102,13 @@ export function AgenciesListScreen() {
               <div className="rounded-lg border p-4 space-y-3">
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-sm font-medium">{a.legalName}</span>
-                  <StatusBadge kind="agency" value={a.status} />
+                  <StatusBadge kind="agency" value={a.validationStatus} />
                 </div>
                 <div className="text-muted-foreground text-xs space-y-1">
                   <div>{a.contactEmail}</div>
                   <div>{a.contactPhone}</div>
                 </div>
-                {a.status === "pending" && (
+                {a.validationStatus === "pending" && (
                   <div className="flex gap-2 pt-2">
                     <Button
                       variant="outline"
