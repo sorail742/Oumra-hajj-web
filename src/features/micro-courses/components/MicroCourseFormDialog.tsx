@@ -8,13 +8,13 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useEnregistrerCours } from "../api/use-micro-courses";
 import { CATEGORIES_MICRO_COURS, type MicroCourse } from "../api/schemas";
+import { DialogFormFooter } from "@/components/shared/DialogFormFooter";
 import { FormErrorBanner } from "@/components/shared/FormErrorBanner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -43,7 +43,6 @@ export function MicroCourseFormDialog({
 }: Readonly<{ cours?: MicroCourse }>) {
   const t = useTranslations("microCourses.manage");
   const tCat = useTranslations("microCourses.category");
-  const tc = useTranslations("common");
   const [ouvert, setOuvert] = useState(false);
   const [bandeau, setBandeau] = useState<string[]>([]);
   const enregistrement = useEnregistrerCours(cours?.id);
@@ -211,18 +210,12 @@ export function MicroCourseFormDialog({
               )}
             />
             <FormErrorBanner messages={bandeau} />
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => changerOuverture(false)}
-              >
-                {tc("cancel")}
-              </Button>
-              <Button type="submit" disabled={enregistrement.isPending}>
-                {t("save")}
-              </Button>
-            </DialogFooter>
+            <DialogFormFooter
+              onCancel={() => changerOuverture(false)}
+              enCours={enregistrement.isPending}
+            >
+              {t("save")}
+            </DialogFormFooter>
           </form>
         </Form>
       </DialogContent>

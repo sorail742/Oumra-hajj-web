@@ -31,3 +31,10 @@ describe("proxy — écrans de gestion sous /agencies (ticket #31)", () => {
     expect(redirection("/agencies/agence-1/validation", true)).toBeNull();
   });
 });
+
+describe("proxy — lien de réinitialisation (ticket #73)", () => {
+  it("reste ouvert avec ou sans session, sans renvoi vers le tableau de bord", () => {
+    expect(redirection("/reset-password")).toBeNull();
+    expect(redirection("/reset-password", true)).toBeNull();
+  });
+});

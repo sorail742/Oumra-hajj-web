@@ -79,3 +79,21 @@ export function useAjouterEtape(groupId: string) {
     },
   });
 }
+
+/** Assignation d'un guide de l'agence au groupe (ticket #64). */
+export function useAssignerGuide(groupId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (guideUserId: string) =>
+      groupSchema.parse(
+        await api.patch<unknown>(
+          `/api/groups/${encodeURIComponent(groupId)}/guide`,
+          { guideUserId },
+        ),
+      ),
+    onSuccess: (groupe) => {
+      queryClient.setQueryData(keys.groups.detail(groupId), groupe);
+      return queryClient.invalidateQueries({ queryKey: keys.groups.mine() });
+    },
+  });
+}

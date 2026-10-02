@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
+import { GroupDetail } from "./GroupDetail";
 import { PageHeader } from "@/components/shared/PageHeader";
-import { GroupDetailScreen } from "@/features/groups/components/GroupDetailScreen";
 
 export default async function GroupDetailPage({
   params,
@@ -13,7 +13,7 @@ export default async function GroupDetailPage({
   return (
     <div>
       <PageHeader title={t("detailTitle")} />
-      <GroupDetailScreen id={id} />
+      <GroupDetail id={id} />
     </div>
   );
 }

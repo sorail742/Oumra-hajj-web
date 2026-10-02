@@ -67,3 +67,18 @@ export function useInscriptionAgence() {
       api.post<unknown>("/api/agencies/register", inscription),
   });
 }
+
+/** Mot de passe oublié (agence / admin) — ADR 0026 du backend. */
+export function useDemandeReinitialisation() {
+  return useMutation({
+    mutationFn: (email: string) =>
+      api.post<unknown>("/api/auth/password/forgot", { email }),
+  });
+}
+
+export function useReinitialisationMotDePasse() {
+  return useMutation({
+    mutationFn: (corps: { token: string; newPassword: string }) =>
+      api.post<unknown>("/api/auth/password/reset", corps),
+  });
+}

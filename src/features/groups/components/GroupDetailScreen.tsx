@@ -1,28 +1,32 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { useGroup } from "../api/use-groups";
+import type { Group } from "../api/schemas";
 import { ItineraryStepForm } from "./ItineraryStepForm";
 import { SosButton } from "./SosButton";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
+import { DetailSkeleton } from "@/components/shared/DetailSkeleton";
 import { Can } from "@/components/shared/Can";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/format";
 
-export function GroupDetailScreen({ id }: Readonly<{ id: string }>) {
+/**
+ * `guideAction` : emplacement fourni par la page pour composer un autre
+ * domaine (guides de l'agence, #64) sans import entre features (règle 2).
+ */
+export function GroupDetailScreen({
+  id,
+  guideAction,
+}: Readonly<{ id: string; guideAction?: (group: Group) => ReactNode }>) {
   const t = useTranslations("groups");
   const query = useGroup(id);
 
   return (
     <AsyncBoundary
       query={query}
-      skeleton={
-        <div className="space-y-3">
-          <Skeleton className="h-6 w-48" />
-          <Skeleton className="h-32 w-full" />
-        </div>
-      }
+      skeleton={<DetailSkeleton />}
       isEmpty={() => false}
     >
       {(group) => {
@@ -42,6 +46,9 @@ export function GroupDetailScreen({ id }: Readonly<{ id: string }>) {
                   {group.guideId ? t("guideAssigned") : t("guideUnassigned")}
                 </span>
               </div>
+              {guideAction ? (
+                <Can role="agency">{guideAction(group)}</Can>
+              ) : null}
               <Can role="pilgrim">
                 <SosButton groupId={group.id} />
               </Can>

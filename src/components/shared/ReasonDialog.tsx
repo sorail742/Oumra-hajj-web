@@ -4,14 +4,13 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useTranslations } from "next-intl";
+import { DialogFormFooter } from "@/components/shared/DialogFormFooter";
 import { FormErrorBanner } from "@/components/shared/FormErrorBanner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -61,7 +60,6 @@ export function ReasonDialog({
   disabled?: boolean;
   size?: "default" | "sm";
 }>) {
-  const tc = useTranslations("common");
   const [ouvert, setOuvert] = useState(false);
   const [bandeau, setBandeau] = useState<string[]>([]);
 
@@ -141,18 +139,13 @@ export function ReasonDialog({
               )}
             />
             <FormErrorBanner messages={bandeau} />
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => changerOuverture(false)}
-              >
-                {tc("cancel")}
-              </Button>
-              <Button type="submit" variant="destructive" disabled={isPending}>
-                {isPending ? labels.pending : labels.confirm}
-              </Button>
-            </DialogFooter>
+            <DialogFormFooter
+              onCancel={() => changerOuverture(false)}
+              enCours={isPending}
+              variant="destructive"
+            >
+              {isPending ? labels.pending : labels.confirm}
+            </DialogFormFooter>
           </form>
         </Form>
       </DialogContent>
