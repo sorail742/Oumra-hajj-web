@@ -10,9 +10,11 @@ describe("LandingPage", () => {
     expect(
       screen.getByRole("heading", { level: 1, name: /le voyage d'une vie/i }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /je suis pèlerin ou guide/i }),
-    ).toHaveAttribute("href", "/otp");
+    for (const lien of screen.getAllByRole("link", {
+      name: /je suis pèlerin ou guide/i,
+    })) {
+      expect(lien).toHaveAttribute("href", "/otp");
+    }
     expect(
       screen.getByRole("link", { name: /je suis une agence/i }),
     ).toHaveAttribute("href", "/login");
@@ -56,7 +58,12 @@ describe("LandingPage", () => {
   it("légende l'aperçu de l'espace pèlerin comme données fictives", () => {
     afficherAvecProviders(<LandingPage />);
 
-    expect(screen.getByText(/données fictives/i)).toBeInTheDocument();
+    expect(
+      screen.getByText("Aperçu de l'espace pèlerin — données fictives"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Interface réelle, données fictives"),
+    ).toHaveLength(2);
   });
 
   it("propose cinq questions fréquentes dépliables", () => {

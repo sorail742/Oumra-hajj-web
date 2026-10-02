@@ -595,7 +595,8 @@
       "q4": "Comment savoir si une agence est sérieuse ?",
       "a4": "Seules les agences dont les documents légaux ont été validés par l'administration peuvent publier des forfaits.",
       "q5": "Mon agence peut-elle rejoindre la plateforme ?",
-      "a5": "Oui : créez un compte agence, transmettez vos documents légaux et, une fois validée, publiez vos forfaits."
+      "a5": "Oui : créez un compte agence, transmettez vos documents légaux et, une fois validée, publiez vos forfaits.",
+      "more": "Une autre question ? Votre agence répond depuis la messagerie de votre dossier, et l'administration de la plateforme reste joignable pour tout signalement."
     },
     "cta": {
       "title": "Vous êtes une agence de voyage ?",
@@ -608,7 +609,60 @@
       "tagline": "La plateforme de gestion de la Oumra et du Hadj.",
       "pilgrim": "Espace pèlerin / guide",
       "agency": "Espace agence / admin",
-      "register": "Inscrire mon agence"
+      "register": "Inscrire mon agence",
+      "platform": "Plateforme",
+      "spaces": "Espaces",
+      "commitments": "Nos engagements",
+      "commitment1": "Agences validées avant publication",
+      "commitment2": "Documents jamais publics",
+      "commitment3": "Contenu religieux signalé tant qu'il n'est pas validé",
+      "rights": "© {year} Oumra & Hadj. Tous droits réservés.",
+      "madeFor": "Pensé pour les pèlerins de Guinée et leurs agences."
+    },
+    "showcase": {
+      "caption": "Interface réelle, données fictives",
+      "agency": {
+        "eyebrow": "Pour les agences",
+        "title": "Votre agence, pilotée depuis un seul écran",
+        "body": "Réservations, documents, paiements et départs : ce qui demande votre attention aujourd'hui apparaît en premier.",
+        "point1": "Réservations à traiter mises en avant",
+        "point2": "Documents des pèlerins vérifiés en quelques clics",
+        "point3": "Statut de chaque paiement toujours à jour",
+        "cta": "Inscrire mon agence",
+        "mockTitle": "Tableau de bord",
+        "mockSubtitle": "Agence — Oumra de Ramadan",
+        "statBookings": "Réservations",
+        "statBookingsValue": "48",
+        "statDocuments": "Documents à vérifier",
+        "statDocumentsValue": "7",
+        "statPayments": "Paiements du jour",
+        "statPaymentsValue": "12",
+        "tablePilgrim": "Pèlerin",
+        "tableStatus": "Statut",
+        "row1Name": "Mariama B.",
+        "row1Status": "Confirmée",
+        "row2Name": "Ibrahima S.",
+        "row2Status": "Documents à vérifier",
+        "row3Name": "Fatoumata C.",
+        "row3Status": "Paiement en attente"
+      },
+      "pilgrim": {
+        "eyebrow": "Pour les pèlerins",
+        "title": "Arrivez préparé, l'esprit tranquille",
+        "body": "Une checklist de départ, des rappels avant chaque échéance et votre groupe à portée de main.",
+        "point1": "Checklist de départ, cochée au fil des semaines",
+        "point2": "Rappels avant chaque échéance",
+        "point3": "Votre guide et votre groupe joignables à tout moment",
+        "cta": "Je suis pèlerin ou guide",
+        "mockTitle": "Ma checklist de départ",
+        "mockProgress": "3 sur 5",
+        "item1": "Passeport valide plus de 6 mois",
+        "item2": "Certificat de vaccination",
+        "item3": "Solde du forfait réglé",
+        "item4": "Tenue et effets personnels",
+        "item5": "Réunion d'information du groupe",
+        "reminder": "Rappel : réunion du groupe samedi à 10 h"
+      }
     }
   }
 }

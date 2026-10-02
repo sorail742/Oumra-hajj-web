@@ -7,6 +7,7 @@ import {
   LandingTrust,
 } from "./LandingClosing";
 import { LandingHero } from "./LandingHero";
+import { LandingShowcase } from "./LandingShowcase";
 import {
   LandingAudiences,
   LandingJourney,
@@ -24,7 +25,7 @@ export function LandingPage() {
   const t = useTranslations("landing");
 
   return (
-    <div className="flex min-h-svh flex-col">
+    <div className="flex min-h-svh flex-col overflow-x-clip">
       <a
         href="#contenu"
         className="bg-background focus:ring-ring sr-only z-50 rounded-md px-4 py-2 focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:ring-2"
@@ -39,6 +40,7 @@ export function LandingPage() {
         <div className="mx-auto max-w-6xl space-y-28 px-4 py-24 sm:px-6 lg:space-y-36 lg:py-32">
           <LandingAudiences />
           <LandingJourney />
+          <LandingShowcase />
           <LandingBento />
         </div>
         <LandingTrust />
