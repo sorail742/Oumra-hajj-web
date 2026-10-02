@@ -1,6 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ouvrirSession } from "./ouvrir-session";
 
+/** Valeur de test explicitement factice — jamais un vrai secret. */
+const SECRET_FACTICE = "x".repeat(12);
+
 /** Jeton factice (payload `{"sub":"u-1","role":"agency"}`), non signé. */
 function jetonFactice(role: string): string {
   const payload = Buffer.from(JSON.stringify({ sub: "u-1", role })).toString(
@@ -37,7 +40,7 @@ describe("ouvrirSession", () => {
     );
 
     const resultat = await ouvrirSession(
-      requeteJson({ email: "agence@exemple.test", password: "factice-123" }),
+      requeteJson({ email: "agence@exemple.test", password: SECRET_FACTICE }),
       "auth/agency/login",
       "/api/session/agency",
     );
@@ -66,7 +69,7 @@ describe("ouvrirSession", () => {
     );
 
     const resultat = await ouvrirSession(
-      requeteJson({ email: "agence@exemple.test", password: "mauvais-123" }),
+      requeteJson({ email: "agence@exemple.test", password: SECRET_FACTICE }),
       "auth/agency/login",
       "/api/session/agency",
     );

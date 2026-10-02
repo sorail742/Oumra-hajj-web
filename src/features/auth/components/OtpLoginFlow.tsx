@@ -141,7 +141,7 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
           autoComplete="one-time-code"
           maxLength={8}
           value={code}
-          onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
+          onChange={(e) => setCode(e.target.value.replaceAll(/\D/g, ""))}
           aria-invalid={erreurChamp !== null}
           aria-describedby={erreurChamp ? "otp-code-erreur" : undefined}
           className="h-14 text-center font-mono text-2xl tracking-[0.5em]"

@@ -9,7 +9,7 @@
  * SMS à quelqu'un d'autre.
  */
 export function normaliserTelephone(saisie: string): string | null {
-  const compact = saisie.trim().replace(/[\s.()-]/g, "");
+  const compact = saisie.trim().replaceAll(/[\s.()-]/g, "");
   const international = compact.startsWith("00")
     ? `+${compact.slice(2)}`
     : compact;

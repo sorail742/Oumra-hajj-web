@@ -31,7 +31,7 @@ const FENETRES: readonly number[] = Array.from(
   (_, index) => 180 + index * 38,
 ).filter((x) => x < 548 || x > 720);
 
-function MinaretForme({ x, hauteur }: Minaret) {
+function MinaretForme({ x, hauteur }: Readonly<Minaret>) {
   const haut = SOL - hauteur;
   return (
     <g>
