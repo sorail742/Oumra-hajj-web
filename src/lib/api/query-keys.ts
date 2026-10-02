@@ -40,6 +40,7 @@ export const keys = {
   agencies: {
     all: ["agencies"] as const,
     me: () => [...keys.agencies.all, "me"] as const,
+    guides: () => [...keys.agencies.all, "guides"] as const,
     list: (f: Filtres) => [...keys.agencies.all, "list", f] as const,
     detail: (id: string) => [...keys.agencies.all, "detail", id] as const,
     legalDocuments: () => [...keys.agencies.all, "legal-documents"] as const,

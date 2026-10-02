@@ -432,6 +432,14 @@
       "submit": "Ajouter l'étape",
       "added": "Étape ajoutée à l'itinéraire.",
       "error": "L'ajout n'a pas abouti. Réessayez."
+    },
+    "assignGuide": {
+      "label": "Guide du groupe",
+      "placeholder": "Choisir un guide",
+      "submit": "Assigner",
+      "assigned": "Guide assigné au groupe.",
+      "error": "Impossible d'assigner ce guide. Réessayez.",
+      "noGuide": "Ajoutez d'abord un guide depuis la page « Mon agence »."
     }
   },
   "messaging": {
@@ -1046,7 +1054,27 @@
     "save": "Enregistrer",
     "saving": "Enregistrement…",
     "saved": "Profil de l'agence enregistré.",
-    "error": "L'enregistrement n'a pas abouti. Vérifiez les champs puis réessayez."
+    "error": "L'enregistrement n'a pas abouti. Vérifiez les champs puis réessayez.",
+    "guides": {
+      "title": "Guides de l'agence",
+      "description": "Les guides se connectent avec un code reçu par SMS ou par e-mail, puis accompagnent les groupes auxquels vous les assignez.",
+      "add": "Ajouter un guide",
+      "addTitle": "Ajouter un guide",
+      "addBody": "Renseignez au moins un téléphone ou un e-mail : c'est là que le guide recevra son code de connexion.",
+      "fullName": "Nom complet",
+      "phone": "Téléphone",
+      "phoneHint": "Format international, par exemple +224 suivi du numéro.",
+      "email": "E-mail",
+      "nameTooShort": "Le nom doit comporter au moins 2 caractères.",
+      "phoneInvalid": "Numéro invalide : format international attendu (+224…).",
+      "emailInvalid": "Adresse e-mail invalide.",
+      "contactRequired": "Indiquez un téléphone ou un e-mail.",
+      "submit": "Ajouter",
+      "added": "Guide ajouté.",
+      "conflict": "Ce téléphone ou cet e-mail est déjà utilisé par un compte.",
+      "error": "Impossible d'ajouter le guide. Réessayez.",
+      "empty": "Aucun guide pour l'instant."
+    }
   },
   "adminUsers": {
     "title": "Utilisateurs",
