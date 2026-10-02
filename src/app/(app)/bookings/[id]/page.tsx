@@ -8,9 +8,10 @@ import { BookingExpiryAlerts } from "@/features/documents/components/ExpiryAlert
 import { DocumentUploader } from "@/features/documents/components/DocumentUploader";
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
+import { AvisReservation } from "./AvisReservation";
 
 /**
- * Compose plusieurs domaines (réservations, documents, paiements, checklist, messagerie) — c'est le rôle d'une
+ * Compose plusieurs domaines (réservations, documents, paiements, checklist, avis, messagerie) — c'est le rôle d'une
  * page, pas d'un `features/*`, qui n'importe jamais un autre `features/*`
  * (voir `CLAUDE.md` règle 2).
  */
@@ -36,6 +37,7 @@ export default async function BookingDetailPage({
       <BookingExpiryAlerts bookingId={id} />
       <BookingDetailScreen id={id} />
       <Can role="pilgrim">
+        <AvisReservation bookingId={id} />
         <InitiatePaymentFlow bookingId={id} />
         <DocumentUploader bookingId={id} />
         <ChecklistPanel bookingId={id} />

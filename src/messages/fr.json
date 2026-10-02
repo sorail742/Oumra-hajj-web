@@ -319,7 +319,24 @@
     "myReviewsEmptyDescription": "Un avis peut être déposé une fois une réservation confirmée ou terminée.",
     "roleUnsupportedTitle": "Aucun avis pour ce rôle.",
     "agencyReviewsTitle": "Avis de l'agence",
-    "agencyReviewsEmptyTitle": "Aucun avis pour cette agence pour le moment."
+    "agencyReviewsEmptyTitle": "Aucun avis pour cette agence pour le moment.",
+    "form": {
+      "action": "Laisser un avis",
+      "title": "Votre avis sur ce voyage",
+      "description": "Votre note aide les futurs pèlerins à choisir leur agence. Elle est publique, votre commentaire aussi.",
+      "rating": "Votre note",
+      "stars": "{count, plural, one {# étoile sur 5} other {# étoiles sur 5}}",
+      "ratingRequired": "Choisissez une note de 1 à 5 étoiles.",
+      "comment": "Commentaire (facultatif)",
+      "commentPlaceholder": "Accueil, hébergement, accompagnement sur place…",
+      "submit": "Publier mon avis",
+      "sent": "Merci, votre avis est publié.",
+      "alreadyReviewed": "Vous avez déjà laissé un avis pour cette réservation : il figure dans « Mes avis ».",
+      "error": "L'envoi n'a pas abouti. Réessayez.",
+      "done": "Avis déposé",
+      "seeMine": "Voir mes avis"
+    },
+    "ratingLabel": "{rating} sur 5"
   },
   "rites": {
     "title": "Rites",

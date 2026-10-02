@@ -1,20 +1,24 @@
+import { useTranslations } from "next-intl";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function RatingStars({ rating }: { rating: number }) {
+const NOTES = [1, 2, 3, 4, 5] as const;
+
+/** Note en lecture seule ; le texte « 4 sur 5 » est lu, les étoiles masquées. */
+export function RatingStars({ rating }: Readonly<{ rating: number }>) {
+  const t = useTranslations("reviews");
   return (
-    <span
-      className="inline-flex items-center gap-0.5"
-      role="img"
-      aria-label={`${rating} sur 5`}
-    >
-      {Array.from({ length: 5 }, (_, i) => (
+    <span className="inline-flex items-center gap-0.5">
+      <span className="sr-only">{t("ratingLabel", { rating })}</span>
+      {NOTES.map((note) => (
         <Star
-          key={i}
+          key={note}
           aria-hidden
           className={cn(
             "size-3.5",
-            i < rating ? "fill-accent text-accent" : "text-muted-foreground",
+            note <= rating
+              ? "fill-accent text-accent"
+              : "text-muted-foreground",
           )}
         />
       ))}

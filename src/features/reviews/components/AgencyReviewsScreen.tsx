@@ -15,7 +15,9 @@ import { TableSkeleton } from "@/components/shared/TableSkeleton";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /** Public — voir `src/proxy.ts` (`GET /reviews/agency/:id` et `.../trust-score` sont `@Public()`). */
-export function AgencyReviewsScreen({ agencyId }: { agencyId: string }) {
+export function AgencyReviewsScreen({
+  agencyId,
+}: Readonly<{ agencyId: string }>) {
   const t = useTranslations("reviews");
   const trustScore = useAgencyTrustScore(agencyId);
   const reviews = useAgencyReviews(agencyId);

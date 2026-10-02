@@ -17,9 +17,9 @@ import type { AgencyTrustScore } from "../api/schemas";
  */
 export function AgencyTrustCard({
   trustScore,
-}: {
+}: Readonly<{
   trustScore: AgencyTrustScore;
-}) {
+}>) {
   const t = useTranslations("reviews");
   const estNouvelle =
     trustScore.score === undefined && trustScore.reviewAverage === undefined;

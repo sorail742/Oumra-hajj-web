@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
@@ -42,5 +42,19 @@ export function useAgencyTrustScore(agencyId: string) {
       );
       return trustScoreSchema.parse(donnees);
     },
+  });
+}
+
+/** `POST /reviews` (pèlerin) — un avis par réservation (ticket #59). */
+export function useDeposerAvis() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (avis: {
+      bookingId: string;
+      rating: number;
+      comment?: string;
+    }) => reviewSchema.parse(await api.post<unknown>("/api/reviews", avis)),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: keys.reviews.all }),
   });
 }
