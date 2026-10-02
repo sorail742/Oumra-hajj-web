@@ -5,6 +5,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { usePayments } from "../api/use-payments";
 import type { Payment } from "../api/schemas";
+import { PaymentDetailDialog } from "./PaymentDetailDialog";
 import { RefundRequestFlow } from "./RefundRequestFlow";
 import { CLE_TRADUCTION_METHODE } from "../lib/payment-method";
 import { useRole } from "@/lib/auth/role-context";
@@ -49,10 +50,14 @@ export function PaymentsListScreen() {
       {
         id: "actions",
         header: "",
-        cell: ({ row }) =>
-          row.original.status === "succeeded" ? (
-            <RefundRequestFlow payment={row.original} />
-          ) : null,
+        cell: ({ row }) => (
+          <div className="flex items-center justify-end gap-2">
+            <PaymentDetailDialog payment={row.original} />
+            {row.original.status === "succeeded" ? (
+              <RefundRequestFlow payment={row.original} />
+            ) : null}
+          </div>
+        ),
       },
     ],
     [t],
@@ -90,9 +95,12 @@ export function PaymentsListScreen() {
                   {t(CLE_TRADUCTION_METHODE[p.method])}
                 </span>
               </div>
-              {p.status === "succeeded" ? (
-                <RefundRequestFlow payment={p} />
-              ) : null}
+              <div className="flex flex-wrap items-center gap-2">
+                <PaymentDetailDialog payment={p} />
+                {p.status === "succeeded" ? (
+                  <RefundRequestFlow payment={p} />
+                ) : null}
+              </div>
             </div>
           )}
         />

@@ -283,6 +283,21 @@
       "errorNotFound": "Réservation introuvable.",
       "errorInvalid": "Les informations saisies ont été refusées. Vérifiez le montant et le moyen de paiement.",
       "errorGeneric": "Le paiement n'a pas pu être lancé. Réessayez dans un instant."
+    },
+    "detail": {
+      "open": "Détails",
+      "title": "Tranche n° {numero}",
+      "description": "Références à communiquer à votre agence ou à l'opérateur en cas de question.",
+      "status": "Statut",
+      "amount": "Montant",
+      "method": "Moyen de paiement",
+      "providerReference": "Référence opérateur",
+      "booking": "Réservation",
+      "confirmedAt": "Confirmé le",
+      "refundedAmount": "Montant remboursé",
+      "refundedAt": "Remboursé le",
+      "receiptTitle": "Reçu de paiement",
+      "receiptBody": "Conservez ce numéro de reçu : il atteste le paiement de cette tranche."
     }
   },
   "reviews": {
