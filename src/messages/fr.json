@@ -28,7 +28,17 @@
     "calendar": "Calendrier",
     "groups": "Groupes",
     "messaging": "Messagerie",
-    "settings": "Paramètres"
+    "settings": "Paramètres",
+    "agencies": "Agences",
+    "mainNav": "Navigation de l'espace",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "roles": {
+      "pilgrim": "Pèlerin",
+      "guide": "Guide",
+      "agency": "Agence",
+      "admin": "Administration"
+    }
   },
   "auth": {
     "backHome": "Retour à l'accueil",
