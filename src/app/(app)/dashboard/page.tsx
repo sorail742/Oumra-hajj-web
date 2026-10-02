@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Can } from "@/components/shared/Can";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { PlatformStatsPanel } from "@/features/admin/components/PlatformStatsPanel";
 import { ComplianceAlertsCard } from "@/features/agencies/components/ComplianceAlertsCard";
 import { BookingsToProcessCard } from "@/features/bookings/components/BookingsToProcessCard";
 import { NextDossierStepCard } from "@/features/bookings/components/NextDossierStepCard";
@@ -13,7 +14,7 @@ import { RecentPaymentsCard } from "@/features/payments/components/RecentPayment
  * Accueil par rôle (ticket #70), composé des routes de liste existantes.
  * La page assemble les cartes de plusieurs domaines — c'est son rôle, un
  * `features/*` n'importe jamais un autre `features/*` (CLAUDE.md règle 2).
- * Le tableau de bord administrateur relève du ticket #69.
+ * Administrateur : statistiques de la plateforme (ticket #69).
  */
 export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
@@ -49,7 +50,8 @@ export default async function DashboardPage() {
         </div>
       </Can>
       <Can role="admin">
-        <p className="text-sm text-muted-foreground">{t("otherDescription")}</p>
+        <p className="text-sm text-muted-foreground">{t("adminDescription")}</p>
+        <PlatformStatsPanel />
       </Can>
     </div>
   );

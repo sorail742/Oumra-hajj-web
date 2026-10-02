@@ -16,6 +16,10 @@
 type Filtres = Record<string, unknown>;
 
 export const keys = {
+  admin: {
+    all: ["admin"] as const,
+    stats: () => [...keys.admin.all, "stats"] as const,
+  },
   agencies: {
     all: ["agencies"] as const,
     me: () => [...keys.agencies.all, "me"] as const,

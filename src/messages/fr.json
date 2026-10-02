@@ -589,7 +589,8 @@
     "assignedGroupsNone": "Aucun groupe ne vous est encore assigné.",
     "nextItineraryStep": "Prochaine étape : {label} — {date}",
     "noUpcomingStep": "Aucune étape à venir.",
-    "seeGroups": "Voir les groupes"
+    "seeGroups": "Voir les groupes",
+    "adminDescription": "L'état de la plateforme et ce qui attend votre décision."
   },
   "landing": {
     "brand": "Oumra & Hadj",
@@ -889,5 +890,17 @@
       "other": "Autre"
     },
     "allDone": "Tout est prêt. Bon voyage, in shaa Allah."
+  },
+  "adminDashboard": {
+    "pendingAgencies": "Agences à valider",
+    "pendingAgenciesHint": "Elles ne peuvent pas publier de forfait avant votre décision.",
+    "reviewAgencies": "Examiner les dossiers",
+    "pilgrims": "Pèlerins inscrits",
+    "guides": "Guides",
+    "revenue": "Paiements encaissés",
+    "revenueHint": "Somme des paiements confirmés par l'opérateur.",
+    "agenciesByStatus": "Agences par statut",
+    "bookingsByStatus": "Réservations par statut",
+    "total": "Total : {total}"
   }
 }
