@@ -71,6 +71,14 @@ function estEcranDeGestion(pathname: string): boolean {
   );
 }
 
+/**
+ * Pages exactes ouvertes avec ou sans session, sans renvoi vers
+ * `/dashboard` : l'accueil, et le lien reçu par e-mail (ADR 0026 du
+ * backend) — pas dans `PREFIXES_AUTH`, dont la redirection ferait perdre le
+ * lien à un utilisateur déjà connecté.
+ */
+const PAGES_TOUJOURS_PUBLIQUES = new Set(["/", "/reset-password"]);
+
 function correspond(pathname: string, prefixes: string[]): boolean {
   return prefixes.some(
     (prefixe) => pathname === prefixe || pathname.startsWith(`${prefixe}/`),
@@ -82,7 +90,7 @@ export function proxy(request: NextRequest): NextResponse {
   const aSession = request.cookies.has(NOM_COOKIE_ACCES);
   const pageAuth = correspond(pathname, PREFIXES_AUTH);
   const contenuPublic =
-    pathname === "/" ||
+    PAGES_TOUJOURS_PUBLIQUES.has(pathname) ||
     pageAuth ||
     (correspond(pathname, PREFIXES_PUBLIC_CONTENU) &&
       !estEcranDeGestion(pathname));

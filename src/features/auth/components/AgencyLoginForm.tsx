@@ -15,12 +15,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { appliquerErreurFormulaire } from "@/lib/api/form-errors";
 import { ApiError } from "@/lib/api/types";
 import { useConnexionAgence } from "../api/use-auth";
 import { cleErreurConnexion } from "../lib/erreur-connexion";
 import { destinationApresConnexion } from "../lib/redirection";
+import { ChampEmail, schemaEmail } from "./ChampsFormulaire";
 import { BandeauErreur, BoutonEnvoi, ChampMotDePasse } from "./champs";
 
 /**
@@ -37,10 +37,7 @@ export function AgencyLoginForm({ next }: Readonly<{ next?: string }>) {
   const schema = useMemo(
     () =>
       z.object({
-        email: z
-          .string()
-          .trim()
-          .pipe(z.email(t("agency.emailInvalid"))),
+        email: schemaEmail(t("agency.emailInvalid")),
         password: z.string().min(8, t("agency.passwordTooShort")),
       }),
     [t],
@@ -77,24 +74,10 @@ export function AgencyLoginForm({ next }: Readonly<{ next?: string }>) {
         className="space-y-5"
         noValidate
       >
-        <FormField
+        <ChampEmail
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("agency.email")}</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  className="h-(--size-touch)"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t("agency.email")}
         />
         <FormField
           control={form.control}
