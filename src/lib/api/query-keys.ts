@@ -20,6 +20,10 @@ export const keys = {
     all: ["admin"] as const,
     stats: () => [...keys.admin.all, "stats"] as const,
   },
+  notifications: {
+    all: ["notifications"] as const,
+    list: (f: Filtres) => [...keys.notifications.all, "list", f] as const,
+  },
   agencies: {
     all: ["agencies"] as const,
     me: () => [...keys.agencies.all, "me"] as const,

@@ -902,5 +902,21 @@
     "agenciesByStatus": "Agences par statut",
     "bookingsByStatus": "Réservations par statut",
     "total": "Total : {total}"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "Les nouvelles de vos dossiers, paiements et groupes.",
+    "bellLabel": "{count, plural, =0 {Notifications} one {Notifications, # non lue} other {Notifications, # non lues}}",
+    "filterLabel": "Afficher",
+    "filterUnread": "Non lues",
+    "filterAll": "Toutes",
+    "markRead": "Marquer comme lue",
+    "markAllRead": "Tout marquer comme lu",
+    "markError": "La mise à jour n'a pas abouti. Réessayez.",
+    "critical": "Important",
+    "unreadLabel": "Non lue",
+    "emptyUnread": "Vous êtes à jour : aucune notification non lue.",
+    "emptyAll": "Aucune notification pour le moment.",
+    "emptyDescription": "Vous serez prévenu ici à chaque étape de votre dossier."
   }
 }

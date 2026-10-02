@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Mail, MessageSquareText } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SegmentedControl } from "@/components/shared/SegmentedControl";
 import { cn } from "cn";
 import {
   normaliserEmail,
@@ -70,30 +71,20 @@ export function DemandeCodeForm({
 
   return (
     <form onSubmit={soumettre} className="space-y-5" noValidate>
-      <fieldset className="space-y-2">
-        <legend className="mb-2 text-sm font-medium">
-          {t("channelLabel")}
-        </legend>
-        <div className="bg-muted grid grid-cols-2 gap-1 rounded-lg p-1">
-          {CANAUX.map(({ canal: valeur, icone: Icone, cle }) => (
-            <button
-              key={valeur}
-              type="button"
-              aria-pressed={canal === valeur}
-              onClick={() => changerCanal(valeur)}
-              className={cn(
-                "inline-flex h-10 items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors duration-(--motion-fast)",
-                canal === valeur
-                  ? "bg-card text-foreground shadow-(--shadow-raised)"
-                  : "text-muted-foreground hover:text-foreground",
-              )}
-            >
-              <Icone aria-hidden className="size-4" />
-              {t(cle)}
-            </button>
-          ))}
-        </div>
-      </fieldset>
+      <div className="space-y-2">
+        <p className="text-sm font-medium">{t("channelLabel")}</p>
+        <SegmentedControl
+          label={t("channelLabel")}
+          value={canal}
+          onChange={changerCanal}
+          className="grid w-full grid-cols-2"
+          options={CANAUX.map(({ canal: valeur, icone, cle }) => ({
+            value: valeur,
+            label: t(cle),
+            icon: icone,
+          }))}
+        />
+      </div>
       <div className="space-y-2">
         <Label htmlFor="otp-destinataire">
           {parEmail ? t("email") : t("phone")}

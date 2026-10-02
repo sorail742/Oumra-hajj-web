@@ -16,8 +16,8 @@ import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DataTable } from "@/components/shared/DataTable";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { StatusBadge } from "@/components/shared/StatusBadge";
+import { SegmentedControl } from "@/components/shared/SegmentedControl";
 import { TableSkeleton } from "@/components/shared/TableSkeleton";
-import { cn } from "cn";
 
 /**
  * Liste des agences pour l'administrateur (ticket #31) : filtre de statut
@@ -105,27 +105,15 @@ export function AgenciesListScreen() {
 
   return (
     <div className="space-y-4">
-      <nav
-        aria-label={t("filter.label")}
-        className="bg-muted inline-flex flex-wrap gap-1 rounded-lg p-1"
-      >
-        {FILTRES.map((valeur) => (
-          <button
-            key={valeur}
-            type="button"
-            aria-pressed={filtre === valeur}
-            onClick={() => choisir(valeur)}
-            className={cn(
-              "h-9 rounded-md px-3 text-sm font-medium transition-colors duration-(--motion-fast)",
-              filtre === valeur
-                ? "bg-card text-foreground shadow-(--shadow-raised)"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            {t(`filter.${valeur}`)}
-          </button>
-        ))}
-      </nav>
+      <SegmentedControl
+        label={t("filter.label")}
+        value={filtre}
+        onChange={choisir}
+        options={FILTRES.map((valeur) => ({
+          value: valeur,
+          label: t(`filter.${valeur}`),
+        }))}
+      />
       <AsyncBoundary
         query={query}
         skeleton={<TableSkeleton rows={6} />}

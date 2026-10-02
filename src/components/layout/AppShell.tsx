@@ -6,6 +6,7 @@ import { decoderPayloadUtile } from "@/lib/auth/jwt";
 import { lireJetons } from "@/lib/auth/session";
 import { UserMenu } from "./UserMenu";
 import { MobileNav } from "./MobileNav";
+import { NotificationBell } from "./NotificationBell";
 import { SidebarNav } from "./SidebarNav";
 
 /**
@@ -87,7 +88,10 @@ export async function AppShell({
             <MobileNav />
             <span className="lg:hidden">{marque}</span>
           </div>
-          <UserMenu />
+          <div className="flex items-center gap-1">
+            <NotificationBell />
+            <UserMenu />
+          </div>
         </header>
         <main className="scrollbar-fine flex-1 overflow-y-auto p-6">
           {children}
