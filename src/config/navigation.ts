@@ -5,10 +5,13 @@ import {
   CalendarDays,
   ClipboardList,
   FileCheck,
+  GraduationCap,
   LayoutDashboard,
   Package,
+  PackagePlus,
   ShieldCheck,
   Star,
+  UserCog,
   Users,
   Wallet,
 } from "lucide-react";
@@ -34,7 +37,14 @@ const TOUS: readonly Role[] = ["pilgrim", "guide", "agency", "admin"];
 export const NAVIGATION: readonly EntreeNavigation[] = [
   { href: "/dashboard", cle: "dashboard", icone: LayoutDashboard, roles: TOUS },
   { href: "/agencies", cle: "agencies", icone: Building2, roles: ["admin"] },
+  { href: "/users", cle: "users", icone: UserCog, roles: ["admin"] },
   { href: "/packages", cle: "packages", icone: Package, roles: TOUS },
+  {
+    href: "/my-packages",
+    cle: "myPackages",
+    icone: PackagePlus,
+    roles: ["agency"],
+  },
   {
     href: "/bookings",
     cle: "bookings",
@@ -66,6 +76,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     roles: ["agency"],
   },
   {
+    href: "/my-agency",
+    cle: "myAgency",
+    icone: Building2,
+    roles: ["agency"],
+  },
+  {
     href: "/legal-documents",
     cle: "legalDocuments",
     icone: ShieldCheck,
@@ -78,6 +94,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     roles: ["pilgrim", "agency"],
   },
   { href: "/rites", cle: "rites", icone: BookOpen, roles: TOUS },
+  {
+    href: "/micro-courses",
+    cle: "microCourses",
+    icone: GraduationCap,
+    roles: TOUS,
+  },
 ];
 
 /** Entrée active : correspondance exacte ou sous-chemin (`/bookings/123`). */

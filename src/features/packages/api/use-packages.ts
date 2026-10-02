@@ -22,3 +22,14 @@ export function usePackages(filters: PackageFilters) {
     },
   });
 }
+
+/** `GET /packages/:id` — public (`findByIdOrFail`, 404 si inconnu). */
+export function usePackage(id: string) {
+  return useQuery({
+    queryKey: keys.packages.detail(id),
+    queryFn: async () =>
+      packageSchema.parse(
+        await api.get<unknown>(`/api/packages/${encodeURIComponent(id)}`),
+      ),
+  });
+}

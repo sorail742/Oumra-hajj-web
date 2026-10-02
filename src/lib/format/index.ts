@@ -39,6 +39,22 @@ export function formatNombre(valeur: number): string {
   return new Intl.NumberFormat("fr-FR").format(valeur);
 }
 
+/** Durée d'une vidéo : « 4 min 05 », ou « 45 s » sous une minute. */
+export function formatDuree(secondes: number): string {
+  const minutes = Math.floor(secondes / 60);
+  const reste = secondes % 60;
+  if (minutes === 0) return `${reste} s`;
+  return `${minutes} min ${String(reste).padStart(2, "0")}`;
+}
+
+/** Note moyenne sur 5, une décimale à la française : « 4,3 ». */
+export function formatNote(valeur: number): string {
+  return new Intl.NumberFormat("fr-FR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  }).format(valeur);
+}
+
 /**
  * Pourcentage, `72,0 %`. Utilisé notamment pour `AgencyTrustScoreShape.completionRate`
  * (ratio 0–1 côté backend — multiplier par 100 avant d'appeler cette

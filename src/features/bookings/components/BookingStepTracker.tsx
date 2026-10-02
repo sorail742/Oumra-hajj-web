@@ -25,7 +25,9 @@ const ICONE_PAR_STATUT: Record<
   pending: { Icone: Circle, classe: "text-muted-foreground" },
 };
 
-export function BookingStepTracker({ steps }: BookingStepTrackerProps) {
+export function BookingStepTracker({
+  steps,
+}: Readonly<BookingStepTrackerProps>) {
   const t = useTranslations("bookings");
   const parCle = new Map(steps.map((s) => [s.key, s]));
 

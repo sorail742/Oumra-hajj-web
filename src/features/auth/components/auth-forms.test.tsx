@@ -27,12 +27,80 @@ afterEach(() => {
 });
 
 describe("OtpLoginFlow", () => {
-  it("normalise le numéro guinéen, envoie le code puis ouvre la session", async () => {
+  it("propose l'e-mail par défaut : envoie le code puis ouvre la session", async () => {
     fetchMock
       .mockResolvedValueOnce(Response.json({ sent: true }))
       .mockResolvedValueOnce(Response.json({ role: "pilgrim" }));
 
     afficherAvecProviders(<OtpLoginFlow next="/bookings" />);
+    expect(screen.getByRole("button", { name: /par e-mail/i })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    saisir(/adresse e-mail/i, " Pelerin@Exemple.TEST ");
+    fireEvent.click(screen.getByRole("button", { name: /recevoir mon code/i }));
+
+    expect(
+      await screen.findByText("Code envoyé à pelerin@exemple.test."),
+    ).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      1,
+      "/api/auth/otp/request",
+      expect.objectContaining({
+        body: JSON.stringify({ email: "pelerin@exemple.test" }),
+      }),
+    );
+
+    saisir(/code reçu par e-mail/i, "123456");
+    fireEvent.click(screen.getByRole("button", { name: /valider/i }));
+
+    await waitFor(() =>
+      expect(routeur.replace).toHaveBeenCalledWith("/bookings"),
+    );
+    expect(fetchMock).toHaveBeenNthCalledWith(
+      2,
+      "/api/session/otp",
+      expect.objectContaining({
+        body: JSON.stringify({ email: "pelerin@exemple.test", code: "123456" }),
+      }),
+    );
+  });
+
+  it("refuse une adresse invalide sans appeler l'API", () => {
+    afficherAvecProviders(<OtpLoginFlow />);
+    saisir(/adresse e-mail/i, "pas-une-adresse");
+    fireEvent.click(screen.getByRole("button", { name: /recevoir mon code/i }));
+
+    expect(
+      screen.getByText(/saisissez une adresse valide/i),
+    ).toBeInTheDocument();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("signale un envoi indisponible (503) sans quitter l'étape", async () => {
+    fetchMock.mockResolvedValue(
+      Response.json(
+        { statusCode: 503, timestamp: "", path: "", message: "Indisponible" },
+        { status: 503 },
+      ),
+    );
+    afficherAvecProviders(<OtpLoginFlow />);
+    saisir(/adresse e-mail/i, "pelerin@exemple.test");
+    fireEvent.click(screen.getByRole("button", { name: /recevoir mon code/i }));
+
+    expect(
+      await screen.findByText(/momentanément indisponible/i),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/adresse e-mail/i)).toBeInTheDocument();
+  });
+
+  it("normalise le numéro guinéen par SMS, envoie le code puis ouvre la session", async () => {
+    fetchMock
+      .mockResolvedValueOnce(Response.json({ sent: true }))
+      .mockResolvedValueOnce(Response.json({ role: "pilgrim" }));
+
+    afficherAvecProviders(<OtpLoginFlow next="/bookings" />);
+    fireEvent.click(screen.getByRole("button", { name: /par sms/i }));
     saisir(/numéro de téléphone/i, "620 00 00 00");
     fireEvent.click(screen.getByRole("button", { name: /recevoir mon code/i }));
 
@@ -64,6 +132,7 @@ describe("OtpLoginFlow", () => {
 
   it("refuse un numéro invalide sans appeler l'API", () => {
     afficherAvecProviders(<OtpLoginFlow />);
+    fireEvent.click(screen.getByRole("button", { name: /par sms/i }));
     saisir(/numéro de téléphone/i, "123");
     fireEvent.click(screen.getByRole("button", { name: /recevoir mon code/i }));
 

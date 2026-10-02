@@ -9,9 +9,9 @@ import type { AgencyTrustScore } from "../api/schemas";
  */
 export function TrustScoreBadge({
   badge,
-}: {
+}: Readonly<{
   badge: AgencyTrustScore["badge"];
-}) {
+}>) {
   const t = useTranslations("reviews");
 
   if (!badge) {

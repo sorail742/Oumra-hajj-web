@@ -52,6 +52,12 @@ function EnTete() {
             </a>
           ))}
           <Link
+            href={ROUTES_ACCUEIL.forfaits}
+            className="hover:text-landing-on-night hidden rounded-md px-3 py-2 transition-colors md:inline-flex"
+          >
+            {t("nav.packages")}
+          </Link>
+          <Link
             href={ROUTES_ACCUEIL.pelerin}
             className="hover:text-landing-on-night hidden rounded-md px-3 py-2 transition-colors sm:inline-flex"
           >

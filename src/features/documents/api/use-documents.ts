@@ -5,7 +5,11 @@ import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
 import { useRole } from "@/lib/auth/role-context";
-import { accessUrlSchema, documentSchema } from "./schemas";
+import {
+  accessUrlSchema,
+  documentSchema,
+  type PilgrimDocument,
+} from "./schemas";
 
 export function useMyDocuments() {
   return useQuery({
@@ -99,5 +103,50 @@ export function useRejectDocument() {
         }),
       ),
     onSuccess: (document) => invalider(document.bookingId),
+  });
+}
+
+export interface DepotDocument {
+  bookingId: string;
+  type: PilgrimDocument["type"];
+  expiresAt?: string;
+  fichier: File;
+}
+
+/**
+ * `POST /documents` (pèlerin), multipart : `file`, `bookingId`, `type`,
+ * `expiresAt?`. Le fichier ne transite que par cette requête : jamais
+ * conservé ni journalisé (règle 14).
+ */
+export function useDeposerDocument() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({
+      bookingId,
+      type,
+      expiresAt,
+      fichier,
+    }: DepotDocument) => {
+      const formulaire = new FormData();
+      formulaire.append("file", fichier);
+      formulaire.append("bookingId", bookingId);
+      formulaire.append("type", type);
+      if (expiresAt) {
+        formulaire.append("expiresAt", expiresAt);
+      }
+      return documentSchema.parse(
+        await api.post<unknown>("/api/documents", formulaire),
+      );
+    },
+    onSuccess: (_document, { bookingId }) =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: keys.documents.mine() }),
+        queryClient.invalidateQueries({
+          queryKey: keys.documents.byBooking(bookingId),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: keys.bookings.detail(bookingId),
+        }),
+      ]),
   });
 }
