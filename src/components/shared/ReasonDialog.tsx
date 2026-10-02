@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
+import { FormErrorBanner } from "@/components/shared/FormErrorBanner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -139,16 +140,7 @@ export function ReasonDialog({
                 </FormItem>
               )}
             />
-            {bandeau.length > 0 && (
-              <div
-                role="alert"
-                className="bg-state-danger-bg text-state-danger space-y-1 rounded-md px-3 py-2 text-sm"
-              >
-                {bandeau.map((message) => (
-                  <p key={message}>{message}</p>
-                ))}
-              </div>
-            )}
+            <FormErrorBanner messages={bandeau} />
             <DialogFooter>
               <Button
                 type="button"

@@ -356,7 +356,33 @@
     "sosButtonLabel": "Alerte SOS",
     "sosButtonHint": "Maintenez le bouton pour envoyer l'alerte",
     "sosSent": "Alerte SOS envoyée.",
-    "sosError": "L'alerte SOS n'a pas pu être envoyée. Réessayez, ou contactez votre guide directement."
+    "sosError": "L'alerte SOS n'a pas pu être envoyée. Réessayez, ou contactez votre guide directement.",
+    "create": {
+      "action": "Créer un groupe",
+      "title": "Nouveau groupe de voyage",
+      "description": "Rattachez le groupe à l'un de vos forfaits ; vous y ajouterez ensuite l'itinéraire et le guide.",
+      "package": "Forfait",
+      "packagePlaceholder": "Choisir un forfait",
+      "packageRequired": "Choisissez le forfait du groupe.",
+      "name": "Nom du groupe",
+      "namePlaceholder": "Ex. : Oumra Ramadan — groupe A",
+      "titleTooShort": "Le nom doit contenir au moins 2 caractères.",
+      "submit": "Créer le groupe",
+      "created": "Groupe créé.",
+      "error": "La création n'a pas abouti. Réessayez.",
+      "noPackage": "Créez d'abord un forfait : chaque groupe est rattaché à l'un d'eux."
+    },
+    "itinerary": {
+      "formTitle": "Ajouter une étape",
+      "label": "Étape",
+      "date": "Date",
+      "location": "Lieu (facultatif)",
+      "labelTooShort": "Décrivez l'étape en 2 caractères au moins.",
+      "dateRequired": "Indiquez la date de l'étape.",
+      "submit": "Ajouter l'étape",
+      "added": "Étape ajoutée à l'itinéraire.",
+      "error": "L'ajout n'a pas abouti. Réessayez."
+    }
   },
   "messaging": {
     "sectionTitle": "Messagerie",

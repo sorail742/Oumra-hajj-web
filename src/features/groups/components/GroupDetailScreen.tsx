@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useGroup } from "../api/use-groups";
+import { ItineraryStepForm } from "./ItineraryStepForm";
 import { SosButton } from "./SosButton";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { Can } from "@/components/shared/Can";
@@ -9,7 +10,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/format";
 
-export function GroupDetailScreen({ id }: { id: string }) {
+export function GroupDetailScreen({ id }: Readonly<{ id: string }>) {
   const t = useTranslations("groups");
   const query = useGroup(id);
 
@@ -46,16 +47,17 @@ export function GroupDetailScreen({ id }: { id: string }) {
               </Can>
             </div>
 
-            <div>
-              <h2 className="mb-3 text-lg font-medium">
-                {t("itineraryTitle")}
-              </h2>
+            <div className="space-y-4">
+              <h2 className="text-lg font-medium">{t("itineraryTitle")}</h2>
               {itineraire.length === 0 ? (
                 <EmptyState title={t("itineraryEmptyTitle")} />
               ) : (
                 <ol className="space-y-3">
-                  {itineraire.map((etape, i) => (
-                    <li key={i} className="flex items-baseline gap-3 text-sm">
+                  {itineraire.map((etape) => (
+                    <li
+                      key={`${etape.date}-${etape.label}`}
+                      className="flex items-baseline gap-3 text-sm"
+                    >
                       <span className="font-mono text-xs whitespace-nowrap">
                         {formatDate(etape.date)}
                       </span>
@@ -69,6 +71,9 @@ export function GroupDetailScreen({ id }: { id: string }) {
                   ))}
                 </ol>
               )}
+              <Can role="agency">
+                <ItineraryStepForm groupId={group.id} />
+              </Can>
             </div>
           </div>
         );

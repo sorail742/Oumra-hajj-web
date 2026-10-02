@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
@@ -42,6 +42,40 @@ export function useGroup(id: string) {
     queryFn: async () => {
       const donnees = await api.get<unknown>(`/api/groups/${id}`);
       return groupSchema.parse(donnees);
+    },
+  });
+}
+
+/** Création d'un groupe par l'agence (ticket #63) — `POST /groups`. */
+export function useCreerGroupe() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (corps: { packageId: string; title: string }) =>
+      groupSchema.parse(await api.post<unknown>("/api/groups", corps)),
+    onSuccess: (groupe) => {
+      queryClient.setQueryData(keys.groups.detail(groupe.id), groupe);
+      return queryClient.invalidateQueries({ queryKey: keys.groups.mine() });
+    },
+  });
+}
+
+/** Ajout d'une étape d'itinéraire par l'agence (ticket #65). */
+export function useAjouterEtape(groupId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (etape: {
+      label: string;
+      date: string;
+      location?: string;
+    }) =>
+      groupSchema.parse(
+        await api.post<unknown>(
+          `/api/groups/${encodeURIComponent(groupId)}/itinerary`,
+          etape,
+        ),
+      ),
+    onSuccess: (groupe) => {
+      queryClient.setQueryData(keys.groups.detail(groupId), groupe);
     },
   });
 }
