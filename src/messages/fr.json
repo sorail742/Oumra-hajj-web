@@ -375,7 +375,19 @@
     "completedNo": "Non",
     "emptyTitle": "Aucune fiche de rite publiée pour le moment.",
     "progressEmptyTitle": "Aucune progression enregistrée pour le moment.",
-    "progressRoleUnsupportedTitle": "Le suivi de progression est réservé à l'espace pèlerin."
+    "progressRoleUnsupportedTitle": "Le suivi de progression est réservé à l'espace pèlerin.",
+    "counter": {
+      "increment": "Ajouter un tour de {counter}",
+      "decrement": "Retirer un tour de {counter}",
+      "value": "{counter} : {count, plural, =0 {aucun tour} one {# tour} other {# tours}}",
+      "markDone": "Marquer terminé",
+      "markNotDone": "Marquer non terminé",
+      "reset": "Remettre à zéro",
+      "resetTitle": "Remettre les compteurs à zéro ?",
+      "resetBody": "Les compteurs de tawaf et de sa'i de ce rite reviennent à zéro.",
+      "resetConfirm": "Remettre à zéro",
+      "error": "La progression n'a pas pu être enregistrée. Réessayez."
+    }
   },
   "groups": {
     "title": "Groupes",
