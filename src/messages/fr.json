@@ -40,7 +40,8 @@
       "admin": "Administration"
     },
     "profile": "Mon profil",
-    "accountMenu": "Menu du compte"
+    "accountMenu": "Menu du compte",
+    "myPackages": "Mes forfaits"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -374,6 +375,58 @@
       "availability": "Disponibilité",
       "notFoundTitle": "Ce forfait n'existe pas ou n'est plus disponible.",
       "notFoundAction": "Revenir aux forfaits"
+    },
+    "manage": {
+      "title": "Mes forfaits",
+      "description": "Créez, modifiez et clôturez les forfaits de votre agence.",
+      "create": "Nouveau forfait",
+      "createTitle": "Nouveau forfait",
+      "editTitle": "Modifier le forfait",
+      "edit": "Modifier",
+      "view": "Voir la page publique",
+      "close": "Clôturer",
+      "closeConfirmTitle": "Clôturer ce forfait ?",
+      "closeConfirmBody": "Il n'acceptera plus de nouvelle réservation. Les réservations existantes ne sont pas touchées.",
+      "closeConfirm": "Clôturer le forfait",
+      "cancel": "Annuler",
+      "closed": "Forfait clôturé.",
+      "closeError": "La clôture n'a pas abouti. Réessayez.",
+      "emptyTitle": "Aucun forfait pour le moment.",
+      "emptyDescription": "Créez votre premier forfait : il apparaîtra dans le catalogue public.",
+      "notApproved": "Votre agence doit être validée par l'administration avant de publier un forfait.",
+      "form": {
+        "general": "Informations générales",
+        "type": "Type de pèlerinage",
+        "title": "Titre",
+        "titlePlaceholder": "Oumra de Ramadan — 15 jours",
+        "description": "Description (facultatif)",
+        "dates": "Dates et tarif",
+        "startDate": "Date de départ",
+        "endDate": "Date de retour",
+        "price": "Prix par pèlerin (GNF)",
+        "capacity": "Nombre de places",
+        "stages": "Itinéraire",
+        "stagesHint": "Une étape par ville et par hôtel, dans l'ordre du voyage.",
+        "stage": "Étape {number}",
+        "city": "Ville",
+        "hotel": "Hôtel",
+        "distance": "Distance à la mosquée (m, facultatif)",
+        "stageStart": "Arrivée à l'hôtel",
+        "stageEnd": "Départ de l'hôtel",
+        "addStage": "Ajouter une étape",
+        "removeStage": "Retirer l'étape {number}",
+        "inclusions": "Prestations incluses",
+        "inclusionsHint": "Une prestation par ligne : vol, visa, hébergement, transferts…",
+        "save": "Enregistrer le forfait",
+        "saved": "Forfait enregistré.",
+        "error": "L'enregistrement n'a pas abouti. Vérifiez les champs puis réessayez.",
+        "titleTooShort": "Le titre contient au moins 3 caractères.",
+        "required": "Champ obligatoire.",
+        "priceInvalid": "Indiquez un montant entier en GNF, sans espace ni virgule.",
+        "capacityInvalid": "Indiquez un nombre de places entier, supérieur à zéro.",
+        "endBeforeStart": "La date de fin doit suivre la date de début.",
+        "stagesRequired": "Ajoutez au moins une étape."
+      }
     }
   },
   "agencies": {
