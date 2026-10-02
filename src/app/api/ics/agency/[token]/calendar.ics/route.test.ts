@@ -25,20 +25,20 @@ describe("relais public ICS", () => {
       new Response("BEGIN:VCALENDAR\r\nEND:VCALENDAR", { status: 200 }),
     );
 
-    const reponse = await GET(requete, contexte(JETON));
+    const resultat = await GET(requete, contexte(JETON));
 
     expect(fetchMock).toHaveBeenCalledWith(
       `http://backend.test/api/v1/calendar/agency/${JETON}/calendar.ics`,
       { cache: "no-store" },
     );
-    expect(reponse.status).toBe(200);
-    expect(reponse.headers.get("Content-Type")).toContain("text/calendar");
-    expect(await reponse.text()).toContain("BEGIN:VCALENDAR");
+    expect(resultat.status).toBe(200);
+    expect(resultat.headers.get("Content-Type")).toContain("text/calendar");
+    expect(await resultat.text()).toContain("BEGIN:VCALENDAR");
   });
 
   it("refuse un jeton mal formé sans appeler le backend", async () => {
-    const reponse = await GET(requete, contexte("../../users"));
-    expect(reponse.status).toBe(404);
+    const resultat = await GET(requete, contexte("../../users"));
+    expect(resultat.status).toBe(404);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -46,8 +46,8 @@ describe("relais public ICS", () => {
     fetchMock.mockResolvedValue(
       new Response('{"statusCode":404}', { status: 404 }),
     );
-    const reponse = await GET(requete, contexte(JETON));
-    expect(reponse.status).toBe(404);
-    expect(await reponse.text()).toBe("");
+    const resultat = await GET(requete, contexte(JETON));
+    expect(resultat.status).toBe(404);
+    expect(await resultat.text()).toBe("");
   });
 });
