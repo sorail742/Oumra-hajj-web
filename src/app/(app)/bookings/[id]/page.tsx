@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/shared/PageHeader";
 import { Can } from "@/components/shared/Can";
 import { BookingDetailScreen } from "@/features/bookings/components/BookingDetailScreen";
 import { BookingDocumentsReview } from "@/features/documents/components/BookingDocumentsReview";
+import { DocumentUploader } from "@/features/documents/components/DocumentUploader";
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
 
@@ -33,6 +34,7 @@ export default async function BookingDetailPage({
       <BookingDetailScreen id={id} />
       <Can role="pilgrim">
         <InitiatePaymentFlow bookingId={id} />
+        <DocumentUploader bookingId={id} />
       </Can>
       <Can role="agency">
         <BookingDocumentsReview bookingId={id} />

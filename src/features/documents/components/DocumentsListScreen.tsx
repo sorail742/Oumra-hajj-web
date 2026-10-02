@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useMyDocuments } from "../api/use-documents";
 import { DocumentAccessButton } from "./DocumentAccessButton";
@@ -31,6 +32,14 @@ export function DocumentsListScreen() {
         <EmptyState
           title={t("emptyTitle")}
           description={t("emptyDescription")}
+          action={
+            <Link
+              href="/bookings"
+              className="text-primary text-sm font-medium hover:underline"
+            >
+              {t("goToBookings")}
+            </Link>
+          }
         />
       }
     >

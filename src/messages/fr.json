@@ -186,7 +186,22 @@
     "typeFlightTicket": "Billet d'avion",
     "typeVaccinationCertificate": "Certificat de vaccination",
     "emptyTitle": "Aucun document déposé pour le moment.",
-    "emptyDescription": "Téléversez votre passeport pour démarrer votre dossier."
+    "emptyDescription": "Déposez vos pièces depuis le dossier de chaque réservation.",
+    "upload": {
+      "title": "Déposer un document",
+      "description": "Passeport, visa, billet ou certificat de vaccination : votre agence le vérifie puis vous informe.",
+      "type": "Type de document",
+      "expiresAt": "Date d'expiration (facultatif)",
+      "expiresAtHint": "Elle permet de vous alerter avant l'expiration.",
+      "success": "Document déposé : en attente de vérification par votre agence.",
+      "error": "Le dépôt n'a pas abouti. Réessayez dans un instant.",
+      "tooLarge": "Le fichier dépasse la taille autorisée par le serveur.",
+      "forbidden": "Ce dossier ne vous appartient pas ou n'accepte plus de documents.",
+      "progressTitle": "Pièces de ce dossier",
+      "missing": "À déposer",
+      "rejectedHint": "Refusé : {reason}"
+    },
+    "goToBookings": "Ouvrir mes réservations"
   },
   "payments": {
     "title": "Paiements",
