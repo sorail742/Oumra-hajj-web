@@ -11,9 +11,13 @@ import { BandeauSucces } from "@/features/auth/components/champs";
 export default async function LoginPage({
   searchParams,
 }: Readonly<{
-  searchParams: Promise<{ next?: string; registered?: string }>;
+  searchParams: Promise<{
+    next?: string;
+    registered?: string;
+    reset?: string;
+  }>;
 }>) {
-  const { next, registered } = await searchParams;
+  const { next, registered, reset } = await searchParams;
   const t = await getTranslations("auth");
 
   return (
@@ -44,6 +48,7 @@ export default async function LoginPage({
       }
     >
       {registered === "1" && <BandeauSucces message={t("agency.registered")} />}
+      {reset === "1" && <BandeauSucces message={t("agency.passwordReset")} />}
       <AgencyLoginForm next={next} />
     </AuthShell>
   );

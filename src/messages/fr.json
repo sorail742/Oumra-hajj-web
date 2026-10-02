@@ -81,7 +81,8 @@
       "register": "Inscrire mon agence",
       "pilgrimLink": "Vous êtes pèlerin ou guide ?",
       "pilgrimAction": "Connexion par SMS",
-      "registered": "Votre agence est inscrite. Connectez-vous : l'administration validera vos documents avant la publication de vos forfaits."
+      "registered": "Votre agence est inscrite. Connectez-vous : l'administration validera vos documents avant la publication de vos forfaits.",
+      "passwordReset": "Votre mot de passe a été modifié. Connectez-vous avec le nouveau."
     },
     "otp": {
       "title": "Connexion pèlerin / guide",
@@ -135,14 +136,36 @@
     },
     "forgot": {
       "title": "Mot de passe oublié",
-      "body": "La réinitialisation en ligne n'est pas encore disponible. Contactez l'administration de la plateforme depuis l'adresse e-mail de votre agence : elle vérifiera votre identité avant de réinitialiser votre accès.",
+      "body": "Saisissez l'adresse e-mail de votre compte agence ou admin : nous vous enverrons un lien pour choisir un nouveau mot de passe.",
+      "email": "Adresse e-mail",
+      "submit": "Recevoir le lien",
+      "sentTitle": "Vérifiez votre boîte e-mail",
+      "sent": "Si un compte agence ou admin correspond à {email}, un lien de réinitialisation vient de lui être envoyé. Il est valable 30 minutes et ne sert qu'une fois ; pensez à regarder dans les courriers indésirables.",
+      "retry": "Utiliser une autre adresse",
+      "unavailable": "La réinitialisation en ligne est momentanément indisponible. Réessayez plus tard ou contactez l'administration de la plateforme.",
+      "pilgrimHint": "Pèlerin ou guide ? Vous n'avez pas de mot de passe : connectez-vous avec un code reçu par e-mail ou par SMS.",
       "back": "Retour à la connexion"
     },
     "logout": "Se déconnecter",
     "agencyLoginTitle": "Connexion agence / admin",
     "otpLoginTitle": "Connexion pèlerin / guide",
     "registerAgency": "Inscrire une agence",
-    "forgotPassword": "Mot de passe oublié"
+    "forgotPassword": "Mot de passe oublié",
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "subtitle": "Choisissez le mot de passe de votre compte agence ou admin. Toutes vos sessions ouvertes seront fermées.",
+      "password": "Nouveau mot de passe",
+      "passwordHint": "Entre 8 et 72 caractères.",
+      "confirm": "Confirmer le mot de passe",
+      "tooShort": "Le mot de passe contient au moins 8 caractères.",
+      "tooLong": "Le mot de passe contient au plus 72 caractères.",
+      "mismatch": "Les deux mots de passe ne correspondent pas.",
+      "submit": "Enregistrer le mot de passe",
+      "invalidLink": "Ce lien est invalide, expiré ou a déjà servi. Demandez-en un nouveau.",
+      "missingLink": "Ce lien est incomplet. Ouvrez le lien reçu par e-mail tel quel, ou demandez-en un nouveau.",
+      "newLink": "Demander un nouveau lien",
+      "back": "Retour à la connexion"
+    }
   },
   "bookings": {
     "title": "Réservations",

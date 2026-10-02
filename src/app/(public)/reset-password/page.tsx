@@ -2,27 +2,27 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { AuthShell } from "@/features/auth/components/AuthShell";
-import { ForgotPasswordForm } from "@/features/auth/components/ForgotPasswordForm";
+import { ResetPasswordForm } from "@/features/auth/components/ResetPasswordForm";
 
-/** Mot de passe oublié (agence / admin) — ticket #73, ADR 0026 du backend. */
-export default async function ForgotPasswordPage() {
+/** Lien reçu par e-mail : choix du nouveau mot de passe (ticket #73). */
+export default async function ResetPasswordPage() {
   const t = await getTranslations("auth");
 
   return (
     <AuthShell
-      title={t("forgot.title")}
-      subtitle={t("forgot.body")}
+      title={t("reset.title")}
+      subtitle={t("reset.subtitle")}
       footer={
         <Link
           href="/login"
           className="text-primary inline-flex items-center gap-2 font-medium hover:underline"
         >
           <ArrowLeft aria-hidden className="size-4" />
-          {t("forgot.back")}
+          {t("reset.back")}
         </Link>
       }
     >
-      <ForgotPasswordForm />
+      <ResetPasswordForm />
     </AuthShell>
   );
 }
