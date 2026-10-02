@@ -328,5 +328,95 @@
     "nextItineraryStep": "Prochaine étape : {label} — {date}",
     "noUpcomingStep": "Aucune étape à venir.",
     "seeGroups": "Voir les groupes"
+  },
+  "landing": {
+    "brand": "Oumra & Hadj",
+    "nav": {
+      "ariaLabel": "Navigation principale",
+      "pilgrim": "Espace pèlerin",
+      "agency": "Connexion agence"
+    },
+    "hero": {
+      "eyebrow": "Oumra · Hadj · Guinée",
+      "title": "Votre pèlerinage, suivi de la réservation au retour.",
+      "subtitle": "Une seule plateforme pour les pèlerins, leurs agences et l'administration : forfaits vérifiés, paiement Mobile Money, documents en sécurité et dossier suivi étape par étape.",
+      "ctaPilgrim": "Je suis pèlerin ou guide",
+      "ctaAgency": "Je suis une agence",
+      "registerAgency": "Inscrire mon agence"
+    },
+    "audiences": {
+      "title": "Un espace pour chacun",
+      "pilgrim": {
+        "title": "Pèlerins et guides",
+        "item1": "Connexion par téléphone et code SMS, sans mot de passe",
+        "item2": "Réservation et paiement par Orange Money ou MTN",
+        "item3": "Dépôt du passeport, du visa et des documents de voyage",
+        "item4": "Rites, rappels et groupe de voyage au même endroit"
+      },
+      "agency": {
+        "title": "Agences",
+        "item1": "Catalogue de forfaits Oumra et Hadj",
+        "item2": "Suivi des réservations et des paiements",
+        "item3": "Vérification des documents de chaque pèlerin",
+        "item4": "Groupes, messagerie et calendrier des départs"
+      },
+      "admin": {
+        "title": "Administration",
+        "item1": "Validation des agences avant publication",
+        "item2": "Contrôle des documents légaux et de leur expiration",
+        "item3": "Vue d'ensemble des dossiers et des paiements",
+        "item4": "Traçabilité des décisions"
+      }
+    },
+    "steps": {
+      "title": "Comment ça marche",
+      "step1": {
+        "title": "Choisir un forfait",
+        "body": "Comparez les forfaits publiés par des agences validées."
+      },
+      "step2": {
+        "title": "Réserver et payer",
+        "body": "Réglez par Mobile Money ; chaque paiement est rattaché à votre dossier."
+      },
+      "step3": {
+        "title": "Déposer ses documents",
+        "body": "Votre agence les vérifie et vous signale ce qui manque."
+      },
+      "step4": {
+        "title": "Suivre son dossier",
+        "body": "Visa, vol, hébergement : chaque étape est visible jusqu'au départ."
+      }
+    },
+    "trust": {
+      "title": "La confiance avant tout",
+      "agencies": {
+        "title": "Agences vérifiées",
+        "body": "Une agence ne publie ses forfaits qu'après validation de ses documents légaux."
+      },
+      "documents": {
+        "title": "Documents protégés",
+        "body": "Passeports et visas ne sont accessibles que par des liens temporaires, jamais publics."
+      },
+      "payments": {
+        "title": "Paiements traçables",
+        "body": "Chaque paiement porte une référence et un statut consultables à tout moment."
+      },
+      "religious": {
+        "title": "Contenu religieux encadré",
+        "body": "Fiches de rites et invocations signalées tant qu'une personne qualifiée ne les a pas validées."
+      }
+    },
+    "cta": {
+      "title": "Vous êtes une agence de voyage ?",
+      "body": "Créez votre compte, faites valider votre agence et publiez vos forfaits.",
+      "action": "Inscrire mon agence",
+      "login": "J'ai déjà un compte"
+    },
+    "footer": {
+      "ariaLabel": "Accès aux espaces",
+      "tagline": "Plateforme de gestion de la Oumra et du Hadj.",
+      "pilgrim": "Espace pèlerin / guide",
+      "agency": "Espace agence / admin"
+    }
   }
 }
