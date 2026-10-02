@@ -1,12 +1,13 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
 import { Loader2, ShieldAlert } from "lucide-react";
 import { Can } from "@/components/shared/Can";
+import { FormSection } from "@/components/shared/FormSection";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -42,22 +43,6 @@ const GROUPES_SANGUINS = [
   "O+",
   "O-",
 ] as const;
-
-function Bloc({
-  titre,
-  aide,
-  children,
-}: Readonly<{ titre: string; aide?: string; children: ReactNode }>) {
-  return (
-    <section className="bg-card space-y-5 rounded-xl border p-6 shadow-(--shadow-raised)">
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold">{titre}</h2>
-        {aide && <p className="text-muted-foreground text-sm">{aide}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
 
 function Lecture({
   libelle,
@@ -167,7 +152,7 @@ export function ProfileForm({
           )}
         </Can>
 
-        <Bloc titre={t("identity")}>
+        <FormSection titre={t("identity")}>
           <FormField
             control={form.control}
             name="fullName"
@@ -202,9 +187,9 @@ export function ProfileForm({
             />
             <Lecture libelle={t("language")} valeur={t("languageValue")} />
           </dl>
-        </Bloc>
+        </FormSection>
 
-        <Bloc titre={t("emergency")} aide={t("emergencyHint")}>
+        <FormSection titre={t("emergency")} aide={t("emergencyHint")}>
           <div className="grid gap-5 sm:grid-cols-2">
             <FormField
               control={form.control}
@@ -260,9 +245,9 @@ export function ProfileForm({
               </FormItem>
             )}
           />
-        </Bloc>
+        </FormSection>
 
-        <Bloc titre={t("health")} aide={t("healthHint")}>
+        <FormSection titre={t("health")} aide={t("healthHint")}>
           <div className="grid gap-5 sm:grid-cols-2">
             <FormField
               control={form.control}
@@ -306,7 +291,7 @@ export function ProfileForm({
               )}
             />
           </div>
-        </Bloc>
+        </FormSection>
 
         <div className="bg-background/95 fixed inset-x-0 bottom-0 z-10 flex items-center gap-4 border-t p-4 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:p-0">
           <Button

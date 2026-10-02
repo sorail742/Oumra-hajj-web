@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
+import { FormSection } from "@/components/shared/FormSection";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -35,21 +36,13 @@ import { StagesFields } from "./StagesFields";
  * (agence validée, propriété du forfait — règle 12).
  */
 
-function Bloc({
-  titre,
-  aide,
-  children,
-}: Readonly<{ titre: string; aide?: string; children: ReactNode }>) {
-  return (
-    <section className="bg-card space-y-5 rounded-xl border p-6 shadow-(--shadow-raised)">
-      <div className="space-y-1">
-        <h2 className="text-lg font-semibold">{titre}</h2>
-        {aide && <p className="text-muted-foreground text-sm">{aide}</p>}
-      </div>
-      {children}
-    </section>
-  );
-}
+/** Dates en sélecteur natif ; prix et places en chiffres (clavier numérique). */
+const CHAMPS_DATES_ET_CHIFFRES = [
+  { nom: "startDate", props: { type: "date" } },
+  { nom: "endDate", props: { type: "date" } },
+  { nom: "price", props: { inputMode: "numeric", className: "font-mono" } },
+  { nom: "capacity", props: { inputMode: "numeric", className: "font-mono" } },
+] as const;
 
 export function PackageForm({ forfait }: Readonly<{ forfait?: Package }>) {
   const t = useTranslations("packages.manage");
@@ -95,7 +88,7 @@ export function PackageForm({ forfait }: Readonly<{ forfait?: Package }>) {
         noValidate
         className="max-w-3xl space-y-6 pb-24 sm:pb-0"
       >
-        <Bloc titre={t("form.general")}>
+        <FormSection titre={t("form.general")}>
           <div className="grid gap-4 sm:grid-cols-[12rem_1fr]">
             <FormField
               control={form.control}
@@ -144,11 +137,11 @@ export function PackageForm({ forfait }: Readonly<{ forfait?: Package }>) {
               </FormItem>
             )}
           />
-        </Bloc>
+        </FormSection>
 
-        <Bloc titre={t("form.dates")}>
+        <FormSection titre={t("form.dates")}>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {(["startDate", "endDate"] as const).map((nom) => (
+            {CHAMPS_DATES_ET_CHIFFRES.map(({ nom, props }) => (
               <FormField
                 key={nom}
                 control={form.control}
@@ -157,27 +150,7 @@ export function PackageForm({ forfait }: Readonly<{ forfait?: Package }>) {
                   <FormItem>
                     <FormLabel>{t(`form.${nom}`)}</FormLabel>
                     <FormControl>
-                      <Input {...field} type="date" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            ))}
-            {(["price", "capacity"] as const).map((nom) => (
-              <FormField
-                key={nom}
-                control={form.control}
-                name={nom}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t(`form.${nom}`)}</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        inputMode="numeric"
-                        className="font-mono"
-                      />
+                      <Input {...field} {...props} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -185,18 +158,18 @@ export function PackageForm({ forfait }: Readonly<{ forfait?: Package }>) {
               />
             ))}
           </div>
-        </Bloc>
+        </FormSection>
 
-        <Bloc titre={t("form.stages")} aide={t("form.stagesHint")}>
+        <FormSection titre={t("form.stages")} aide={t("form.stagesHint")}>
           <StagesFields control={form.control} />
           {form.formState.errors.stages?.root?.message && (
             <p className="text-destructive text-sm">
               {form.formState.errors.stages.root.message}
             </p>
           )}
-        </Bloc>
+        </FormSection>
 
-        <Bloc titre={t("form.inclusions")}>
+        <FormSection titre={t("form.inclusions")}>
           <FormField
             control={form.control}
             name="inclusions"
@@ -213,7 +186,7 @@ export function PackageForm({ forfait }: Readonly<{ forfait?: Package }>) {
               </FormItem>
             )}
           />
-        </Bloc>
+        </FormSection>
 
         <div className="bg-background/95 fixed inset-x-0 bottom-0 z-10 flex flex-wrap items-center gap-4 border-t p-4 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:p-0">
           <Button
