@@ -1,11 +1,13 @@
 import { z } from "zod";
 
 /**
- * `GET /documents/mine` ne publie pas de schéma de réponse dans
- * `openapi.json` — seul `UploadDocumentDto` y figure (champs d'écriture :
- * `bookingId`, `type`). Champs `id`/`status`/`rejectionReason` ajoutés
- * comme certainement présents sur une entité persistée. **À revérifier
- * contre une réponse réelle** — voir `docs/contrat-api.md`.
+ * `PilgrimDocumentShape` (`Oumra-hadj-project/src/types/document.types.ts`,
+ * relu le 2026-10-01) — même forme pour `GET /documents/mine`,
+ * `GET /documents?bookingId=` et les réponses de `PATCH .../validate` et
+ * `.../reject`. Optionnels mappés `?? undefined` côté backend : absents du
+ * JSON, jamais `null`. `pilgrimId` et `storageRef` (référence interne de
+ * stockage) sont volontairement hors schéma : zod les retire de la donnée
+ * parsée, ils ne circulent donc pas dans l'interface (règle 14).
  */
 export const documentSchema = z.object({
   id: z.string(),
@@ -18,8 +20,11 @@ export const documentSchema = z.object({
   ]),
   status: z.enum(["pending", "validated", "rejected"]),
   rejectionReason: z.string().optional(),
-  createdAt: z.string().optional(),
+  expiresAt: z.string().optional(),
 });
+
+/** `RejectDocumentDto` : `reason` chaîne, 3 caractères minimum. */
+export const LONGUEUR_MIN_MOTIF_REFUS = 3;
 
 export type PilgrimDocument = z.infer<typeof documentSchema>;
 

@@ -15,7 +15,9 @@ function afficher(steps: DossierStep[]) {
 
 describe("BookingStepTracker", () => {
   it("affiche les cinq étapes dans un ordre fixe, même si l'API en renvoie moins", () => {
-    afficher([{ key: "payment", status: "done" }]);
+    afficher([
+      { key: "payment", status: "done", updatedAt: "2026-01-15T10:00:00Z" },
+    ]);
     const items = screen.getAllByRole("listitem");
     expect(items).toHaveLength(5);
     expect(items[0]).toHaveTextContent("Paiement");
@@ -23,16 +25,25 @@ describe("BookingStepTracker", () => {
   });
 
   it("traite une étape absente de l'API comme « à faire », pas comme une erreur", () => {
-    afficher([{ key: "payment", status: "done" }]);
+    afficher([
+      { key: "payment", status: "done", updatedAt: "2026-01-15T10:00:00Z" },
+    ]);
     const visa = screen.getByText("Visa").closest("li");
     expect(visa).not.toBeNull();
     expect(visa).not.toHaveTextContent(/\d{2}\/\d{2}\/\d{4}/);
   });
 
-  it("affiche la date d'une étape terminée", () => {
+  it("date une étape terminée avec son updatedAt (le backend n'envoie pas de completedAt)", () => {
     afficher([
-      { key: "payment", status: "done", completedAt: "2026-01-15T10:00:00Z" },
+      { key: "payment", status: "done", updatedAt: "2026-01-15T10:00:00Z" },
     ]);
     expect(screen.getByText("15/01/2026")).toBeInTheDocument();
+  });
+
+  it("n'affiche pas de date pour une étape en cours, dont updatedAt n'est pas une fin", () => {
+    afficher([
+      { key: "visa", status: "in_progress", updatedAt: "2026-01-20T10:00:00Z" },
+    ]);
+    expect(screen.queryByText("20/01/2026")).toBeNull();
   });
 });

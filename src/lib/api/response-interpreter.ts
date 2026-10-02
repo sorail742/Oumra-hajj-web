@@ -1,4 +1,4 @@
-import { ApiError, type ErrorResponse } from "./types";
+import { ApiError, ERREUR_CORPS_ILLISIBLE, type ErrorResponse } from "./types";
 
 /**
  * Interprète le statut HTTP et le corps déjà parsé d'une réponse : renvoie
@@ -33,7 +33,7 @@ export function interpreterReponse<T>(
   throw new ApiError({
     statusCode,
     message: statusText || "Erreur inattendue.",
-    error: "UnexpectedResponse",
+    error: ERREUR_CORPS_ILLISIBLE,
     path: chemin,
     timestamp: new Date().toISOString(),
   });
