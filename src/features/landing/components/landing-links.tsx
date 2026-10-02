@@ -27,12 +27,12 @@ export function LienAction({
   variante,
   children,
   className,
-}: {
+}: Readonly<{
   href: string;
   variante: keyof typeof variantes;
   children: ReactNode;
   className?: string;
-}) {
+}>) {
   return (
     <Link href={href} className={cn(base, variantes[variante], className)}>
       {children}

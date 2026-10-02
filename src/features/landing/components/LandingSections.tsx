@@ -40,7 +40,10 @@ const GARANTIES: readonly {
   { cle: "religious", icone: BookOpen },
 ];
 
-function TitreSection({ id, children }: { id: string; children: string }) {
+function TitreSection({
+  id,
+  children,
+}: Readonly<{ id: string; children: string }>) {
   return (
     <h2 id={id} className="text-2xl font-semibold tracking-tight">
       {children}
