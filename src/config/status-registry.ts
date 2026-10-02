@@ -63,6 +63,11 @@ export const statusRegistry = {
     expired: { label: "Expiré", tone: "danger" },
     expiring_soon: { label: "Expire bientôt", tone: "warning" },
   },
+  /** `User.isActive` (ticket #74) — compte actif ou suspendu par l'admin. */
+  userAccount: {
+    active: { label: "Actif", tone: "success" },
+    suspended: { label: "Suspendu", tone: "danger" },
+  },
   /**
    * `DocumentExpiryStatus` (ticket #57) — date d'expiration d'une pièce du
    * pèlerin croisée avec les dates du voyage (`GET /documents/expiry-alerts`).

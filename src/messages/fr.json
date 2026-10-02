@@ -42,7 +42,14 @@
     "profile": "Mon profil",
     "accountMenu": "Menu du compte",
     "myPackages": "Mes forfaits",
-    "myAgency": "Mon agence"
+    "myAgency": "Mon agence",
+    "users": "Utilisateurs",
+    "rolesPlural": {
+      "pilgrim": "Pèlerins",
+      "guide": "Guides",
+      "agency": "Agences",
+      "admin": "Administrateurs"
+    }
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -1014,5 +1021,33 @@
     "saving": "Enregistrement…",
     "saved": "Profil de l'agence enregistré.",
     "error": "L'enregistrement n'a pas abouti. Vérifiez les champs puis réessayez."
+  },
+  "adminUsers": {
+    "title": "Utilisateurs",
+    "description": "Comptes de la plateforme par rôle ; suspendez un compte en cas d'abus ou de fraude.",
+    "roleFilter": "Rôle",
+    "search": "Rechercher un nom, un e-mail, un téléphone",
+    "searchPlaceholder": "Nom, e-mail, téléphone…",
+    "columnName": "Nom",
+    "columnContact": "Contact",
+    "columnSince": "Inscrit le",
+    "columnStatus": "Statut",
+    "empty": "Aucun compte pour ce rôle.",
+    "noMatch": "Aucun compte ne correspond à la recherche.",
+    "error": "L'opération n'a pas abouti. Réessayez.",
+    "suspend": {
+      "action": "Suspendre",
+      "title": "Suspendre le compte de {name} ?",
+      "body": "La personne ne pourra plus se connecter ni renouveler sa session. Vous pourrez réactiver le compte à tout moment.",
+      "confirm": "Suspendre le compte",
+      "done": "Compte de {name} suspendu."
+    },
+    "reactivate": {
+      "action": "Réactiver",
+      "title": "Réactiver le compte de {name} ?",
+      "body": "La personne pourra de nouveau se connecter.",
+      "confirm": "Réactiver le compte",
+      "done": "Compte de {name} réactivé."
+    }
   }
 }
