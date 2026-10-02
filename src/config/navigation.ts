@@ -5,6 +5,7 @@ import {
   CalendarDays,
   ClipboardList,
   FileCheck,
+  GraduationCap,
   LayoutDashboard,
   Package,
   PackagePlus,
@@ -93,6 +94,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     roles: ["pilgrim", "agency"],
   },
   { href: "/rites", cle: "rites", icone: BookOpen, roles: TOUS },
+  {
+    href: "/micro-courses",
+    cle: "microCourses",
+    icone: GraduationCap,
+    roles: TOUS,
+  },
 ];
 
 /** Entrée active : correspondance exacte ou sous-chemin (`/bookings/123`). */

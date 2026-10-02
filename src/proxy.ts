@@ -45,7 +45,12 @@ const PREFIXES_AUTH = [
  * correspondance exacte de route) — scinder les préfixes à ce moment-là,
  * pas avant.
  */
-const PREFIXES_PUBLIC_CONTENU = ["/packages", "/agencies", "/rites"];
+const PREFIXES_PUBLIC_CONTENU = [
+  "/packages",
+  "/agencies",
+  "/rites",
+  "/micro-courses",
+];
 
 /**
  * Écrans de gestion authentifiés logés sous un préfixe public (voir la

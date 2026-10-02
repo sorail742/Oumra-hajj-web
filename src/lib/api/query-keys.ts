@@ -21,6 +21,12 @@ export const keys = {
     stats: () => [...keys.admin.all, "stats"] as const,
     users: (f: Filtres) => [...keys.admin.all, "users", f] as const,
   },
+  microCourses: {
+    all: ["micro-courses"] as const,
+    list: (f: Filtres) => [...keys.microCourses.all, "list", f] as const,
+    detail: (id: string) => [...keys.microCourses.all, "detail", id] as const,
+    progress: () => [...keys.microCourses.all, "progress"] as const,
+  },
   notifications: {
     all: ["notifications"] as const,
     list: (f: Filtres) => [...keys.notifications.all, "list", f] as const,

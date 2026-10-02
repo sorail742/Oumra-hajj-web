@@ -49,7 +49,8 @@
       "guide": "Guides",
       "agency": "Agences",
       "admin": "Administrateurs"
-    }
+    },
+    "microCourses": "Micro-cours"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -1062,5 +1063,25 @@
       "confirm": "Réactiver le compte",
       "done": "Compte de {name} réactivé."
     }
+  },
+  "microCourses": {
+    "title": "Micro-cours",
+    "description": "De courtes vidéos pour préparer votre voyage, à regarder à votre rythme.",
+    "categoryFilter": "Catégorie",
+    "category": {
+      "all": "Tous",
+      "preparation": "Préparation",
+      "rites": "Rites",
+      "health": "Santé",
+      "logistics": "Logistique"
+    },
+    "empty": "Aucun micro-cours dans cette catégorie pour le moment.",
+    "done": "Terminé",
+    "markDone": "Marquer comme terminé",
+    "markNotDone": "Marquer comme non terminé",
+    "progressError": "La progression n'a pas pu être enregistrée. Réessayez.",
+    "openVideo": "Ouvrir la vidéo dans un nouvel onglet",
+    "back": "Tous les micro-cours",
+    "notFound": "Ce micro-cours n'existe pas ou plus."
   }
 }
