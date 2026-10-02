@@ -117,6 +117,25 @@
 
   --overlay: oklch(0 0 0 / 0.5);
 
+  /* --- Page d'accueil publique (ADR-0005) ------------------------
+     Direction artistique propre à la vitrine : ciel de nuit sur la
+     Mecque, motifs géométriques, or du croissant. Jamais utilisés dans
+     l'espace authentifié, qui garde la sobriété d'un dossier.       */
+  --landing-night: oklch(0.21 0.045 255);
+  --landing-night-deep: oklch(0.14 0.035 262);
+  --landing-horizon: oklch(0.36 0.07 200);
+  --landing-silhouette: oklch(0.1 0.025 262);
+  --landing-star: oklch(0.97 0.02 90);
+  --landing-gold: oklch(0.8 0.13 85);
+  --landing-on-night: oklch(0.97 0.006 95);
+  --landing-on-night-muted: oklch(0.8 0.025 250);
+  --landing-glass: oklch(1 0 0 / 0.08);
+  --landing-glass-border: oklch(1 0 0 / 0.14);
+  --landing-shadow-float:
+    0 24px 60px -12px oklch(0.1 0.03 262 / 0.55),
+    0 8px 20px -8px oklch(0.1 0.03 262 / 0.4);
+  --landing-radius-device: 2.25rem;
+
   /* --- Panneaux latéraux -------------------------------------- */
   --panel-read: 420px;
   --panel-edit: 560px;
@@ -219,6 +238,10 @@
   --shadow-modal: 0 16px 40px -8px oklch(0 0 0 / 0.6);
 
   --overlay: oklch(0 0 0 / 0.6);
+
+  --landing-night: oklch(0.17 0.04 258);
+  --landing-night-deep: oklch(0.11 0.03 262);
+  --landing-glass: oklch(1 0 0 / 0.06);
 }
 
 /* ------------------------------------------------------------
@@ -305,6 +328,13 @@
   --text-2xl--line-height: 1.875rem;
   --text-3xl: 2rem; /* 32px */
   --text-3xl--line-height: 2.25rem;
+  /* Tailles d'affichage — réservées aux titres de la page d'accueil. */
+  --text-4xl: 2.5rem; /* 40px */
+  --text-4xl--line-height: 2.875rem;
+  --text-5xl: 3.25rem; /* 52px */
+  --text-5xl--line-height: 3.5rem;
+  --text-6xl: 4rem; /* 64px */
+  --text-6xl--line-height: 4.25rem;
 
   --spacing-field: var(--size-field);
   --spacing-touch: var(--size-touch);
@@ -312,6 +342,32 @@
   --shadow-raised: var(--shadow-raised);
   --shadow-overlay: var(--shadow-overlay);
   --shadow-modal: var(--shadow-modal);
+  --shadow-float: var(--landing-shadow-float);
+
+  --radius-device: var(--landing-radius-device);
+
+  --color-landing-night: var(--landing-night);
+  --color-landing-night-deep: var(--landing-night-deep);
+  --color-landing-horizon: var(--landing-horizon);
+  --color-landing-silhouette: var(--landing-silhouette);
+  --color-landing-star: var(--landing-star);
+  --color-landing-gold: var(--landing-gold);
+  --color-landing-on-night: var(--landing-on-night);
+  --color-landing-on-night-muted: var(--landing-on-night-muted);
+  --color-landing-glass: var(--landing-glass);
+  --color-landing-glass-border: var(--landing-glass-border);
+
+  /* Animations de la page d'accueil — keyframes en § 6. */
+  --animate-landing-fade-up: landing-fade-up 700ms
+    cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-landing-float: landing-float 6s ease-in-out infinite;
+  --animate-landing-twinkle: landing-twinkle 4s ease-in-out infinite;
+  --animate-landing-marquee: landing-marquee 40s linear infinite;
+  --animate-landing-spin-slow: landing-spin 180s linear infinite;
+  --animate-landing-progress: landing-progress 2.4s
+    cubic-bezier(0.2, 0.7, 0.2, 1) 600ms both;
+  --animate-landing-pulse: landing-pulse 2s ease-out infinite;
+  --animate-landing-glow: landing-glow 8s ease-in-out infinite;
 }
 
 /* ------------------------------------------------------------
@@ -350,6 +406,8 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      animation-delay: 0s !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
@@ -381,5 +439,149 @@
 
   .scrollbar-fine::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-muted-foreground);
+  }
+}
+
+/* ------------------------------------------------------------
+   6. PAGE D'ACCUEIL (ADR-0005)
+   Animations de la vitrine publique uniquement. Toutes s'arrêtent
+   sous `prefers-reduced-motion` (règle de § 4 + `.landing-reveal`).
+   ------------------------------------------------------------ */
+@keyframes landing-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.75rem);
+  }
+}
+
+@keyframes landing-twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes landing-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes landing-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes landing-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes landing-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--primary) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0.75rem transparent;
+  }
+}
+
+@keyframes landing-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes landing-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@layer utilities {
+  /* Décalages d'entrée, multiples de l'échelle de mouvement. */
+  .landing-delay-1 {
+    animation-delay: calc(var(--motion-base) * 1);
+  }
+  .landing-delay-2 {
+    animation-delay: calc(var(--motion-base) * 2);
+  }
+  .landing-delay-3 {
+    animation-delay: calc(var(--motion-base) * 3);
+  }
+  .landing-delay-4 {
+    animation-delay: calc(var(--motion-base) * 4);
+  }
+  .landing-delay-5 {
+    animation-delay: calc(var(--motion-base) * 5);
+  }
+
+  /* Apparition au défilement, sans JavaScript : animation pilotée par
+     la position dans la fenêtre. Navigateur sans support → contenu
+     simplement visible. */
+  @supports (animation-timeline: view()) {
+    .landing-reveal {
+      animation: landing-fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+
+    .landing-draw {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: landing-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 50%;
+    }
+  }
+
+  /* Motif de fond qui s'efface vers le bas. */
+  .landing-fade-bottom {
+    mask-image: linear-gradient(to bottom, black, transparent 70%);
+  }
+
+  /* Défilement horizontal en boucle : masqué aux bords. */
+  .landing-marquee-mask {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent
+    );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-reveal,
+    .landing-draw {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
   }
 }

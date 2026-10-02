@@ -35,3 +35,26 @@ export const trustScoreSchema = z.object({
 });
 
 export type AgencyTrustScore = z.infer<typeof trustScoreSchema>;
+
+/**
+ * `SatisfactionReportShape` (`src/types/review.types.ts` du backend, relu
+ * le 2026-10-02) — `GET /reviews/agency/me/satisfaction-report`. Aucune
+ * identité de pèlerin : note, commentaire, date.
+ */
+export const satisfactionReportSchema = z.object({
+  agencyName: z.string(),
+  generatedAt: z.string(),
+  reviewCount: z.number().int(),
+  reviewAverage: z.number().optional(),
+  ratingDistribution: z.array(
+    z.object({ rating: z.number().int(), count: z.number().int() }),
+  ),
+  reviews: z.array(
+    z.object({
+      rating: z.number().int().min(1).max(5),
+      comment: z.string().optional(),
+      createdAt: z.string(),
+    }),
+  ),
+});
+export type SatisfactionReport = z.infer<typeof satisfactionReportSchema>;

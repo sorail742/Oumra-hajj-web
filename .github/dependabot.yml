@@ -13,6 +13,11 @@ updates:
     ignore:
       - dependency-name: "eslint*"
         update-types: ["version-update:semver-major"]
+      # Le socle acte TanStack Table v8 (docs/socle-frontend.md §2) : la v9
+      # change l'API (createCoreRowModel, useTable…) et casse DataTable.
+      # Une migration passe par un ADR, pas par une PR Dependabot.
+      - dependency-name: "@tanstack/react-table"
+        update-types: ["version-update:semver-major"]
 
   # Maintain Docker dependencies
   - package-ecosystem: "docker"

@@ -116,3 +116,22 @@ export function usePaymentStatus(paymentId: string, debut: number) {
     refetchIntervalInBackground: false,
   });
 }
+
+/**
+ * Détail d'un paiement (ticket #76) — `GET /payments/:id`, chargé à
+ * l'ouverture du panneau ; la ligne de la liste sert de donnée initiale.
+ */
+export function usePaymentDetail(paiement: Payment, actif: boolean) {
+  return useQuery({
+    queryKey: keys.payments.detail(paiement.id),
+    queryFn: async () =>
+      paymentSchema.parse(
+        await api.get<unknown>(
+          `/api/payments/${encodeURIComponent(paiement.id)}`,
+        ),
+      ),
+    initialData: paiement,
+    staleTime: 0,
+    enabled: actif,
+  });
+}

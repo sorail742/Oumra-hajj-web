@@ -13,7 +13,7 @@ import {
 import { ReligiousContentNotice } from "@/components/shared/ReligiousContentNotice";
 import type { RiteSheet } from "../api/schemas";
 
-export function RiteSheetCard({ sheet }: { sheet: RiteSheet }) {
+export function RiteSheetCard({ sheet }: Readonly<{ sheet: RiteSheet }>) {
   const t = useTranslations("rites");
 
   return (

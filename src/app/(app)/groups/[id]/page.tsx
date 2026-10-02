@@ -4,9 +4,9 @@ import { GroupDetailScreen } from "@/features/groups/components/GroupDetailScree
 
 export default async function GroupDetailPage({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ id: string }>;
-}) {
+}>) {
   const { id } = await params;
   const t = await getTranslations("groups");
 

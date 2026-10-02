@@ -16,6 +16,27 @@
 type Filtres = Record<string, unknown>;
 
 export const keys = {
+  admin: {
+    all: ["admin"] as const,
+    stats: () => [...keys.admin.all, "stats"] as const,
+    users: (f: Filtres) => [...keys.admin.all, "users", f] as const,
+  },
+  familyView: {
+    all: ["family-view"] as const,
+    link: (bookingId: string) =>
+      [...keys.familyView.all, "link", bookingId] as const,
+    view: (token: string) => [...keys.familyView.all, "view", token] as const,
+  },
+  microCourses: {
+    all: ["micro-courses"] as const,
+    list: (f: Filtres) => [...keys.microCourses.all, "list", f] as const,
+    detail: (id: string) => [...keys.microCourses.all, "detail", id] as const,
+    progress: () => [...keys.microCourses.all, "progress"] as const,
+  },
+  notifications: {
+    all: ["notifications"] as const,
+    list: (f: Filtres) => [...keys.notifications.all, "list", f] as const,
+  },
   agencies: {
     all: ["agencies"] as const,
     me: () => [...keys.agencies.all, "me"] as const,
@@ -50,6 +71,8 @@ export const keys = {
       [...keys.documents.all, "booking", bookingId] as const,
     accessUrl: (id: string) =>
       [...keys.documents.all, "access-url", id] as const,
+    expiryAlerts: (bookingId: string) =>
+      [...keys.documents.all, "expiry-alerts", bookingId] as const,
   },
 
   payments: {
@@ -105,14 +128,18 @@ export const keys = {
       [...keys.messaging.all, "messages", conversationId] as const,
   },
 
+  checklist: {
+    all: ["checklist"] as const,
+    byBooking: (bookingId: string) =>
+      [...keys.checklist.all, "booking", bookingId] as const,
+  },
+
   auth: {
     all: ["auth"] as const,
     /**
-     * Rôle et identité de l'utilisateur courant. **Aucune route `/me`
-     * équivalente n'a été repérée dans le backend actuel** — le rôle vit
-     * dans le payload du JWT. Cette clé sert le jour où un Route Handler
-     * dédié l'expose côté serveur pour `<Can>` ; à retirer si ce choix
-     * change (lecture directe du payload décodé côté client, par exemple).
+     * Identité de l'utilisateur courant (`GET /users/me`, voir
+     * `lib/auth/use-current-user.ts`). Le rôle de `<Can>` reste lu dans le
+     * payload du JWT (UI seulement, règle 12).
      */
     me: () => [...keys.auth.all, "me"] as const,
   },

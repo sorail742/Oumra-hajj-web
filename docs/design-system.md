@@ -43,6 +43,11 @@ chaque titre de section. Pas d'illustration générique de « voyage » en fond
 d'écran — le produit gagne à ressembler à un dossier administratif fiable,
 pas à une brochure touristique.
 
+> **2026-10-02** — exception limitée à la page d'accueil publique (`/`) :
+> illustrations SVG dessinées, dégradé de nuit et animations CSS, voir
+> [ADR-0005](adr/0005-direction-artistique-page-accueil.md). L'espace
+> authentifié n'est pas concerné.
+
 ---
 
 ## 2. Tokens

@@ -1,55 +1,97 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { Croissant } from "@/components/shared/illustrations/Geometrie";
+import { decoderPayloadUtile } from "@/lib/auth/jwt";
+import { lireJetons } from "@/lib/auth/session";
+import { UserMenu } from "./UserMenu";
+import { MobileNav } from "./MobileNav";
+import { NotificationBell } from "./NotificationBell";
+import { SidebarNav } from "./SidebarNav";
 
 /**
- * Coquille de l'espace authentifié — sidebar + header + zone de contenu.
- *
- * Volontairement minimale (Phase 0 du socle, voir `docs/socle-frontend.md`
- * §9) : navigation statique, pas de filtrage par rôle (`<Can>` et
- * `config/navigation.ts` arrivent en Phase 1). `data-slot="app-shell"`
- * déclenche la règle `overflow: hidden` du `body` dans `globals.css` — une
- * seule zone défile par écran (voir `docs/design-system.md` § Surfaces et
- * interaction).
+ * Coquille de l'espace authentifié — barre latérale (navigation filtrée
+ * par rôle, `config/navigation.ts`), en-tête (rôle, déconnexion, menu
+ * mobile) et zone de contenu. `data-slot="app-shell"` déclenche la règle
+ * `overflow: hidden` du `body` dans `globals.css` — une seule zone défile
+ * par écran (`docs/design-system.md` § Surfaces et interaction).
  */
-export async function AppShell({ children }: { children: ReactNode }) {
+export async function AppShell({
+  children,
+}: Readonly<{ children: ReactNode }>) {
   const t = await getTranslations("nav");
+  const tAccueil = await getTranslations("landing");
+  const { role } = decoderPayloadUtile((await lireJetons()).accessToken);
 
-  const liens = [
-    { href: "/dashboard", label: t("dashboard") },
-    { href: "/packages", label: t("packages") },
-    { href: "/bookings", label: t("bookings") },
-    { href: "/documents", label: t("documents") },
-    { href: "/payments", label: t("payments") },
-    { href: "/reviews", label: t("reviews") },
-    { href: "/rites", label: t("rites") },
-    { href: "/groups", label: t("groups") },
-    { href: "/legal-documents", label: t("legalDocuments") },
-    { href: "/settings", label: t("settings") },
-  ];
+  const marque = (
+    <Link
+      href="/dashboard"
+      className="text-sidebar-foreground flex items-center gap-2 text-sm font-semibold tracking-tight"
+    >
+      <Croissant className="size-5" />
+      {tAccueil("brand")}
+    </Link>
+  );
+
+  // Visiteur anonyme sur un contenu public (catalogue, profil d'agence,
+  // fiches de rites — `PREFIXES_PUBLIC_CONTENU` de `src/proxy.ts`) : pas
+  // de menu de l'espace ni de déconnexion, mais l'accès aux deux parcours
+  // de connexion.
+  if (!role) {
+    return (
+      <div className="flex min-h-svh flex-col">
+        <header className="bg-background flex h-14 shrink-0 items-center justify-between gap-2 border-b px-4 sm:px-6">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-sm font-semibold tracking-tight"
+          >
+            <Croissant className="size-5" />
+            {tAccueil("brand")}
+          </Link>
+          <nav
+            aria-label={t("mainNav")}
+            className="flex items-center gap-1 text-sm"
+          >
+            <Link
+              href="/otp"
+              className="hover:bg-muted hidden rounded-md px-3 py-2 sm:inline-flex"
+            >
+              {tAccueil("nav.pilgrim")}
+            </Link>
+            <Link
+              href="/login"
+              className="bg-primary text-primary-foreground hover:bg-primary-hover rounded-md px-3 py-2 font-medium"
+            >
+              {tAccueil("nav.agency")}
+            </Link>
+          </nav>
+        </header>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
+          {children}
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div data-slot="app-shell" className="flex h-svh">
       <aside className="bg-sidebar border-sidebar-border hidden w-(--sidebar-width) shrink-0 flex-col border-r lg:flex">
-        <div className="text-sidebar-foreground flex h-14 items-center border-b px-4 text-sm font-semibold">
-          Oumra &amp; Hadj
+        <div className="flex h-14 items-center border-b px-4">{marque}</div>
+        <div className="scrollbar-fine flex-1 overflow-y-auto p-2">
+          <SidebarNav />
         </div>
-        <nav className="scrollbar-fine flex-1 space-y-1 overflow-y-auto p-2">
-          {liens.map((lien) => (
-            <Link
-              key={lien.href}
-              href={lien.href}
-              className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground block rounded-md px-3 py-2 text-sm"
-            >
-              {lien.label}
-            </Link>
-          ))}
-        </nav>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="bg-background flex h-14 shrink-0 items-center border-b px-4">
-          <span className="text-sm font-medium">Oumra &amp; Hadj</span>
+        <header className="bg-background flex h-14 shrink-0 items-center justify-between gap-2 border-b px-4">
+          <div className="flex items-center gap-2">
+            <MobileNav />
+            <span className="lg:hidden">{marque}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <NotificationBell />
+            <UserMenu />
+          </div>
         </header>
         <main className="scrollbar-fine flex-1 overflow-y-auto p-6">
           {children}

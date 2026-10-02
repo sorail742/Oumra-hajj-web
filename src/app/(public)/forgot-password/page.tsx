@@ -1,16 +1,25 @@
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { ArrowLeft } from "lucide-react";
+import { AuthShell } from "@/features/auth/components/AuthShell";
+
 /**
- * Mot de passe oublié (agence / admin) — placeholder structurel, écran
- * métier hors du périmètre de ce socle.
+ * Mot de passe oublié (agence / admin). Le backend n'expose pas encore de
+ * réinitialisation (`AuthController` : aucune route dédiée) — la page le
+ * dit honnêtement plutôt que d'afficher un formulaire sans effet.
  */
-export default function ForgotPasswordPage() {
+export default async function ForgotPasswordPage() {
+  const t = await getTranslations("auth");
+
   return (
-    <main className="flex min-h-svh items-center justify-center p-6">
-      <div className="w-full max-w-(--content-form) space-y-2 text-center">
-        <h1 className="text-xl font-semibold">Mot de passe oublié</h1>
-        <p className="text-muted-foreground text-sm">
-          Formulaire de réinitialisation à construire (Phase 2).
-        </p>
-      </div>
-    </main>
+    <AuthShell title={t("forgot.title")} subtitle={t("forgot.body")}>
+      <Link
+        href="/login"
+        className="text-primary inline-flex items-center gap-2 font-medium hover:underline"
+      >
+        <ArrowLeft aria-hidden className="size-4" />
+        {t("forgot.back")}
+      </Link>
+    </AuthShell>
   );
 }

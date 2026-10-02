@@ -1,45 +1,92 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
+import { ArrowRight } from "lucide-react";
+import { useAgencies } from "../api/use-agencies";
 import {
-  useAgencies,
-  useApproveAgency,
-  useRejectAgency,
-} from "../api/use-agencies";
-import type { Agency } from "../api/schemas";
+  agencyValidationStatusSchema,
+  type Agency,
+  type AgencyValidationStatus,
+} from "../api/schemas";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DataTable } from "@/components/shared/DataTable";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { StatusBadge } from "@/components/shared/StatusBadge";
+import { SegmentedControl } from "@/components/shared/SegmentedControl";
 import { TableSkeleton } from "@/components/shared/TableSkeleton";
-import { Button } from "@/components/ui/button";
+
+/**
+ * Liste des agences pour l'administrateur (ticket #31) : filtre de statut
+ * dans l'URL (règle 8), « En attente » par défaut — c'est ce qui demande
+ * une action. La décision se prend sur la page du dossier, documents sous
+ * les yeux, jamais depuis la liste.
+ */
+
+const FILTRES = ["pending", "approved", "rejected", "all"] as const;
+type Filtre = (typeof FILTRES)[number];
+
+export function cheminDossier(id: string): string {
+  return `/agencies/${encodeURIComponent(id)}/validation`;
+}
+
+function useFiltreStatut(): [Filtre, (filtre: Filtre) => void] {
+  const params = useSearchParams();
+  const router = useRouter();
+  const brut = params.get("status");
+  const filtre: Filtre =
+    brut === "all"
+      ? "all"
+      : (agencyValidationStatusSchema.safeParse(brut).data ?? "pending");
+
+  function choisir(suivant: Filtre) {
+    const query = new URLSearchParams(params.toString());
+    query.set("status", suivant);
+    router.replace(`?${query.toString()}`, { scroll: false });
+  }
+  return [filtre, choisir];
+}
+
+function LienDossier({ agence }: Readonly<{ agence: Agency }>) {
+  const t = useTranslations("agencies");
+  return (
+    <Link
+      href={cheminDossier(agence.id)}
+      className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
+    >
+      {t("review")}
+      <ArrowRight aria-hidden className="size-4" />
+    </Link>
+  );
+}
 
 export function AgenciesListScreen() {
   const t = useTranslations("agencies");
-  const query = useAgencies();
-  const approveMutation = useApproveAgency();
-  const rejectMutation = useRejectAgency();
-
-  const handleApprove = (id: string) => {
-    if (window.confirm(t("actions.confirmApprove"))) {
-      approveMutation.mutate(id);
-    }
-  };
-
-  const handleReject = (id: string) => {
-    const reason = window.prompt(t("actions.promptRejectReason"));
-    if (reason) {
-      rejectMutation.mutate({ id, reason });
-    }
-  };
+  const [filtre, choisir] = useFiltreStatut();
+  const status: AgencyValidationStatus | undefined =
+    filtre === "all" ? undefined : filtre;
+  const query = useAgencies(status);
 
   const columns: ColumnDef<Agency>[] = useMemo(
     () => [
       { accessorKey: "legalName", header: t("columns.legalName") },
       { accessorKey: "contactEmail", header: t("columns.contactEmail") },
-      { accessorKey: "contactPhone", header: t("columns.contactPhone") },
+      {
+        accessorKey: "contactPhone",
+        header: t("columns.contactPhone"),
+        cell: ({ row }) => (
+          <span className="font-mono text-sm">{row.original.contactPhone}</span>
+        ),
+      },
+      {
+        id: "documents",
+        header: t("columns.documents"),
+        cell: ({ row }) =>
+          t("documentsCount", { count: row.original.legalDocuments.length }),
+      },
       {
         accessorKey: "validationStatus",
         header: t("columns.status"),
@@ -50,42 +97,26 @@ export function AgenciesListScreen() {
       {
         id: "actions",
         header: "",
-        cell: ({ row }) => {
-          const isPending = row.original.validationStatus === "pending";
-          if (!isPending) return null;
-          return (
-            <div className="flex gap-2 justify-end">
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-success hover:text-success"
-                onClick={() => handleApprove(row.original.id)}
-                disabled={approveMutation.isPending || rejectMutation.isPending}
-              >
-                {t("actions.approve")}
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-destructive hover:text-destructive"
-                onClick={() => handleReject(row.original.id)}
-                disabled={approveMutation.isPending || rejectMutation.isPending}
-              >
-                {t("actions.reject")}
-              </Button>
-            </div>
-          );
-        },
+        cell: ({ row }) => <LienDossier agence={row.original} />,
       },
     ],
-    [t, approveMutation.isPending, rejectMutation.isPending],
+    [t],
   );
 
   return (
     <div className="space-y-4">
+      <SegmentedControl
+        label={t("filter.label")}
+        value={filtre}
+        onChange={choisir}
+        options={FILTRES.map((valeur) => ({
+          value: valeur,
+          label: t(`filter.${valeur}`),
+        }))}
+      />
       <AsyncBoundary
         query={query}
-        skeleton={<TableSkeleton rows={8} />}
+        skeleton={<TableSkeleton rows={6} />}
         empty={
           <EmptyState
             title={t("emptyTitle")}
@@ -93,47 +124,25 @@ export function AgenciesListScreen() {
           />
         }
       >
-        {(agencies) => (
+        {(agences) => (
           <DataTable
-            data={agencies}
+            data={agences}
             columns={columns}
             getRowId={(a) => a.id}
             renderCard={(a) => (
-              <div className="rounded-lg border p-4 space-y-3">
+              <div className="space-y-3 rounded-lg border p-4">
                 <div className="flex items-start justify-between gap-2">
                   <span className="text-sm font-medium">{a.legalName}</span>
                   <StatusBadge kind="agency" value={a.validationStatus} />
                 </div>
-                <div className="text-muted-foreground text-xs space-y-1">
-                  <div>{a.contactEmail}</div>
-                  <div>{a.contactPhone}</div>
+                <div className="text-muted-foreground space-y-1 text-xs">
+                  <p>{a.contactEmail}</p>
+                  <p className="font-mono">{a.contactPhone}</p>
+                  <p>
+                    {t("documentsCount", { count: a.legalDocuments.length })}
+                  </p>
                 </div>
-                {a.validationStatus === "pending" && (
-                  <div className="flex gap-2 pt-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-success w-full"
-                      onClick={() => handleApprove(a.id)}
-                      disabled={
-                        approveMutation.isPending || rejectMutation.isPending
-                      }
-                    >
-                      {t("actions.approve")}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-destructive w-full"
-                      onClick={() => handleReject(a.id)}
-                      disabled={
-                        approveMutation.isPending || rejectMutation.isPending
-                      }
-                    >
-                      {t("actions.reject")}
-                    </Button>
-                  </div>
-                )}
+                <LienDossier agence={a} />
               </div>
             )}
           />

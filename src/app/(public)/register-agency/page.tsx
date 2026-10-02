@@ -1,16 +1,29 @@
-/**
- * Inscription agence (`POST /agencies/register`) — placeholder structurel,
- * écran métier hors du périmètre de ce socle.
- */
-export default function RegisterAgencyPage() {
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { AuthShell } from "@/features/auth/components/AuthShell";
+import { RegisterAgencyForm } from "@/features/auth/components/RegisterAgencyForm";
+
+/** Inscription agence (`POST /agencies/register`). */
+export default async function RegisterAgencyPage() {
+  const t = await getTranslations("auth");
+
   return (
-    <main className="flex min-h-svh items-center justify-center p-6">
-      <div className="w-full max-w-(--content-form) space-y-2 text-center">
-        <h1 className="text-xl font-semibold">Inscrire une agence</h1>
-        <p className="text-muted-foreground text-sm">
-          Formulaire d&apos;inscription à construire (Phase 2).
+    <AuthShell
+      title={t("register.title")}
+      subtitle={t("register.subtitle")}
+      footer={
+        <p>
+          {t("register.hasAccount")}{" "}
+          <Link
+            href="/login"
+            className="text-primary font-medium hover:underline"
+          >
+            {t("register.login")}
+          </Link>
         </p>
-      </div>
-    </main>
+      }
+    >
+      <RegisterAgencyForm />
+    </AuthShell>
   );
 }

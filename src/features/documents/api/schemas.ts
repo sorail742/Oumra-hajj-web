@@ -40,3 +40,16 @@ export const accessUrlSchema = z.object({
   url: z.string(),
   expiresAt: z.string(),
 });
+
+/**
+ * `DocumentExpiryAlertShape` (`src/types/document.types.ts` du backend,
+ * relu le 2026-10-02) — `GET /documents/expiry-alerts?bookingId=`. Jamais
+ * d'alerte pour une pièce sans date d'expiration connue.
+ */
+export const expiryAlertSchema = z.object({
+  id: z.string(),
+  type: documentSchema.shape.type,
+  expiresAt: z.string(),
+  status: z.enum(["expired", "expires_before_trip", "expires_soon_after_trip"]),
+});
+export type ExpiryAlert = z.infer<typeof expiryAlertSchema>;

@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
  */
 const DUREE_PRESSION_MS = 2000;
 
-export function SosButton({ groupId }: { groupId: string }) {
+export function SosButton({ groupId }: Readonly<{ groupId: string }>) {
   const t = useTranslations("groups");
   const [enPression, setEnPression] = useState(false);
   const minuteur = useRef<ReturnType<typeof setTimeout> | null>(null);

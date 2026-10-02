@@ -45,7 +45,31 @@ const PREFIXES_AUTH = [
  * correspondance exacte de route) — scinder les préfixes à ce moment-là,
  * pas avant.
  */
-const PREFIXES_PUBLIC_CONTENU = ["/packages", "/agencies", "/rites"];
+const PREFIXES_PUBLIC_CONTENU = [
+  "/packages",
+  "/agencies",
+  "/rites",
+  "/micro-courses",
+  "/family",
+];
+
+/**
+ * Écrans de gestion authentifiés logés sous un préfixe public (voir la
+ * mise en garde ci-dessus) : la liste de validation des agences (`/agencies`
+ * exact) et le dossier d'une agence (`/agencies/:id/validation`), réservés à
+ * l'administrateur (ticket #31). Le profil public `/agencies/:id` reste
+ * ouvert. Le backend reste la source de vérité sur le rôle (règle 12).
+ */
+function estEcranDeGestion(pathname: string): boolean {
+  const segments = pathname.split("/").filter(Boolean);
+  if (segments[0] !== "agencies") {
+    return false;
+  }
+  return (
+    segments.length === 1 ||
+    (segments.length === 3 && segments[2] === "validation")
+  );
+}
 
 function correspond(pathname: string, prefixes: string[]): boolean {
   return prefixes.some(
@@ -60,7 +84,8 @@ export function proxy(request: NextRequest): NextResponse {
   const contenuPublic =
     pathname === "/" ||
     pageAuth ||
-    correspond(pathname, PREFIXES_PUBLIC_CONTENU);
+    (correspond(pathname, PREFIXES_PUBLIC_CONTENU) &&
+      !estEcranDeGestion(pathname));
 
   if (aSession && pageAuth) {
     return NextResponse.redirect(new URL("/dashboard", request.url));

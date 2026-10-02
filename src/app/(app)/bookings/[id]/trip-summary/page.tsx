@@ -4,9 +4,9 @@ import { TripSummaryBooklet } from "@/features/trip-summary/components/TripSumma
 
 export default async function TripSummaryPage({
   params,
-}: {
+}: Readonly<{
   params: Promise<{ id: string }>;
-}) {
+}>) {
   const { id } = await params;
   const t = await getTranslations("nav");
 
