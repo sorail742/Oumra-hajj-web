@@ -36,7 +36,7 @@ describe("ouvrirSession", () => {
       Response.json({ accessToken, refreshToken: "refresh-factice" }),
     );
 
-    const reponse = await ouvrirSession(
+    const resultat = await ouvrirSession(
       requeteJson({ email: "agence@exemple.test", password: "factice-123" }),
       "auth/agency/login",
       "/api/session/agency",
@@ -46,12 +46,12 @@ describe("ouvrirSession", () => {
       "http://backend.test/api/v1/auth/agency/login",
       expect.objectContaining({ method: "POST" }),
     );
-    expect(reponse.status).toBe(200);
-    const corps = (await reponse.json()) as Record<string, unknown>;
+    expect(resultat.status).toBe(200);
+    const corps = (await resultat.json()) as Record<string, unknown>;
     expect(corps).toEqual({ role: "agency" });
     expect(JSON.stringify(corps)).not.toContain("refresh-factice");
 
-    const cookies = reponse.headers.getSetCookie().join("\n");
+    const cookies = resultat.headers.getSetCookie().join("\n");
     expect(cookies).toContain("oumra_access=");
     expect(cookies).toContain("oumra_refresh=refresh-factice");
     expect(cookies.toLowerCase()).toContain("httponly");
@@ -65,18 +65,18 @@ describe("ouvrirSession", () => {
       ),
     );
 
-    const reponse = await ouvrirSession(
+    const resultat = await ouvrirSession(
       requeteJson({ email: "agence@exemple.test", password: "mauvais-123" }),
       "auth/agency/login",
       "/api/session/agency",
     );
 
-    expect(reponse.status).toBe(401);
-    expect(reponse.headers.getSetCookie()).toHaveLength(0);
+    expect(resultat.status).toBe(401);
+    expect(resultat.headers.getSetCookie()).toHaveLength(0);
   });
 
   it("refuse un corps non JSON sans appeler le backend", async () => {
-    const reponse = await ouvrirSession(
+    const resultat = await ouvrirSession(
       new Request("http://front.test/api/session/otp", {
         method: "POST",
         body: "pas du json",
@@ -85,19 +85,19 @@ describe("ouvrirSession", () => {
       "/api/session/otp",
     );
 
-    expect(reponse.status).toBe(400);
+    expect(resultat.status).toBe(400);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("répond 502 si le backend est injoignable", async () => {
     fetchMock.mockRejectedValue(new TypeError("fetch failed"));
 
-    const reponse = await ouvrirSession(
+    const resultat = await ouvrirSession(
       requeteJson({ phone: "+224000000000", code: "000000" }),
       "auth/otp/verify",
       "/api/session/otp",
     );
 
-    expect(reponse.status).toBe(502);
+    expect(resultat.status).toBe(502);
   });
 });

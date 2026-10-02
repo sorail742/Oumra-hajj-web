@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { ArrowLeft } from "lucide-react";
@@ -54,7 +54,7 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
     }
   }
 
-  function soumettreTelephone(evenement: React.FormEvent) {
+  function soumettreTelephone(evenement: SyntheticEvent<HTMLFormElement>) {
     evenement.preventDefault();
     const numero = normaliserTelephone(saisieTelephone);
     if (!numero) {
@@ -62,22 +62,16 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
       return;
     }
     setErreurChamp(null);
-    void envoyerCode(numero);
+    envoyerCode(numero).catch(() => undefined);
   }
 
-  async function soumettreCode(evenement: React.FormEvent) {
-    evenement.preventDefault();
-    if (!telephone) return;
-    if (!FORMAT_CODE.test(code)) {
-      setErreurChamp(t("otp.codeInvalid"));
-      return;
-    }
+  async function verifierCode(numero: string) {
     setErreurChamp(null);
     setBandeau(null);
     try {
       const nomSaisi = nom.trim();
       await verification.mutateAsync({
-        phone: telephone,
+        phone: numero,
         code,
         ...(nomSaisi.length >= 2 ? { fullName: nomSaisi } : {}),
       });
@@ -86,6 +80,16 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
     } catch (erreur) {
       setBandeau(t(cleErreurConnexion(erreur, "otp.wrongCode")));
     }
+  }
+
+  function soumettreCode(evenement: SyntheticEvent<HTMLFormElement>) {
+    evenement.preventDefault();
+    if (!telephone) return;
+    if (!FORMAT_CODE.test(code)) {
+      setErreurChamp(t("otp.codeInvalid"));
+      return;
+    }
+    verifierCode(telephone).catch(() => undefined);
   }
 
   if (!telephone) {
@@ -184,7 +188,9 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
         <button
           type="button"
           disabled={attente > 0 || demande.isPending}
-          onClick={() => void envoyerCode(telephone)}
+          onClick={() => {
+            envoyerCode(telephone).catch(() => undefined);
+          }}
           className="text-primary font-medium hover:underline disabled:text-muted-foreground disabled:no-underline"
         >
           {attente > 0

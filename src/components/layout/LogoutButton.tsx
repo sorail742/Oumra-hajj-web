@@ -30,7 +30,9 @@ export function LogoutButton() {
   return (
     <button
       type="button"
-      onClick={() => void deconnecter()}
+      onClick={() => {
+        deconnecter().catch(() => undefined);
+      }}
       disabled={enCours}
       className="text-muted-foreground hover:bg-muted hover:text-foreground inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm disabled:opacity-50"
     >

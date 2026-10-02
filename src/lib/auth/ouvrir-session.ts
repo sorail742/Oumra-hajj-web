@@ -42,9 +42,9 @@ export async function ouvrirSession(
     );
   }
 
-  let reponse: Response;
+  let retourBackend: Response;
   try {
-    reponse = await fetch(
+    retourBackend = await fetch(
       `${urlBackend()}${prefixePour(cheminBackend)}/${cheminBackend}`,
       {
         method: "POST",
@@ -57,12 +57,12 @@ export async function ouvrirSession(
     return reponseBackendInjoignable(cheminFront);
   }
 
-  const charge: unknown = await reponse.json().catch(() => null);
+  const charge: unknown = await retourBackend.json().catch(() => null);
 
   // Échec métier (identifiants invalides, code expiré, validation) : relayé
   // tel quel, au format d'erreur NestJS que `interpreterReponse` connaît.
-  if (!reponse.ok) {
-    return NextResponse.json(charge, { status: reponse.status });
+  if (!retourBackend.ok) {
+    return NextResponse.json(charge, { status: retourBackend.status });
   }
 
   const jetons = jetonsSchema.safeParse(charge);

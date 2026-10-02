@@ -23,7 +23,7 @@ export async function POST() {
     }).catch(() => undefined);
   }
 
-  const reponse = new NextResponse(null, { status: 204 });
-  expirerJetonsSur(reponse);
-  return reponse;
+  const sortie = new NextResponse(null, { status: 204 });
+  expirerJetonsSur(sortie);
+  return sortie;
 }

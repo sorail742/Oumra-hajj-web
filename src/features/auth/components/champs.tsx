@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 
 /** Éléments communs aux formulaires d'authentification. */
 
-export function ChampMotDePasse(props: ComponentProps<typeof Input>) {
+export function ChampMotDePasse(props: Readonly<ComponentProps<typeof Input>>) {
   const t = useTranslations("auth.common");
   const [visible, setVisible] = useState(false);
   return (
@@ -76,11 +76,8 @@ export function BandeauErreur({
 
 export function BandeauSucces({ message }: Readonly<{ message: string }>) {
   return (
-    <p
-      role="status"
-      className="bg-state-success-bg text-state-success rounded-md px-3 py-2 text-sm"
-    >
+    <output className="bg-state-success-bg text-state-success block rounded-md px-3 py-2 text-sm">
       {message}
-    </p>
+    </output>
   );
 }
