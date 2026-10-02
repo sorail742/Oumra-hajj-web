@@ -5,7 +5,7 @@ import { cn } from "cn";
 
 /**
  * Choix exclusif court (filtre de statut, canal d'envoi…) : boutons à
- * `aria-pressed` dans un groupe nommé. L'état vit chez l'appelant — dans
+ * `aria-pressed` dans un `<fieldset>` nommé par sa légende. L'état vit chez l'appelant — dans
  * l'URL pour un filtre (règle 8).
  */
 export interface SegmentedOption<T extends string> {
@@ -28,14 +28,13 @@ export function SegmentedControl<T extends string>({
   className?: string;
 }>) {
   return (
-    <div
-      role="group"
-      aria-label={label}
+    <fieldset
       className={cn(
         "bg-muted inline-flex flex-wrap gap-1 rounded-lg p-1",
         className,
       )}
     >
+      <legend className="sr-only">{label}</legend>
       {options.map(({ value: option, label: libelle, icon: Icone }) => (
         <button
           key={option}
@@ -53,6 +52,6 @@ export function SegmentedControl<T extends string>({
           {libelle}
         </button>
       ))}
-    </div>
+    </fieldset>
   );
 }
