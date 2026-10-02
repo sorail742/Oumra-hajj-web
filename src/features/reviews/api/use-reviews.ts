@@ -5,7 +5,11 @@ import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
 import { useRole } from "@/lib/auth/role-context";
-import { reviewSchema, trustScoreSchema } from "./schemas";
+import {
+  reviewSchema,
+  satisfactionReportSchema,
+  trustScoreSchema,
+} from "./schemas";
 
 /** `GET /reviews/mine` — pèlerin uniquement, voir `ReviewsController`. */
 export function useMyReviews() {
@@ -58,3 +62,20 @@ export function useDeposerAvis() {
       queryClient.invalidateQueries({ queryKey: keys.reviews.all }),
   });
 }
+
+/** Rapport de satisfaction de l'agence connectée (ticket #78). */
+export function useSatisfactionReport() {
+  const role = useRole();
+  return useQuery({
+    queryKey: keys.reviews.satisfactionReport(),
+    queryFn: async () =>
+      satisfactionReportSchema.parse(
+        await api.get<unknown>("/api/reviews/agency/me/satisfaction-report"),
+      ),
+    enabled: role === "agency",
+  });
+}
+
+/** Export CSV : même origine, le proxy ajoute le jeton (cookie httpOnly). */
+export const LIEN_EXPORT_SATISFACTION_CSV =
+  "/api/reviews/agency/me/satisfaction-report/csv";

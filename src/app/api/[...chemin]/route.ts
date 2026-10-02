@@ -139,10 +139,13 @@ async function construireReponse(reponse: Response): Promise<NextResponse> {
   // route en relaie un) serait décodé en UTF-8 par `.text()` et
   // silencieusement corrompu. Neutre pour le JSON actuel.
   const corps = await reponse.arrayBuffer();
+  // Nom de fichier d'un export (rapport CSV…) : seul autre en-tête relayé.
+  const disposition = reponse.headers.get("Content-Disposition");
   return new NextResponse(corps, {
     status: reponse.status,
     headers: {
       "Content-Type": reponse.headers.get("Content-Type") ?? "application/json",
+      ...(disposition ? { "Content-Disposition": disposition } : {}),
     },
   });
 }

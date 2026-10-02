@@ -343,7 +343,20 @@
       "done": "Avis déposé",
       "seeMine": "Voir mes avis"
     },
-    "ratingLabel": "{rating} sur 5"
+    "ratingLabel": "{rating} sur 5",
+    "report": {
+      "title": "Satisfaction des pèlerins",
+      "description": "Ce que vos pèlerins disent de vos voyages. Exportable pour vos partenaires financiers ; aucune identité de pèlerin n'y figure.",
+      "generatedAt": "Rapport généré le {date}.",
+      "export": "Exporter en CSV",
+      "count": "Avis reçus",
+      "average": "Note moyenne",
+      "averageValue": "{note} sur 5",
+      "noAverage": "Pas encore de note",
+      "distribution": "Répartition des notes",
+      "comments": "Commentaires",
+      "noComments": "Aucun commentaire pour le moment."
+    }
   },
   "rites": {
     "title": "Rites",

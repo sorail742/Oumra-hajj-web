@@ -39,6 +39,14 @@ export function formatNombre(valeur: number): string {
   return new Intl.NumberFormat("fr-FR").format(valeur);
 }
 
+/** Note moyenne sur 5, une décimale à la française : « 4,3 ». */
+export function formatNote(valeur: number): string {
+  return new Intl.NumberFormat("fr-FR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  }).format(valeur);
+}
+
 /**
  * Pourcentage, `72,0 %`. Utilisé notamment pour `AgencyTrustScoreShape.completionRate`
  * (ratio 0–1 côté backend — multiplier par 100 avant d'appeler cette

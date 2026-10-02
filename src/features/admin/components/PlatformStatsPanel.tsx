@@ -4,10 +4,11 @@ import { useTranslations } from "next-intl";
 import { usePlatformStats } from "../api/use-platform-stats";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { Money } from "@/components/shared/Money";
+import { ProportionList } from "@/components/shared/ProportionList";
 import { StatCard, StatCardSkeleton } from "@/components/shared/StatCard";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import type { StatusKind } from "@/config/status-registry";
-import { formatNombre, formatPourcentage } from "@/lib/format";
+import { formatNombre } from "@/lib/format";
 
 /**
  * Tableau de bord administrateur (ticket #69) — `GET /admin/stats`.
@@ -38,30 +39,13 @@ function Repartition({
           {t("total", { total: formatNombre(total) })}
         </span>
       </div>
-      <ul className="space-y-3">
-        {lignes.map(([statut, nombre]) => {
-          const part = total === 0 ? 0 : (nombre / total) * 100;
-          return (
-            <li key={statut} className="space-y-1.5">
-              <div className="flex items-center justify-between gap-3">
-                <StatusBadge kind={kind} value={statut} />
-                <span className="text-sm tabular-nums">
-                  {formatNombre(nombre)}{" "}
-                  <span className="text-muted-foreground text-xs">
-                    ({formatPourcentage(part, 0)})
-                  </span>
-                </span>
-              </div>
-              <div aria-hidden className="bg-muted h-1.5 rounded-full">
-                <div
-                  className="bg-primary h-full rounded-full"
-                  style={{ width: `${part}%` }}
-                />
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <ProportionList
+        items={lignes.map(([statut, nombre]) => ({
+          key: statut,
+          label: <StatusBadge kind={kind} value={statut} />,
+          count: nombre,
+        }))}
+      />
     </section>
   );
 }
