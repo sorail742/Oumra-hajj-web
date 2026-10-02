@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { ApiError, NetworkError } from "@/lib/api/types";
+import { normaliserEmail } from "./destinataire";
 import { cleErreurConnexion } from "./erreur-connexion";
 import { destinationApresConnexion } from "./redirection";
 import { normaliserTelephone } from "./telephone";
@@ -59,5 +60,19 @@ describe("cleErreurConnexion", () => {
     expect(cleErreurConnexion(erreur(500), "agency.invalid")).toBe(
       "common.genericError",
     );
+  });
+});
+
+describe("normaliserEmail", () => {
+  it("met en minuscules et retire les espaces", () => {
+    expect(normaliserEmail("  Pelerin@Exemple.TEST ")).toBe(
+      "pelerin@exemple.test",
+    );
+  });
+
+  it("refuse une saisie qui n'est pas une adresse", () => {
+    expect(normaliserEmail("pelerin@")).toBeNull();
+    expect(normaliserEmail("pelerin exemple.test")).toBeNull();
+    expect(normaliserEmail("")).toBeNull();
   });
 });

@@ -76,7 +76,7 @@
     },
     "otp": {
       "title": "Connexion pèlerin / guide",
-      "subtitle": "Pas de mot de passe : un code vous est envoyé par SMS.",
+      "subtitle": "Pas de mot de passe : un code à usage unique vous est envoyé par e-mail ou par SMS.",
       "phone": "Numéro de téléphone",
       "phoneHint": "Numéro guinéen à 9 chiffres, ou numéro international commençant par +.",
       "phoneInvalid": "Saisissez un numéro valide, par exemple 620 00 00 00.",
@@ -94,7 +94,18 @@
       "agencyLink": "Vous êtes une agence ?",
       "agencyAction": "Connexion agence",
       "phonePlaceholder": "620 00 00 00",
-      "resendIn": "Renvoyer le code ({seconds} s)"
+      "resendIn": "Renvoyer le code ({seconds} s)",
+      "channelLabel": "Recevoir le code",
+      "channelEmail": "Par e-mail",
+      "channelSms": "Par SMS",
+      "email": "Adresse e-mail",
+      "emailHint": "Le code arrive en quelques secondes ; pensez à vérifier les courriers indésirables.",
+      "emailInvalid": "Saisissez une adresse valide, par exemple nom@exemple.com.",
+      "emailPlaceholder": "nom@exemple.com",
+      "codeSentEmail": "Code envoyé à {email}.",
+      "codeEmail": "Code reçu par e-mail",
+      "changeEmail": "Modifier l'adresse",
+      "unavailable": "L'envoi du code est momentanément indisponible. Réessayez dans un instant ou choisissez l'autre canal."
     },
     "register": {
       "title": "Inscrire mon agence",

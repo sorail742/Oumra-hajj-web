@@ -8,16 +8,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { formatTelephone } from "@/lib/format";
 import { useDemandeCode, useVerificationCode } from "../api/use-auth";
+import { canalDe, type Destinataire } from "../lib/destinataire";
 import { cleErreurConnexion } from "../lib/erreur-connexion";
 import { destinationApresConnexion } from "../lib/redirection";
-import { normaliserTelephone } from "../lib/telephone";
 import { BandeauErreur, BandeauSucces, BoutonEnvoi } from "./champs";
+import { DemandeCodeForm } from "./DemandeCodeForm";
 
 /**
- * Connexion pèlerin / guide en deux temps : numéro de téléphone, puis code
- * reçu par SMS (`POST /auth/otp/request` puis `/api/session/otp`). Le
- * nom complet est demandé au même écran que le code : le backend ne
- * l'exige qu'à la création du compte, et l'ignore ensuite.
+ * Connexion pèlerin / guide en deux temps : destinataire (e-mail ou
+ * téléphone, `DemandeCodeForm`), puis code reçu (`POST /auth/otp/request`
+ * puis `/api/session/otp`). Le nom complet est demandé au même écran que
+ * le code : le backend ne l'exige qu'à la création du compte, et l'ignore
+ * ensuite.
  */
 
 const DELAI_RENVOI_S = 30;
@@ -29,8 +31,7 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
   const demande = useDemandeCode();
   const verification = useVerificationCode();
 
-  const [saisieTelephone, setSaisieTelephone] = useState("");
-  const [telephone, setTelephone] = useState<string | null>(null);
+  const [destinataire, setDestinataire] = useState<Destinataire | null>(null);
   const [code, setCode] = useState("");
   const [nom, setNom] = useState("");
   const [erreurChamp, setErreurChamp] = useState<string | null>(null);
@@ -43,35 +44,26 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
     return () => clearTimeout(minuteur);
   }, [attente]);
 
-  async function envoyerCode(numero: string) {
+  async function envoyerCode(cible: Destinataire) {
     setBandeau(null);
     try {
-      await demande.mutateAsync(numero);
-      setTelephone(numero);
+      await demande.mutateAsync(cible);
+      setDestinataire(cible);
       setAttente(DELAI_RENVOI_S);
     } catch (erreur) {
-      setBandeau(t(cleErreurConnexion(erreur, "otp.phoneInvalid")));
+      const cleInvalide =
+        canalDe(cible) === "email" ? "otp.emailInvalid" : "otp.phoneInvalid";
+      setBandeau(t(cleErreurConnexion(erreur, cleInvalide)));
     }
   }
 
-  function soumettreTelephone(evenement: SyntheticEvent<HTMLFormElement>) {
-    evenement.preventDefault();
-    const numero = normaliserTelephone(saisieTelephone);
-    if (!numero) {
-      setErreurChamp(t("otp.phoneInvalid"));
-      return;
-    }
-    setErreurChamp(null);
-    envoyerCode(numero).catch(() => undefined);
-  }
-
-  async function verifierCode(numero: string) {
+  async function verifierCode(cible: Destinataire) {
     setErreurChamp(null);
     setBandeau(null);
     try {
       const nomSaisi = nom.trim();
       await verification.mutateAsync({
-        phone: numero,
+        ...cible,
         code,
         ...(nomSaisi.length >= 2 ? { fullName: nomSaisi } : {}),
       });
@@ -84,57 +76,41 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
 
   function soumettreCode(evenement: SyntheticEvent<HTMLFormElement>) {
     evenement.preventDefault();
-    if (!telephone) return;
+    if (!destinataire) return;
     if (!FORMAT_CODE.test(code)) {
       setErreurChamp(t("otp.codeInvalid"));
       return;
     }
-    verifierCode(telephone).catch(() => undefined);
+    verifierCode(destinataire).catch(() => undefined);
   }
 
-  if (!telephone) {
+  if (!destinataire) {
     return (
-      <form onSubmit={soumettreTelephone} className="space-y-5" noValidate>
-        <div className="space-y-2">
-          <Label htmlFor="otp-telephone">{t("otp.phone")}</Label>
-          <Input
-            id="otp-telephone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder={t("otp.phonePlaceholder")}
-            value={saisieTelephone}
-            onChange={(e) => setSaisieTelephone(e.target.value)}
-            aria-invalid={erreurChamp !== null}
-            aria-describedby="otp-telephone-aide"
-            className="h-(--size-touch) font-mono text-base tracking-wide"
-          />
-          <p
-            id="otp-telephone-aide"
-            className={
-              erreurChamp
-                ? "text-destructive text-sm"
-                : "text-muted-foreground text-sm"
-            }
-          >
-            {erreurChamp ?? t("otp.phoneHint")}
-          </p>
-        </div>
-        <BandeauErreur message={bandeau} />
-        <BoutonEnvoi enCours={demande.isPending}>
-          {t("otp.sendCode")}
-        </BoutonEnvoi>
-      </form>
+      <DemandeCodeForm
+        enCours={demande.isPending}
+        bandeau={bandeau}
+        onDemande={(cible) => {
+          envoyerCode(cible).catch(() => undefined);
+        }}
+      />
     );
   }
+
+  const parEmail = "email" in destinataire;
 
   return (
     <form onSubmit={soumettreCode} className="space-y-5" noValidate>
       <BandeauSucces
-        message={t("otp.codeSent", { phone: formatTelephone(telephone) })}
+        message={
+          "email" in destinataire
+            ? t("otp.codeSentEmail", { email: destinataire.email })
+            : t("otp.codeSent", { phone: formatTelephone(destinataire.phone) })
+        }
       />
       <div className="space-y-2">
-        <Label htmlFor="otp-code">{t("otp.code")}</Label>
+        <Label htmlFor="otp-code">
+          {parEmail ? t("otp.codeEmail") : t("otp.code")}
+        </Label>
         <Input
           id="otp-code"
           inputMode="numeric"
@@ -175,7 +151,7 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
         <button
           type="button"
           onClick={() => {
-            setTelephone(null);
+            setDestinataire(null);
             setCode("");
             setBandeau(null);
             setErreurChamp(null);
@@ -183,13 +159,13 @@ export function OtpLoginFlow({ next }: Readonly<{ next?: string }>) {
           className="text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
         >
           <ArrowLeft aria-hidden className="size-4" />
-          {t("otp.changePhone")}
+          {parEmail ? t("otp.changeEmail") : t("otp.changePhone")}
         </button>
         <button
           type="button"
           disabled={attente > 0 || demande.isPending}
           onClick={() => {
-            envoyerCode(telephone).catch(() => undefined);
+            envoyerCode(destinataire).catch(() => undefined);
           }}
           className="text-primary font-medium hover:underline disabled:text-muted-foreground disabled:no-underline"
         >

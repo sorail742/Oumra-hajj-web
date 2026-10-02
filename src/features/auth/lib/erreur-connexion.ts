@@ -19,6 +19,9 @@ export function cleErreurConnexion(
     if (erreur.statusCode === 429) {
       return "otp.tooMany";
     }
+    if (erreur.statusCode === 503) {
+      return "otp.unavailable";
+    }
   }
   return "common.genericError";
 }

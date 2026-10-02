@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api/client";
+import type { Destinataire } from "../lib/destinataire";
 
 /**
  * Mutations d'authentification. Les deux ouvertures de session passent par
@@ -22,11 +23,10 @@ export interface IdentifiantsAgence {
   password: string;
 }
 
-export interface VerificationCode {
-  phone: string;
+export type VerificationCode = Destinataire & {
   code: string;
   fullName?: string;
-}
+};
 
 export interface InscriptionAgence {
   legalName: string;
@@ -47,8 +47,8 @@ export function useConnexionAgence() {
 
 export function useDemandeCode() {
   return useMutation({
-    mutationFn: (phone: string) =>
-      api.post<unknown>("/api/auth/otp/request", { phone }),
+    mutationFn: (destinataire: Destinataire) =>
+      api.post<unknown>("/api/auth/otp/request", destinataire),
   });
 }
 
