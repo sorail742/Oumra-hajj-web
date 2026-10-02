@@ -1110,5 +1110,28 @@
       "deleted": "Micro-cours supprimé.",
       "error": "L'opération n'a pas abouti. Réessayez."
     }
+  },
+  "familyView": {
+    "intro": "Suivi du voyage partagé avec vous par",
+    "latestStep": "Dernière étape du voyage",
+    "location": "Position",
+    "locationShared": "Dernière position partagée",
+    "openMap": "Voir sur la carte",
+    "noLocation": "Aucune position partagée pour le moment.",
+    "dossier": "Avancement du dossier",
+    "privacy": "Vue en lecture seule : ni documents, ni paiements. Le pèlerin peut désactiver ce lien à tout moment.",
+    "invalidTitle": "Ce lien de suivi n'est plus valide.",
+    "invalidBody": "Demandez un nouveau lien au pèlerin.",
+    "share": {
+      "title": "Partager avec ma famille",
+      "body": "Vos proches suivent l'avancement de votre dossier et de votre voyage, sans compte. Ils ne voient ni vos documents ni vos paiements.",
+      "copy": "Copier le lien de suivi",
+      "regenerate": "Désactiver et créer un nouveau lien",
+      "regenerateTitle": "Créer un nouveau lien ?",
+      "regenerateBody": "L'ancien lien cessera immédiatement de fonctionner : il faudra envoyer le nouveau à vos proches.",
+      "regenerateConfirm": "Créer un nouveau lien",
+      "regenerated": "Nouveau lien créé ; l'ancien ne fonctionne plus.",
+      "error": "L'opération n'a pas abouti. Réessayez."
+    }
   }
 }

@@ -21,6 +21,12 @@ export const keys = {
     stats: () => [...keys.admin.all, "stats"] as const,
     users: (f: Filtres) => [...keys.admin.all, "users", f] as const,
   },
+  familyView: {
+    all: ["family-view"] as const,
+    link: (bookingId: string) =>
+      [...keys.familyView.all, "link", bookingId] as const,
+    view: (token: string) => [...keys.familyView.all, "view", token] as const,
+  },
   microCourses: {
     all: ["micro-courses"] as const,
     list: (f: Filtres) => [...keys.microCourses.all, "list", f] as const,

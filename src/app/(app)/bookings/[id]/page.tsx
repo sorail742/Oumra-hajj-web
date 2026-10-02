@@ -6,12 +6,13 @@ import { ChecklistPanel } from "@/features/checklist/components/ChecklistPanel";
 import { BookingDocumentsReview } from "@/features/documents/components/BookingDocumentsReview";
 import { BookingExpiryAlerts } from "@/features/documents/components/ExpiryAlerts";
 import { DocumentUploader } from "@/features/documents/components/DocumentUploader";
+import { FamilyShareCard } from "@/features/family-view/components/FamilyShareCard";
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
 import { AvisReservation } from "./AvisReservation";
 
 /**
- * Compose plusieurs domaines (réservations, documents, paiements, checklist, avis, messagerie) — c'est le rôle d'une
+ * Compose plusieurs domaines (réservations, documents, paiements, checklist, avis, vue famille, messagerie) — c'est le rôle d'une
  * page, pas d'un `features/*`, qui n'importe jamais un autre `features/*`
  * (voir `CLAUDE.md` règle 2).
  */
@@ -41,6 +42,7 @@ export default async function BookingDetailPage({
         <InitiatePaymentFlow bookingId={id} />
         <DocumentUploader bookingId={id} />
         <ChecklistPanel bookingId={id} />
+        <FamilyShareCard bookingId={id} />
       </Can>
       <Can role="agency">
         <BookingDocumentsReview bookingId={id} />

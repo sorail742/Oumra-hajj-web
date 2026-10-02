@@ -50,6 +50,7 @@ const PREFIXES_PUBLIC_CONTENU = [
   "/agencies",
   "/rites",
   "/micro-courses",
+  "/family",
 ];
 
 /**
