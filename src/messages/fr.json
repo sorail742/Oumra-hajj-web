@@ -38,7 +38,9 @@
       "guide": "Guide",
       "agency": "Agence",
       "admin": "Administration"
-    }
+    },
+    "profile": "Mon profil",
+    "accountMenu": "Menu du compte"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -708,5 +710,35 @@
         "reminder": "Rappel : réunion du groupe samedi à 10 h"
       }
     }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "description": "Vos informations personnelles et votre contact d'urgence.",
+    "identity": "Identité",
+    "fullName": "Nom complet",
+    "fullNameInvalid": "Indiquez votre nom complet.",
+    "account": "Compte",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "role": "Profil",
+    "language": "Langue de l'interface",
+    "languageValue": "Français",
+    "languageHint": "L'application est disponible en français pour le moment.",
+    "emergency": "Contact d'urgence",
+    "emergencyHint": "En cas de SOS déclenché depuis votre groupe de voyage, ce contact reçoit un SMS en même temps que votre guide.",
+    "emergencyMissing": "Aucun contact d'urgence renseigné : en cas de SOS, seul votre guide serait prévenu.",
+    "emergencyName": "Nom du contact",
+    "emergencyPhone": "Téléphone du contact",
+    "emergencyRelationship": "Lien (facultatif)",
+    "emergencyRelationshipPlaceholder": "Époux, fille, frère…",
+    "emergencyIncomplete": "Renseignez le nom et le téléphone du contact, ou laissez les deux vides.",
+    "health": "Santé et voyage",
+    "healthHint": "Facultatif. Données sensibles : renseignez-les ici plutôt que de les envoyer par message.",
+    "bloodType": "Groupe sanguin",
+    "bloodTypeUnknown": "Non renseigné",
+    "passportNumber": "Numéro de passeport",
+    "save": "Enregistrer",
+    "saved": "Profil enregistré.",
+    "error": "L'enregistrement n'a pas abouti. Réessayez dans un instant."
   }
 }

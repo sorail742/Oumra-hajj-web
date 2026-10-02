@@ -108,11 +108,9 @@ export const keys = {
   auth: {
     all: ["auth"] as const,
     /**
-     * Rôle et identité de l'utilisateur courant. **Aucune route `/me`
-     * équivalente n'a été repérée dans le backend actuel** — le rôle vit
-     * dans le payload du JWT. Cette clé sert le jour où un Route Handler
-     * dédié l'expose côté serveur pour `<Can>` ; à retirer si ce choix
-     * change (lecture directe du payload décodé côté client, par exemple).
+     * Identité de l'utilisateur courant (`GET /users/me`, voir
+     * `lib/auth/use-current-user.ts`). Le rôle de `<Can>` reste lu dans le
+     * payload du JWT (UI seulement, règle 12).
      */
     me: () => [...keys.auth.all, "me"] as const,
   },

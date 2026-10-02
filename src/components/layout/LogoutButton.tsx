@@ -34,7 +34,8 @@ export function LogoutButton() {
         deconnecter().catch(() => undefined);
       }}
       disabled={enCours}
-      className="text-muted-foreground hover:bg-muted hover:text-foreground inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm disabled:opacity-50"
+      role="menuitem"
+      className="text-muted-foreground hover:bg-muted hover:text-foreground flex h-9 w-full items-center gap-2 rounded-md px-3 text-sm disabled:opacity-50"
     >
       <LogOut aria-hidden className="size-4" />
       {t("logout")}

@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { Croissant } from "@/components/shared/illustrations/Geometrie";
 import { decoderPayloadUtile } from "@/lib/auth/jwt";
 import { lireJetons } from "@/lib/auth/session";
-import { LogoutButton } from "./LogoutButton";
+import { UserMenu } from "./UserMenu";
 import { MobileNav } from "./MobileNav";
 import { SidebarNav } from "./SidebarNav";
 
@@ -87,14 +87,7 @@ export async function AppShell({
             <MobileNav />
             <span className="lg:hidden">{marque}</span>
           </div>
-          <div className="flex items-center gap-2">
-            {role && (
-              <span className="bg-primary-subtle text-primary hidden rounded-full px-2.5 py-0.5 text-xs font-medium sm:inline-flex">
-                {t(`roles.${role}`)}
-              </span>
-            )}
-            <LogoutButton />
-          </div>
+          <UserMenu />
         </header>
         <main className="scrollbar-fine flex-1 overflow-y-auto p-6">
           {children}
