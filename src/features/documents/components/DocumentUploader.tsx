@@ -142,8 +142,9 @@ export function DocumentUploader({
 
   return (
     <section
+      id="depot-pieces"
       aria-labelledby="depot-document"
-      className="bg-card space-y-5 rounded-xl border p-6 shadow-(--shadow-raised)"
+      className="bg-card scroll-mt-6 space-y-5 rounded-xl border p-6 shadow-(--shadow-raised)"
     >
       <div className="space-y-1">
         <h2 id="depot-document" className="text-lg font-semibold">

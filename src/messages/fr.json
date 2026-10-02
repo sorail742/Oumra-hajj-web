@@ -229,7 +229,14 @@
       "missing": "À déposer",
       "rejectedHint": "Refusé : {reason}"
     },
-    "goToBookings": "Ouvrir mes réservations"
+    "goToBookings": "Ouvrir mes réservations",
+    "expiry": {
+      "title": "{count, plural, one {Une pièce demande votre attention} other {# pièces demandent votre attention}}",
+      "line": "{type} : expire le {date}.",
+      "action": "Déposer une pièce à jour",
+      "pilgrimHint": "Déposez une pièce à jour depuis la page de la réservation concernée.",
+      "agencyHint": "Prévenez le pèlerin : la pièce doit être renouvelée avant le départ."
+    }
   },
   "payments": {
     "title": "Paiements",

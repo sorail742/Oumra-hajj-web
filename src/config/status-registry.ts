@@ -63,6 +63,18 @@ export const statusRegistry = {
     expired: { label: "Expiré", tone: "danger" },
     expiring_soon: { label: "Expire bientôt", tone: "warning" },
   },
+  /**
+   * `DocumentExpiryStatus` (ticket #57) — date d'expiration d'une pièce du
+   * pèlerin croisée avec les dates du voyage (`GET /documents/expiry-alerts`).
+   */
+  documentExpiry: {
+    expired: { label: "Expiré", tone: "danger" },
+    expires_before_trip: { label: "Expire avant le retour", tone: "danger" },
+    expires_soon_after_trip: {
+      label: "Expire peu après le retour",
+      tone: "warning",
+    },
+  },
 } as const satisfies Record<string, Record<string, StatusEntry>>;
 
 export type StatusKind = keyof typeof statusRegistry;

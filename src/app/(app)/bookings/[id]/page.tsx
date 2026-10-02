@@ -4,6 +4,7 @@ import { Can } from "@/components/shared/Can";
 import { BookingDetailScreen } from "@/features/bookings/components/BookingDetailScreen";
 import { ChecklistPanel } from "@/features/checklist/components/ChecklistPanel";
 import { BookingDocumentsReview } from "@/features/documents/components/BookingDocumentsReview";
+import { BookingExpiryAlerts } from "@/features/documents/components/ExpiryAlerts";
 import { DocumentUploader } from "@/features/documents/components/DocumentUploader";
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
@@ -32,6 +33,7 @@ export default async function BookingDetailPage({
           {t("createdBanner")}
         </output>
       )}
+      <BookingExpiryAlerts bookingId={id} />
       <BookingDetailScreen id={id} />
       <Can role="pilgrim">
         <InitiatePaymentFlow bookingId={id} />

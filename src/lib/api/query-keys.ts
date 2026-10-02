@@ -58,6 +58,8 @@ export const keys = {
       [...keys.documents.all, "booking", bookingId] as const,
     accessUrl: (id: string) =>
       [...keys.documents.all, "access-url", id] as const,
+    expiryAlerts: (bookingId: string) =>
+      [...keys.documents.all, "expiry-alerts", bookingId] as const,
   },
 
   payments: {
