@@ -43,7 +43,7 @@ describe("ReserveButton", () => {
       screen.getByRole("link", { name: /se connecter pour réserver/i }),
     ).toHaveAttribute(
       "href",
-      `/otp?next=${encodeURIComponent(`/packages/${FORFAIT}`)}`,
+      "/otp?next=" + encodeURIComponent("/packages/" + FORFAIT),
     );
   });
 
