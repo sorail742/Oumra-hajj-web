@@ -151,7 +151,22 @@
       "error": "La réservation n'a pas abouti. Réessayez dans un instant.",
       "closed": "Ce forfait n'est plus ouvert à la réservation."
     },
-    "createdBanner": "Réservation enregistrée. Réglez la première tranche ci-dessous pour confirmer votre place."
+    "createdBanner": "Réservation enregistrée. Réglez la première tranche ci-dessous pour confirmer votre place.",
+    "stepEditor": {
+      "hint": "Mettez à jour chaque étape : le pèlerin voit le changement dans son dossier.",
+      "label": "Statut de l'étape « {step} »",
+      "saved": "Étape mise à jour.",
+      "error": "La mise à jour n'a pas abouti. Réessayez."
+    },
+    "cancel": {
+      "action": "Annuler la réservation",
+      "confirmTitle": "Annuler cette réservation ?",
+      "confirmBody": "Votre place sera libérée. Pour un remboursement des sommes déjà versées, faites ensuite une demande depuis vos paiements.",
+      "confirm": "Oui, annuler la réservation",
+      "keep": "Garder ma réservation",
+      "done": "Réservation annulée.",
+      "error": "L'annulation n'a pas abouti. Réessayez."
+    }
   },
   "documents": {
     "title": "Documents",
@@ -808,5 +823,22 @@
     "save": "Enregistrer",
     "saved": "Profil enregistré.",
     "error": "L'enregistrement n'a pas abouti. Réessayez dans un instant."
+  },
+  "checklist": {
+    "title": "Ma checklist de départ",
+    "description": "Cochez chaque élément au fur et à mesure : vous recevez un rappel avant chaque échéance.",
+    "progress": "{done} sur {total}",
+    "reminder": "Rappel le {date}",
+    "emptyTitle": "Aucun élément dans votre checklist.",
+    "emptyDescription": "Elle est créée avec votre réservation ; revenez dans quelques instants.",
+    "error": "La mise à jour n'a pas abouti. Réessayez.",
+    "category": {
+      "document": "Documents",
+      "vaccine": "Santé",
+      "luggage": "Bagages",
+      "spiritual": "Préparation spirituelle",
+      "other": "Autre"
+    },
+    "allDone": "Tout est prêt. Bon voyage, in shaa Allah."
   }
 }

@@ -2,13 +2,14 @@ import { getTranslations } from "next-intl/server";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { Can } from "@/components/shared/Can";
 import { BookingDetailScreen } from "@/features/bookings/components/BookingDetailScreen";
+import { ChecklistPanel } from "@/features/checklist/components/ChecklistPanel";
 import { BookingDocumentsReview } from "@/features/documents/components/BookingDocumentsReview";
 import { DocumentUploader } from "@/features/documents/components/DocumentUploader";
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
 
 /**
- * Compose plusieurs domaines (réservations, documents, paiements, messagerie) — c'est le rôle d'une
+ * Compose plusieurs domaines (réservations, documents, paiements, checklist, messagerie) — c'est le rôle d'une
  * page, pas d'un `features/*`, qui n'importe jamais un autre `features/*`
  * (voir `CLAUDE.md` règle 2).
  */
@@ -35,6 +36,7 @@ export default async function BookingDetailPage({
       <Can role="pilgrim">
         <InitiatePaymentFlow bookingId={id} />
         <DocumentUploader bookingId={id} />
+        <ChecklistPanel bookingId={id} />
       </Can>
       <Can role="agency">
         <BookingDocumentsReview bookingId={id} />

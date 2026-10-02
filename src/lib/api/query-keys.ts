@@ -105,6 +105,12 @@ export const keys = {
       [...keys.messaging.all, "messages", conversationId] as const,
   },
 
+  checklist: {
+    all: ["checklist"] as const,
+    byBooking: (bookingId: string) =>
+      [...keys.checklist.all, "booking", bookingId] as const,
+  },
+
   auth: {
     all: ["auth"] as const,
     /**
