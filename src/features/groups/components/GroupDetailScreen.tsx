@@ -7,9 +7,9 @@ import type { Group } from "../api/schemas";
 import { ItineraryStepForm } from "./ItineraryStepForm";
 import { SosButton } from "./SosButton";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
+import { DetailSkeleton } from "@/components/shared/DetailSkeleton";
 import { Can } from "@/components/shared/Can";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/format";
 
 /**
@@ -26,12 +26,7 @@ export function GroupDetailScreen({
   return (
     <AsyncBoundary
       query={query}
-      skeleton={
-        <div className="space-y-3">
-          <Skeleton className="h-6 w-48" />
-          <Skeleton className="h-32 w-full" />
-        </div>
-      }
+      skeleton={<DetailSkeleton />}
       isEmpty={() => false}
     >
       {(group) => {

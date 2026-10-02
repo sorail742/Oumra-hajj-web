@@ -1,18 +1,11 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { MyGuidesSection } from "./MyGuidesSection";
-import { ApiError } from "@/lib/api/types";
 import { RoleProvider } from "@/lib/auth/role-context";
 import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
-const get = vi.fn();
-const post = vi.fn();
-vi.mock("@/lib/api/client", () => ({
-  api: {
-    get: (...args: unknown[]) => get(...args),
-    post: (...args: unknown[]) => post(...args),
-  },
-}));
+/** Réponses du backend servies dans l'ordre des appels `fetch`. */
+const fetchMock = vi.fn();
 vi.mock("sonner", () => ({ toast: { success: vi.fn(), error: vi.fn() } }));
 
 /** Données explicitement factices. */
@@ -37,21 +30,43 @@ function remplir(libelle: RegExp, valeur: string) {
   });
 }
 
+/** File de réponses, puis une liste vide pour les relectures. */
+function repondre(...reponses: Response[]) {
+  fetchMock.mockImplementation(() => Promise.resolve(Response.json([])));
+  for (const reponse of reponses) {
+    fetchMock.mockResolvedValueOnce(reponse);
+  }
+}
+
+async function ouvrirAjout() {
+  fireEvent.click(
+    await screen.findByRole("button", { name: "Ajouter un guide" }),
+  );
+  remplir(/Nom complet/, "Guide Fictif");
+}
+
+function envoisPost() {
+  return fetchMock.mock.calls.filter(
+    ([, init]) => (init as RequestInit | undefined)?.method === "POST",
+  );
+}
+
 describe("MyGuidesSection", () => {
-  beforeEach(() => {
-    get.mockReset();
-    post.mockReset();
+  beforeEach(() => vi.stubGlobal("fetch", fetchMock));
+  afterEach(() => {
+    fetchMock.mockReset();
+    vi.unstubAllGlobals();
   });
 
   it("liste les guides de l'agence", async () => {
-    get.mockResolvedValue([GUIDE]);
+    repondre(Response.json([GUIDE]));
     afficher();
     expect(await screen.findByText("Guide Fictif")).toBeInTheDocument();
-    expect(get).toHaveBeenCalledWith("/api/agencies/me/guides");
+    expect(fetchMock.mock.calls[0]?.[0]).toBe("/api/agencies/me/guides");
   });
 
   it("affiche l'état vide", async () => {
-    get.mockResolvedValue([]);
+    repondre();
     afficher();
     expect(
       await screen.findByText("Aucun guide pour l'instant."),
@@ -59,56 +74,47 @@ describe("MyGuidesSection", () => {
   });
 
   it("exige un téléphone ou un e-mail", async () => {
-    get.mockResolvedValue([]);
+    repondre();
     afficher();
-    fireEvent.click(
-      await screen.findByRole("button", { name: "Ajouter un guide" }),
-    );
-    remplir(/Nom complet/, "Guide Fictif");
+    await ouvrirAjout();
     fireEvent.click(screen.getByRole("button", { name: "Ajouter" }));
     expect(
       await screen.findByText("Indiquez un téléphone ou un e-mail."),
     ).toBeInTheDocument();
-    expect(post).not.toHaveBeenCalled();
+    expect(envoisPost()).toHaveLength(0);
   });
 
   it("envoie le guide sans champ vide", async () => {
-    get.mockResolvedValue([]);
-    post.mockResolvedValue({
-      ...GUIDE,
-      phone: undefined,
-      email: "guide@example.test",
-    });
-    afficher();
-    fireEvent.click(
-      await screen.findByRole("button", { name: "Ajouter un guide" }),
-    );
-    remplir(/Nom complet/, "Guide Fictif");
-    remplir(/E-mail/, "Guide@Example.test");
-    fireEvent.click(screen.getByRole("button", { name: "Ajouter" }));
-    await waitFor(() =>
-      expect(post).toHaveBeenCalledWith("/api/agencies/me/guides", {
-        fullName: "Guide Fictif",
+    repondre(
+      Response.json([]),
+      Response.json({
+        ...GUIDE,
+        phone: undefined,
         email: "guide@example.test",
       }),
+    );
+    afficher();
+    await ouvrirAjout();
+    remplir(/E-mail/, "Guide@Example.test");
+    fireEvent.click(screen.getByRole("button", { name: "Ajouter" }));
+    await waitFor(() => expect(envoisPost()).toHaveLength(1));
+    const [url, init] = envoisPost()[0] as [string, RequestInit];
+    expect(url).toBe("/api/agencies/me/guides");
+    expect(init.body).toBe(
+      JSON.stringify({ fullName: "Guide Fictif", email: "guide@example.test" }),
     );
   });
 
   it("explique un conflit (contact déjà utilisé)", async () => {
-    get.mockResolvedValue([]);
-    post.mockRejectedValue(
-      new ApiError({
-        statusCode: 409,
-        message: "conflit",
-        path: "/agencies/me/guides",
-        timestamp: "",
-      }),
+    repondre(
+      Response.json([]),
+      Response.json(
+        { statusCode: 409, timestamp: "", path: "", message: "Conflit" },
+        { status: 409 },
+      ),
     );
     afficher();
-    fireEvent.click(
-      await screen.findByRole("button", { name: "Ajouter un guide" }),
-    );
-    remplir(/Nom complet/, "Guide Fictif");
+    await ouvrirAjout();
     remplir(/Téléphone/, "+224000000001");
     fireEvent.click(screen.getByRole("button", { name: "Ajouter" }));
     expect(

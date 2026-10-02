@@ -7,19 +7,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { ApiError } from "@/lib/api/types";
 import { useReinitialisationMotDePasse } from "../api/use-auth";
 import { cleErreurConnexion } from "../lib/erreur-connexion";
-import { BandeauErreur, BoutonEnvoi, ChampMotDePasse } from "./champs";
+import { BandeauErreur, BoutonEnvoi } from "./champs";
+import { ChampNouveauMotDePasse } from "./ChampsFormulaire";
 
 /**
  * Choix du nouveau mot de passe depuis le lien reçu par e-mail. Le jeton
@@ -118,32 +111,16 @@ export function ResetPasswordForm() {
         className="space-y-5"
         noValidate
       >
-        <FormField
+        <ChampNouveauMotDePasse
           control={form.control}
           name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("reset.password")}</FormLabel>
-              <FormControl>
-                <ChampMotDePasse {...field} autoComplete="new-password" />
-              </FormControl>
-              <FormDescription>{t("reset.passwordHint")}</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t("reset.password")}
+          aide={t("reset.passwordHint")}
         />
-        <FormField
+        <ChampNouveauMotDePasse
           control={form.control}
           name="confirm"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("reset.confirm")}</FormLabel>
-              <FormControl>
-                <ChampMotDePasse {...field} autoComplete="new-password" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t("reset.confirm")}
         />
         <BandeauErreur message={bandeau} />
         <BoutonEnvoi enCours={reinitialisation.isPending}>

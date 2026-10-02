@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useAjouterGuide, useMyGuides } from "../api/use-my-guides";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
+import { DialogFormFooter } from "@/components/shared/DialogFormFooter";
 import { FormErrorBanner } from "@/components/shared/FormErrorBanner";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -43,7 +43,6 @@ const FORMAT_E164 = /^\+\d{8,15}$/;
 
 function AjouterGuide() {
   const t = useTranslations("myAgency.guides");
-  const tc = useTranslations("common");
   const [ouvert, setOuvert] = useState(false);
   const [bandeau, setBandeau] = useState<string[]>([]);
   const ajout = useAjouterGuide();
@@ -145,18 +144,12 @@ function AjouterGuide() {
               />
             ))}
             <FormErrorBanner messages={bandeau} />
-            <DialogFooter>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => changerOuverture(false)}
-              >
-                {tc("cancel")}
-              </Button>
-              <Button type="submit" disabled={ajout.isPending}>
-                {t("submit")}
-              </Button>
-            </DialogFooter>
+            <DialogFormFooter
+              onCancel={() => changerOuverture(false)}
+              enCours={ajout.isPending}
+            >
+              {t("submit")}
+            </DialogFormFooter>
           </form>
         </Form>
       </DialogContent>

@@ -8,8 +8,8 @@ import { BookingStepTracker } from "./BookingStepTracker";
 import { CancelBookingDialog } from "./CancelBookingDialog";
 import { Can } from "@/components/shared/Can";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
+import { DetailSkeleton } from "@/components/shared/DetailSkeleton";
 import { StatusBadge } from "@/components/shared/StatusBadge";
-import { Skeleton } from "@/components/ui/skeleton";
 
 /** Une réservation annulée ou terminée ne s'annule plus (ticket #53). */
 const ANNULABLE: ReadonlySet<Booking["status"]> = new Set([
@@ -24,12 +24,7 @@ export function BookingDetailScreen({ id }: Readonly<{ id: string }>) {
   return (
     <AsyncBoundary
       query={query}
-      skeleton={
-        <div className="space-y-3">
-          <Skeleton className="h-6 w-48" />
-          <Skeleton className="h-32 w-full" />
-        </div>
-      }
+      skeleton={<DetailSkeleton />}
       isEmpty={() => false}
     >
       {(booking) => (

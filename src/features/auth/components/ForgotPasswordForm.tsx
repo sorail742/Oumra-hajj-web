@@ -5,18 +5,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useTranslations } from "next-intl";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import { ApiError } from "@/lib/api/types";
 import { useDemandeReinitialisation } from "../api/use-auth";
 import { cleErreurConnexion } from "../lib/erreur-connexion";
+import { ChampEmail, schemaEmail } from "./ChampsFormulaire";
 import { BandeauErreur, BandeauSucces, BoutonEnvoi } from "./champs";
 
 /**
@@ -33,10 +26,7 @@ export function ForgotPasswordForm() {
   const schema = useMemo(
     () =>
       z.object({
-        email: z
-          .string()
-          .trim()
-          .pipe(z.email(t("agency.emailInvalid"))),
+        email: schemaEmail(t("agency.emailInvalid")),
       }),
     [t],
   );
@@ -91,24 +81,10 @@ export function ForgotPasswordForm() {
         className="space-y-5"
         noValidate
       >
-        <FormField
+        <ChampEmail
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("forgot.email")}</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  type="email"
-                  autoComplete="email"
-                  inputMode="email"
-                  className="h-(--size-touch)"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          label={t("forgot.email")}
         />
         <BandeauErreur message={bandeau} />
         <BoutonEnvoi enCours={demande.isPending}>
