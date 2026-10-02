@@ -89,10 +89,11 @@ export function ReserveButton({
   const role = useRole();
 
   if (!role) {
+    const retour = `/packages/${packageId}`;
     return (
       <div className="space-y-2">
         <Link
-          href={`/otp?next=${encodeURIComponent(`/packages/${packageId}`)}`}
+          href={`/otp?next=${encodeURIComponent(retour)}`}
           className="bg-primary text-primary-foreground hover:bg-primary-hover inline-flex h-(--size-touch) w-full items-center justify-center gap-2 rounded-md text-base font-medium"
         >
           <Lock aria-hidden className="size-4" />

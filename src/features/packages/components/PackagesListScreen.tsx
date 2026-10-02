@@ -93,7 +93,7 @@ export function PackagesListScreen() {
   const t = useTranslations("packages");
   const [filtres, definir, effacer] = useFiltres();
   const query = usePackages(filtres);
-  const filtreActif = Object.values(filtres).some((v) => v !== undefined);
+  const filtreActif = Object.values(filtres).some(Boolean);
 
   return (
     <div className="space-y-6">
