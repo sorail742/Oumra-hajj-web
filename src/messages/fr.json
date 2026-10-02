@@ -41,7 +41,8 @@
     },
     "profile": "Mon profil",
     "accountMenu": "Menu du compte",
-    "myPackages": "Mes forfaits"
+    "myPackages": "Mes forfaits",
+    "myAgency": "Mon agence"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -918,5 +919,35 @@
     "emptyUnread": "Vous êtes à jour : aucune notification non lue.",
     "emptyAll": "Aucune notification pour le moment.",
     "emptyDescription": "Vous serez prévenu ici à chaque étape de votre dossier."
+  },
+  "myAgency": {
+    "title": "Mon agence",
+    "description": "Votre statut de validation, vos coordonnées et le compte qui reçoit vos versements.",
+    "statusPending": "Votre dossier est en cours d'examen par l'administration. Vous pourrez publier vos forfaits dès sa validation.",
+    "statusApproved": "Agence validée le {date}. Vos forfaits peuvent être publiés.",
+    "statusRejected": "Votre dossier a été refusé le {date}. Corrigez les points indiqués puis contactez l'administration.",
+    "rejectionReason": "Motif du refus",
+    "documentsLink": "{count, plural, =0 {Déposer vos documents légaux} one {Gérer votre document légal (#)} other {Gérer vos documents légaux (#)}}",
+    "contactTitle": "Coordonnées de contact",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "contactHint": "Pour modifier l'e-mail ou le téléphone de contact, écrivez à l'administration.",
+    "currentBank": "Compte de versement",
+    "noBank": "Aucun compte enregistré : renseignez-le pour recevoir vos versements.",
+    "showNumber": "Afficher le numéro de compte",
+    "hideNumber": "Masquer le numéro de compte",
+    "addressTitle": "Adresse",
+    "address": "Adresse de l'agence",
+    "bankTitle": "Coordonnées bancaires",
+    "bankHint": "Les trois champs vont ensemble. Ces informations ne sont visibles que par votre agence et l'administration.",
+    "accountName": "Titulaire du compte",
+    "bankName": "Banque",
+    "accountNumber": "Numéro de compte",
+    "accountNumberHint": "Laissez vide pour conserver le compte actuel ; ressaisissez-le pour le changer.",
+    "bankIncomplete": "Renseignez le titulaire, la banque et le numéro de compte.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Profil de l'agence enregistré.",
+    "error": "L'enregistrement n'a pas abouti. Vérifiez les champs puis réessayez."
   }
 }

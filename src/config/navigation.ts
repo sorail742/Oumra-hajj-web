@@ -73,6 +73,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     roles: ["agency"],
   },
   {
+    href: "/my-agency",
+    cle: "myAgency",
+    icone: Building2,
+    roles: ["agency"],
+  },
+  {
     href: "/legal-documents",
     cle: "legalDocuments",
     icone: ShieldCheck,
