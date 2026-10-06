@@ -130,3 +130,17 @@ export function useArreterPartage(groupId: string) {
       queryClient.invalidateQueries({ queryKey: keys.groups.detail(groupId) }),
   });
 }
+
+/**
+ * « Je suis perdu » (ticket #14) : envoie la position du pèlerin et
+ * prévient son guide dans l'application, sans SMS.
+ */
+export function useJeSuisPerdu(groupId: string) {
+  return useMutation({
+    mutationFn: (position: { lat: number; lng: number }) =>
+      api.post<unknown>(
+        `/api/groups/${encodeURIComponent(groupId)}/lost`,
+        position,
+      ),
+  });
+}
