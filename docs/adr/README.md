@@ -19,6 +19,7 @@ texte existant), même convention que le backend
 | [0003](0003-limite-400-lignes-par-fichier.md)       | Limite de 400 lignes par fichier de code                           | Accepté                               |
 | [0004](0004-messagerie-rest-avant-websocket.md)     | Messagerie en REST + rafraîchissement périodique, pas de WebSocket | Accepté (REST) / proposé (temps réel) |
 | [0005](0005-direction-artistique-page-accueil.md)   | Direction artistique propre à la page d'accueil publique           | Accepté                               |
+| [0006](0006-temps-reel-ticket-websocket.md)         | Temps réel : ticket WebSocket éphémère émis par le backend         | Proposé                               |
 
 0001 et 0002 sont passées à `accepté` le 2026-09-16 : le scaffold réel a
 été créé sur cette base (Next.js App Router, proxy
