@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BookOpen,
+  Calculator,
   Building2,
   CalendarDays,
   ClipboardList,
@@ -58,6 +59,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     cle: "documents",
     icone: FileCheck,
     roles: ["pilgrim", "agency"],
+  },
+  {
+    href: "/budget",
+    cle: "budget",
+    icone: Calculator,
+    roles: ["pilgrim"],
   },
   {
     href: "/payments",

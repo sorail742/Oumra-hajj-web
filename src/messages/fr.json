@@ -51,7 +51,8 @@
       "admin": "Administrateurs"
     },
     "microCourses": "Micro-cours",
-    "quiz": "Quiz"
+    "quiz": "Quiz",
+    "budget": "Budget"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -330,6 +331,15 @@
       "refundedAt": "Remboursé le",
       "receiptTitle": "Reçu de paiement",
       "receiptBody": "Conservez ce numéro de reçu : il atteste le paiement de cette tranche."
+    },
+    "treasury": {
+      "title": "Trésorerie prévisionnelle",
+      "description": "Ce que vos réservations en cours doivent encore rapporter, et quand.",
+      "expected": "Total attendu",
+      "collected": "Déjà encaissé",
+      "outstanding": "Reste à encaisser",
+      "byMonth": "Encaissements prévus par mois",
+      "empty": "Aucune réservation en cours pour le moment."
     }
   },
   "reviews": {
@@ -483,6 +493,15 @@
       "member": "Membre {n}",
       "openMap": "Voir sur la carte",
       "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)"
+    },
+    "lost": {
+      "button": "Je suis perdu",
+      "sending": "Envoi de ma position…",
+      "hint": "Votre guide reçoit votre position et vient vers vous. En cas de danger, utilisez plutôt le bouton SOS.",
+      "sent": "Votre guide a été prévenu et a reçu votre position.",
+      "error": "L'alerte n'a pas pu être envoyée. Réessayez ou appelez votre guide.",
+      "denied": "Le navigateur a refusé l'accès à la position. Autorisez-la pour prévenir votre guide.",
+      "unavailable": "La position est indisponible sur cet appareil pour le moment."
     }
   },
   "messaging": {
@@ -1308,5 +1327,39 @@
     "description": "Échangez avec les autres pèlerins, le guide et l'agence avant le départ. Les nouveaux messages s'affichent dès leur envoi.",
     "emptyTitle": "Aucun message pour le moment.",
     "emptyBody": "Présentez-vous ou posez une question au groupe."
+  },
+  "budget": {
+    "title": "Budget du voyage",
+    "description": "Estimez le coût total de votre Oumra ou de votre Hadj, forfait et dépenses sur place compris.",
+    "pilgrimOnly": "Le simulateur de budget est réservé à l'espace pèlerin.",
+    "simulator": {
+      "title": "Nouvelle simulation",
+      "description": "Les montants sont en francs guinéens. Le prix du forfait est celui affiché au moment de la simulation.",
+      "package": "Forfait",
+      "noPackage": "Sans forfait (dépenses seulement)",
+      "postes": {
+        "pocketMoney": "Argent de poche",
+        "gifts": "Cadeaux",
+        "sacrifice": "Sacrifice",
+        "insurance": "Assurance",
+        "otherExpenses": "Autres dépenses"
+      },
+      "amountInvalid": "Saisissez un montant en chiffres, sans espace ni virgule.",
+      "total": "Total estimé",
+      "save": "Enregistrer la simulation",
+      "saved": "Simulation enregistrée.",
+      "error": "La simulation n'a pas pu être enregistrée. Réessayez."
+    },
+    "saved": {
+      "title": "Mes simulations",
+      "empty": "Aucune simulation enregistrée pour le moment.",
+      "noPackage": "Sans forfait",
+      "unknownPackage": "Forfait retiré",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer cette simulation ?",
+      "deleteBody": "Elle sera retirée de votre liste.",
+      "deleted": "Simulation supprimée.",
+      "error": "La suppression a échoué. Réessayez."
+    }
   }
 }
