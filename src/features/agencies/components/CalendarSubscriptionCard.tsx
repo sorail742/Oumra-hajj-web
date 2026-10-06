@@ -2,99 +2,118 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Check, Copy, RefreshCw, AlertTriangle } from "lucide-react";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+import { toast } from "sonner";
 import {
   useCalendarSubscription,
   useRegenerateCalendarSubscription,
 } from "../api/use-calendar";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
+import { CopyButton } from "@/components/shared/CopyButton";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
+
+/**
+ * Lien d'abonnement ICS de l'agence (ticket #50). Le lien est un secret :
+ * affiché pour être copié, jamais journalisé. Régénérer révoque l'ancien
+ * lien — confirmation explicite dans un dialogue accessible.
+ */
+function RegenererLien() {
+  const t = useTranslations("calendar");
+  const tc = useTranslations("common");
+  const [ouvert, setOuvert] = useState(false);
+  const regeneration = useRegenerateCalendarSubscription();
+
+  function confirmer() {
+    regeneration.mutate(undefined, {
+      onSuccess: () => {
+        toast.success(t("regenerateSuccess"));
+        setOuvert(false);
+      },
+      onError: () => toast.error(t("regenerateError")),
+    });
+  }
+
+  return (
+    <Dialog open={ouvert} onOpenChange={setOuvert}>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="gap-2">
+          <RefreshCw aria-hidden className="size-4" />
+          {t("regenerateAction")}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="max-w-(--dialog-md)">
+        <DialogHeader>
+          <DialogTitle>{t("regenerateAction")}</DialogTitle>
+          <DialogDescription>{t("regenerateWarning")}</DialogDescription>
+        </DialogHeader>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOuvert(false)}>
+            {tc("cancel")}
+          </Button>
+          <Button
+            variant="destructive"
+            onClick={confirmer}
+            disabled={regeneration.isPending}
+          >
+            {t("regenerateConfirm")}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
 
 export function CalendarSubscriptionCard() {
   const t = useTranslations("calendar");
   const query = useCalendarSubscription();
-  const regenerateMutation = useRegenerateCalendarSubscription();
-  const [isCopied, setIsCopied] = useState(false);
-
-  const handleCopy = async (url: string) => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setIsCopied(true);
-      toast.success(t("copySuccess"));
-      setTimeout(() => setIsCopied(false), 2000);
-    } catch {
-      toast.error(t("copyError"));
-    }
-  };
-
-  const handleRegenerate = () => {
-    if (window.confirm(t("regenerateWarning"))) {
-      regenerateMutation.mutate(undefined, {
-        onSuccess: () => {
-          toast.success(t("regenerateSuccess"));
-        },
-        onError: () => {
-          toast.error(t("regenerateError"));
-        },
-      });
-    }
-  };
 
   return (
     <AsyncBoundary
       query={query}
-      skeleton={<div className="h-40 bg-muted animate-pulse rounded-lg" />}
+      skeleton={<Skeleton className="h-40 w-full max-w-2xl" />}
+      isEmpty={() => false}
     >
-      {(subscription) => (
-        <div className="rounded-lg border p-6 space-y-4 max-w-2xl">
+      {(abonnement) => (
+        <section className="bg-card max-w-2xl space-y-4 rounded-xl border p-5">
           <div className="space-y-1">
-            <h3 className="text-lg font-medium">{t("cardTitle")}</h3>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="text-base font-semibold">{t("cardTitle")}</h2>
+            <p className="text-muted-foreground text-sm">
               {t("cardDescription")}
             </p>
           </div>
 
           <div className="flex items-center gap-2">
-            <code className="flex-1 bg-muted px-3 py-2 rounded-md text-sm break-all">
-              {subscription.url}
+            <code className="bg-muted flex-1 rounded-md px-3 py-2 font-mono text-xs break-all">
+              {abonnement.url}
             </code>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => handleCopy(subscription.url)}
-              title={t("copyAction")}
-            >
-              {isCopied ? (
-                <Check className="h-4 w-4" />
-              ) : (
-                <Copy className="h-4 w-4" />
-              )}
-            </Button>
+            <CopyButton value={abonnement.url} label={t("copyAction")} />
           </div>
+          <p className="text-muted-foreground text-sm">{t("howTo")}</p>
 
-          <div className="bg-warning/10 text-warning p-4 rounded-md flex items-start gap-3 text-sm">
-            <AlertTriangle className="h-5 w-5 shrink-0" />
-            <div>
+          <div className="bg-state-warning-bg flex items-start gap-3 rounded-md p-4 text-sm">
+            <AlertTriangle
+              aria-hidden
+              className="text-state-warning size-5 shrink-0"
+            />
+            <div className="space-y-1">
               <p className="font-medium">{t("warningTitle")}</p>
-              <p className="mt-1 opacity-90">{t("warningDescription")}</p>
+              <p>{t("secretWarning")}</p>
+              <p>{t("warningDescription")}</p>
             </div>
           </div>
 
-          <div className="pt-2">
-            <Button
-              variant="destructive"
-              onClick={handleRegenerate}
-              disabled={regenerateMutation.isPending}
-              className="gap-2"
-            >
-              <RefreshCw
-                className={`h-4 w-4 ${regenerateMutation.isPending ? "animate-spin" : ""}`}
-              />
-              {t("regenerateAction")}
-            </Button>
-          </div>
-        </div>
+          <RegenererLien />
+        </section>
       )}
     </AsyncBoundary>
   );
