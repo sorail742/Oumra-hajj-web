@@ -114,6 +114,11 @@ export const keys = {
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
   },
 
+  budget: {
+    all: ["budget"] as const,
+    mine: () => [...keys.budget.all, "mine"] as const,
+  },
+
   community: {
     all: ["community"] as const,
     messages: (groupId: string) =>

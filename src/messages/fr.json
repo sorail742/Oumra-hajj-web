@@ -51,7 +51,8 @@
       "admin": "Administrateurs"
     },
     "microCourses": "Micro-cours",
-    "quiz": "Quiz"
+    "quiz": "Quiz",
+    "budget": "Budget"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -1326,5 +1327,39 @@
     "description": "Échangez avec les autres pèlerins, le guide et l'agence avant le départ. Les nouveaux messages s'affichent dès leur envoi.",
     "emptyTitle": "Aucun message pour le moment.",
     "emptyBody": "Présentez-vous ou posez une question au groupe."
+  },
+  "budget": {
+    "title": "Budget du voyage",
+    "description": "Estimez le coût total de votre Oumra ou de votre Hadj, forfait et dépenses sur place compris.",
+    "pilgrimOnly": "Le simulateur de budget est réservé à l'espace pèlerin.",
+    "simulator": {
+      "title": "Nouvelle simulation",
+      "description": "Les montants sont en francs guinéens. Le prix du forfait est celui affiché au moment de la simulation.",
+      "package": "Forfait",
+      "noPackage": "Sans forfait (dépenses seulement)",
+      "postes": {
+        "pocketMoney": "Argent de poche",
+        "gifts": "Cadeaux",
+        "sacrifice": "Sacrifice",
+        "insurance": "Assurance",
+        "otherExpenses": "Autres dépenses"
+      },
+      "amountInvalid": "Saisissez un montant en chiffres, sans espace ni virgule.",
+      "total": "Total estimé",
+      "save": "Enregistrer la simulation",
+      "saved": "Simulation enregistrée.",
+      "error": "La simulation n'a pas pu être enregistrée. Réessayez."
+    },
+    "saved": {
+      "title": "Mes simulations",
+      "empty": "Aucune simulation enregistrée pour le moment.",
+      "noPackage": "Sans forfait",
+      "unknownPackage": "Forfait retiré",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer cette simulation ?",
+      "deleteBody": "Elle sera retirée de votre liste.",
+      "deleted": "Simulation supprimée.",
+      "error": "La suppression a échoué. Réessayez."
+    }
   }
 }
