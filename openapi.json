@@ -214,6 +214,30 @@
         ]
       }
     },
+    "/api/v1/auth/realtime-ticket": {
+      "post": {
+        "operationId": "AuthController_realtimeTicket",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RealtimeTicketShape"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["auth"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/users/me": {
       "get": {
         "operationId": "UsersController_getProfile",
@@ -3775,6 +3799,19 @@
           }
         },
         "required": ["refreshToken"]
+      },
+      "RealtimeTicketShape": {
+        "type": "object",
+        "properties": {
+          "ticket": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["ticket", "expiresAt"]
       },
       "EmergencyContactShape": {
         "type": "object",

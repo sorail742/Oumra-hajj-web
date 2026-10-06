@@ -2,9 +2,9 @@
 
 ## Statut
 
-Accepté pour la partie REST (implémentée le 2026-09-17). Le passage à un
-canal temps réel reste **proposé**, bloqué sur une décision d'infrastructure
-non tranchée — voir « Ce qui reste à trancher ».
+Accepté pour la partie REST (implémentée le 2026-09-17), qui reste le repli.
+La partie temps réel est **remplacée par ADR-0006** (ticket WebSocket
+éphémère, accepté le 2026-10-06).
 
 ## Contexte
 

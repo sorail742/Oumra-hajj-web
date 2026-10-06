@@ -1305,7 +1305,7 @@
   },
   "community": {
     "title": "Discussion du groupe",
-    "description": "Échangez avec les autres pèlerins, le guide et l'agence avant le départ. Les nouveaux messages s'affichent en quelques secondes.",
+    "description": "Échangez avec les autres pèlerins, le guide et l'agence avant le départ. Les nouveaux messages s'affichent dès leur envoi.",
     "emptyTitle": "Aucun message pour le moment.",
     "emptyBody": "Présentez-vous ou posez une question au groupe."
   }

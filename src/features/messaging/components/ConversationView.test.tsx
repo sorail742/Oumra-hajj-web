@@ -1,8 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { NextIntlClientProvider } from "next-intl";
+import { screen } from "@testing-library/react";
 import { ConversationView } from "./ConversationView";
-import messages from "@/messages/fr.json";
+import { afficherAvecProviders } from "@/test/afficher-avec-providers";
 
 vi.mock("@/lib/auth/role-context", () => ({
   useUserId: () => "user-moi",
@@ -23,10 +22,8 @@ function afficher() {
   useConversation.mockReturnValue({ data: { id: "conv-1" } });
   useSendMessage.mockReturnValue({ mutateAsync: vi.fn(), isPending: false });
 
-  return render(
-    <NextIntlClientProvider locale="fr" messages={messages}>
-      <ConversationView bookingId="b1" channel="agency" />
-    </NextIntlClientProvider>,
+  return afficherAvecProviders(
+    <ConversationView bookingId="b1" channel="agency" />,
   );
 }
 

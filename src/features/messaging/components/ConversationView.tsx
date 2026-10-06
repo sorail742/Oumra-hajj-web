@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import {
   useConversation,
@@ -10,9 +11,14 @@ import {
 } from "../api/use-messaging";
 import type { MessagingChannel } from "../api/schemas";
 import { ChatThread } from "@/components/shared/ChatThread";
+import { keys } from "@/lib/api/query-keys";
 import { useUserId } from "@/lib/auth/role-context";
+import { useTempsReel } from "@/lib/realtime/use-temps-reel";
 
-/** Voir ADR-0004 : rafraîchissement périodique (`useMessages`), pas de WebSocket. */
+/**
+ * Fil d'une réservation : lu et écrit en REST (ADR-0004) ; un nouveau
+ * message signalé en temps réel (ADR-0006) relance simplement la lecture.
+ */
 export function ConversationView({
   bookingId,
   channel,
@@ -24,7 +30,18 @@ export function ConversationView({
   const userId = useUserId();
   const conversation = useConversation(bookingId, channel);
   const conversationId = conversation.data?.id;
-  const messages = useMessages(conversationId);
+  const queryClient = useQueryClient();
+  const { connecte } = useTempsReel({
+    namespace: "messaging",
+    rejoindre: conversationId
+      ? { evenement: "conversation:join", id: conversationId }
+      : undefined,
+    evenement: "message:new",
+    onEvenement: () => {
+      void queryClient.invalidateQueries({ queryKey: keys.messaging.all });
+    },
+  });
+  const messages = useMessages(conversationId, connecte);
   const envoyerMessage = useSendMessage(conversationId);
 
   // Accusé de lecture dès qu'un message reçu non lu est affiché (#67).

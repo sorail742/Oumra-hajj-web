@@ -2,10 +2,14 @@
 
 ## Statut
 
-**Proposé** (2026-10-06) — à confirmer par le porteur de projet. Remplacera,
-une fois accepté, la partie « temps réel » d'ADR-0004 (la partie REST reste
-en vigueur, comme solution de repli). Demande un ADR jumeau côté backend
-(nouvelle route et changement d'authentification du gateway).
+**Accepté** (2026-10-06) — option B retenue explicitement par le porteur de
+projet. Remplace la partie « temps réel » d'ADR-0004 (la partie REST reste
+en vigueur, comme solution de repli). ADR jumeau côté backend : ADR 0027.
+
+Mise en œuvre : `src/lib/realtime/use-temps-reel.ts` (web),
+`POST /auth/realtime-ticket` et `src/modules/realtime/` (backend).
+Variable web : `NEXT_PUBLIC_REALTIME_URL` (origine publique du backend) ;
+variable backend : `REALTIME_TICKET_SECRET`.
 
 ## Contexte
 
@@ -28,7 +32,7 @@ en vigueur, comme solution de repli). Demande un ADR jumeau côté backend
 | C. Service temps réel tiers (Pusher, Ably…)        | Le backend publie, un service externe diffuse                                                                                                     | Nouveau fournisseur, coût, données personnelles chez un tiers : disproportionné             |
 | D. Statu quo (REST + sondage)                      | Rien ne change                                                                                                                                    | Reste la solution de repli dans tous les cas                                                |
 
-## Décision proposée (option B)
+## Décision (option B)
 
 1. **Backend** — `POST /realtime/ticket` (authentifié, donc appelé à travers
    le proxy Next et son cookie) renvoie `{ ticket, expiresAt }` :
@@ -70,7 +74,12 @@ toujours jamais le cookie `httpOnly`.
 - Une connexion persistante par utilisateur actif sur Render : à surveiller
   sur l'offre gratuite.
 
-## Ce qu'il faut décider
+## Détails retenus à l'implémentation
 
-Accepter l'option B (et lancer l'ADR jumeau côté backend), ou garder le
-statu quo (D) tant que la latence de quelques secondes suffit.
+- Le web **envoie toujours en REST** (proxy authentifié) et n'écoute que les
+  évènements `message:new` / `community:new`, qui relancent la lecture REST :
+  une seule source de vérité.
+- Connexion en transport `websocket` uniquement ; un ticket neuf à chaque
+  tentative ; après trois refus rapprochés du serveur (ticket refusé, temps
+  réel non configuré), le client abandonne et reste au sondage.
+- Sondage espacé à 60 s tant que le temps réel est connecté.
