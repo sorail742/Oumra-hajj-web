@@ -68,6 +68,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/password/forgot": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["AuthController_forgotPassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/password/reset": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["AuthController_resetPassword"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/auth/refresh": {
         parameters: {
             query?: never;
@@ -196,6 +228,22 @@ export interface paths {
         patch: operations["AgenciesController_updateOwn"];
         trace?: never;
     };
+    "/api/v1/agencies/me/guides": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["AgenciesController_listOwnGuides"];
+        put?: never;
+        post: operations["AgenciesController_addGuide"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/agencies/me/legal-documents": {
         parameters: {
             query?: never;
@@ -300,6 +348,22 @@ export interface paths {
             cookie?: never;
         };
         get: operations["AgenciesController_getById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/agencies/{id}/legal-documents/{documentId}/access-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["AgenciesController_getLegalDocumentAccessUrlForAdmin"];
         put?: never;
         post?: never;
         delete?: never;
@@ -526,7 +590,7 @@ export interface paths {
         get?: never;
         put?: never;
         post?: never;
-        delete?: never;
+        delete: operations["GroupsController_clearLocation"];
         options?: never;
         head?: never;
         patch: operations["GroupsController_updateLocation"];
@@ -1172,6 +1236,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/messaging/conversations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["MessagingController_listInbox"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/messaging/conversations/{id}/read": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["MessagingController_markAsRead"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/messaging/bookings/{bookingId}/conversations/{channel}": {
         parameters: {
             query?: never;
@@ -1448,23 +1544,70 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        HealthShape: {
+            status: string;
+            timestamp: string;
+        };
         RequestOtpDto: {
             /** @example +224620000000 */
-            phone: string;
+            phone?: string;
+            /** @example pelerin@example.com */
+            email?: string;
+        };
+        SentShape: {
+            /** @example true */
+            sent: boolean;
         };
         VerifyOtpDto: {
             /** @example +224620000000 */
-            phone: string;
+            phone?: string;
+            /** @example pelerin@example.com */
+            email?: string;
             /** @example 123456 */
             code: string;
             fullName?: string;
+        };
+        AuthTokensDto: {
+            accessToken: string;
+            refreshToken: string;
         };
         AgencyLoginDto: {
             email: string;
             password: string;
         };
+        ForgotPasswordDto: {
+            /** @example contact@agence.example */
+            email: string;
+        };
+        ResetPasswordDto: {
+            token: string;
+            newPassword: string;
+        };
         RefreshTokenDto: {
             refreshToken: string;
+        };
+        EmergencyContactShape: {
+            fullName: string;
+            phone: string;
+            relationship?: string;
+        };
+        UserShape: {
+            id: string;
+            fullName: string;
+            phone?: string;
+            email?: string;
+            /** @enum {string} */
+            role: "pilgrim" | "agency" | "guide" | "admin";
+            preferredLanguage: string;
+            emergencyContact?: components["schemas"]["EmergencyContactShape"];
+            bloodType?: string;
+            passportNumber?: string;
+            agencyId?: string;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
         };
         EmergencyContactDto: {
             fullName?: string;
@@ -1473,10 +1616,23 @@ export interface components {
         };
         UpdateProfileDto: {
             fullName?: string;
-            preferredLanguage?: string;
+            /** @enum {string} */
+            preferredLanguage?: "fr" | "en" | "ar";
             emergencyContact?: components["schemas"]["EmergencyContactDto"];
             bloodType?: string;
             passportNumber?: string;
+        };
+        UserSummaryShape: {
+            id: string;
+            fullName: string;
+            phone?: string;
+            email?: string;
+            /** @enum {string} */
+            role: "pilgrim" | "agency" | "guide" | "admin";
+            agencyId?: string;
+            isActive: boolean;
+            /** Format: date-time */
+            createdAt: string;
         };
         RegisterAgencyDto: {
             legalName: string;
@@ -1485,16 +1641,100 @@ export interface components {
             password: string;
             address?: string;
         };
+        LegalDocumentShape: {
+            id: string;
+            label: string;
+            storageRef: string;
+            /** Format: date-time */
+            uploadedAt: string;
+            /** Format: date-time */
+            expiresAt?: string;
+        };
+        BankDetailsShape: {
+            accountName: string;
+            accountNumber: string;
+            bankName: string;
+        };
+        AgencyShape: {
+            id: string;
+            legalName: string;
+            ownerId: string;
+            contactEmail: string;
+            contactPhone: string;
+            address?: string;
+            legalDocuments: components["schemas"]["LegalDocumentShape"][];
+            /** @enum {string} */
+            validationStatus: "pending" | "approved" | "rejected";
+            rejectionReason?: string;
+            validatedById?: string;
+            /** Format: date-time */
+            validatedAt?: string;
+            commissionRate: number;
+            bankDetails?: components["schemas"]["BankDetailsShape"];
+        };
+        BankDetailsDto: {
+            accountName: string;
+            accountNumber: string;
+            bankName: string;
+        };
         UpdateAgencyDto: {
             address?: string;
-            bankDetails?: Record<string, never>;
+            bankDetails?: components["schemas"]["BankDetailsDto"];
+        };
+        CreateGuideDto: {
+            fullName: string;
+            /** @example +224620000000 */
+            phone?: string;
+            /** @example guide@example.com */
+            email?: string;
         };
         AddLegalDocumentDto: {
             label: string;
             expiresAt?: string;
         };
+        LegalDocumentAlertShape: {
+            id: string;
+            label: string;
+            /** Format: date-time */
+            expiresAt: string;
+            status: Record<string, never>;
+        };
+        CalendarSubscriptionShape: {
+            token: string;
+            subscriptionUrl: string;
+        };
         RejectAgencyDto: {
             reason: string;
+        };
+        PackageStageShape: {
+            id: string;
+            city: string;
+            hotelName: string;
+            distanceToMosqueMeters?: number;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+        };
+        PackageShape: {
+            id: string;
+            agencyId: string;
+            /** @enum {string} */
+            type: "oumra" | "hadj";
+            title: string;
+            description?: string;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+            price: number;
+            currency: string;
+            capacity: number;
+            seatsTaken: number;
+            stages: components["schemas"]["PackageStageShape"][];
+            inclusions: string[];
+            /** @enum {string} */
+            status: "open" | "full" | "closed";
         };
         PackageStageDto: {
             city: string;
@@ -1533,6 +1773,29 @@ export interface components {
             packageId: string;
             title: string;
         };
+        ItineraryStepShape: {
+            label: string;
+            /** Format: date-time */
+            date: string;
+            location?: string;
+        };
+        MemberLocationShape: {
+            userId: string;
+            lat: number;
+            lng: number;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        GroupShape: {
+            id: string;
+            packageId: string;
+            agencyId: string;
+            title: string;
+            guideId?: string;
+            memberIds: string[];
+            itinerary: components["schemas"]["ItineraryStepShape"][];
+            locations: components["schemas"]["MemberLocationShape"][];
+        };
         AssignGuideDto: {
             guideUserId: string;
         };
@@ -1545,8 +1808,39 @@ export interface components {
             lat: number;
             lng: number;
         };
+        NotificationShape: {
+            id: string;
+            recipientId: string;
+            /** @enum {string} */
+            type: "booking_status" | "payment" | "document" | "rite_reminder" | "sos" | "group_message" | "moderation" | "other";
+            title: string;
+            content: string;
+            isCritical: boolean;
+            /** Format: date-time */
+            readAt?: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
         CreateBookingDto: {
             packageId: string;
+        };
+        DossierStepShape: {
+            /** @enum {string} */
+            key: "payment" | "visa" | "flight" | "vaccination" | "documents";
+            /** @enum {string} */
+            status: "pending" | "in_progress" | "done";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        BookingShape: {
+            id: string;
+            pilgrimId: string;
+            packageId: string;
+            agencyId: string;
+            groupId?: string;
+            /** @enum {string} */
+            status: "pending_payment" | "confirmed" | "cancelled" | "completed";
+            steps: components["schemas"]["DossierStepShape"][];
         };
         UpdateStepDto: {
             /** @enum {string} */
@@ -1556,6 +1850,24 @@ export interface components {
         };
         AssignGroupDto: {
             groupId: string;
+        };
+        FamilyViewLinkShape: {
+            token: string;
+            viewUrl: string;
+        };
+        ChecklistItemShape: {
+            id: string;
+            bookingId: string;
+            title: string;
+            category: string;
+            isCompleted: boolean;
+            /** Format: date-time */
+            reminderDate: string | null;
+            reminderSent: boolean;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
         };
         UpdateChecklistStatusDto: {
             /** @description Statut de la tâche */
@@ -1567,10 +1879,38 @@ export interface components {
             /** @enum {string} */
             method: "mobile_money_orange" | "mobile_money_mtn" | "card";
         };
+        PaymentShape: {
+            id: string;
+            bookingId: string;
+            amount: number;
+            currency: string;
+            installmentNumber: number;
+            /** @enum {string} */
+            method: "mobile_money_orange" | "mobile_money_mtn" | "card";
+            /** @enum {string} */
+            status: "pending" | "succeeded" | "failed" | "refunded";
+            providerReference: string;
+            receiptRef?: string;
+            /** Format: date-time */
+            confirmedAt?: string;
+            refundedAmount?: number;
+            /** Format: date-time */
+            refundedAt?: string;
+        };
         PaymentWebhookDto: {
             providerReference: string;
             /** @enum {string} */
             status: "pending" | "succeeded" | "failed" | "refunded";
+        };
+        SavingsPlanShape: {
+            id: string;
+            bookingId: string;
+            targetAmount: number;
+            autoDeduct: boolean;
+            deductAmount?: number;
+            frequency?: string;
+            /** Format: date-time */
+            nextDeductDate?: string;
         };
         UploadDocumentDto: {
             bookingId: string;
@@ -1578,8 +1918,45 @@ export interface components {
             type: "passport" | "visa" | "flight_ticket" | "vaccination_certificate";
             expiresAt?: string;
         };
+        PilgrimDocumentShape: {
+            id: string;
+            bookingId: string;
+            pilgrimId: string;
+            /** @enum {string} */
+            type: "passport" | "visa" | "flight_ticket" | "vaccination_certificate";
+            storageRef: string;
+            /** @enum {string} */
+            status: "pending" | "validated" | "rejected";
+            rejectionReason?: string;
+            /** Format: date-time */
+            expiresAt?: string;
+        };
+        DocumentExpiryAlertShape: {
+            id: string;
+            /** @enum {string} */
+            type: "passport" | "visa" | "flight_ticket" | "vaccination_certificate";
+            /** Format: date-time */
+            expiresAt: string;
+            status: Record<string, never>;
+        };
         RejectDocumentDto: {
             reason: string;
+        };
+        RiteSheetShape: {
+            id: string;
+            key: string;
+            title: string;
+            /** @enum {string} */
+            pilgrimageType: "oumra" | "hadj" | "both";
+            order: number;
+            content: string;
+            audioRef?: string;
+            language: string;
+            version: number;
+            isValidated: boolean;
+            validatedById?: string;
+            /** Format: date-time */
+            validatedAt?: string;
         };
         CreateRiteSheetDto: {
             key: string;
@@ -1589,7 +1966,8 @@ export interface components {
             order: number;
             content: string;
             audioRef?: string;
-            language?: string;
+            /** @enum {string} */
+            language?: "fr" | "en" | "ar";
         };
         UpdateRiteSheetDto: {
             key?: string;
@@ -1599,7 +1977,18 @@ export interface components {
             order?: number;
             content?: string;
             audioRef?: string;
-            language?: string;
+            /** @enum {string} */
+            language?: "fr" | "en" | "ar";
+        };
+        RiteProgressShape: {
+            id: string;
+            pilgrimId: string;
+            riteKey: string;
+            completed: boolean;
+            tawafCount: number;
+            saiCount: number;
+            /** Format: date-time */
+            clientUpdatedAt: string;
         };
         RiteProgressItemDto: {
             riteKey: string;
@@ -1616,9 +2005,143 @@ export interface components {
             rating: number;
             comment?: string;
         };
+        ReviewShape: {
+            id: string;
+            pilgrimId: string;
+            agencyId: string;
+            bookingId: string;
+            rating: number;
+            comment?: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        RatingDistributionEntry: {
+            rating: number;
+            count: number;
+        };
+        SatisfactionReportReview: {
+            rating: number;
+            comment?: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        SatisfactionReportShape: {
+            agencyId: string;
+            agencyName: string;
+            /** Format: date-time */
+            generatedAt: string;
+            reviewCount: number;
+            reviewAverage?: number;
+            ratingDistribution: components["schemas"]["RatingDistributionEntry"][];
+            reviews: components["schemas"]["SatisfactionReportReview"][];
+        };
+        AgencyTrustScoreShape: {
+            agencyId: string;
+            score?: number;
+            reviewAverage?: number;
+            reviewCount: number;
+            completionRate?: number;
+            concludedBookingsCount: number;
+            badge: Record<string, never>;
+        };
+        InboxLastMessage: {
+            content: string;
+            senderId: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        InboxConversationShape: {
+            id: string;
+            bookingId: string;
+            /** @enum {string} */
+            channel: "agency" | "guide";
+            counterpartName: string;
+            packageTitle: string;
+            lastMessage: components["schemas"]["InboxLastMessage"];
+            unreadCount: number;
+        };
+        ConversationShape: {
+            id: string;
+            bookingId: string;
+            /** @enum {string} */
+            channel: "agency" | "guide";
+        };
+        MessageShape: {
+            id: string;
+            conversationId: string;
+            senderId: string;
+            content: string;
+            /** Format: date-time */
+            clientSentAt: string;
+            /** Format: date-time */
+            readAt?: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
         SendMessageDto: {
             content: string;
             clientSentAt: string;
+        };
+        PlatformStatsDto: {
+            totalPilgrims: number;
+            totalGuides: number;
+            agenciesByStatus: Record<string, never>;
+            bookingsByStatus: Record<string, never>;
+            totalRevenue: number;
+        };
+        TripSummaryStepShape: {
+            /** @enum {string} */
+            key: "payment" | "visa" | "flight" | "vaccination" | "documents";
+            /** @enum {string} */
+            status: "pending" | "in_progress" | "done";
+            /** Format: date-time */
+            completedAt?: string;
+        };
+        TripSummaryRiteShape: {
+            riteKey: string;
+            title?: string;
+            completed: boolean;
+            tawafCount: number;
+            saiCount: number;
+        };
+        TripSummaryReviewShape: {
+            rating: number;
+            comment?: string;
+        };
+        TripSummaryShape: {
+            bookingId: string;
+            /** @enum {string} */
+            status: "pending_payment" | "confirmed" | "cancelled" | "completed";
+            packageTitle: string;
+            /** @enum {string} */
+            pilgrimageType: "oumra" | "hadj";
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+            agencyName: string;
+            steps: components["schemas"]["TripSummaryStepShape"][];
+            totalPaid: number;
+            currency: string;
+            installmentsCount: number;
+            rites: components["schemas"]["TripSummaryRiteShape"][];
+            review?: components["schemas"]["TripSummaryReviewShape"];
+        };
+        BudgetSimulationShape: {
+            id: string;
+            pilgrimId: string;
+            packageId: string | null;
+            packagePrice: number;
+            pocketMoney: number;
+            gifts: number;
+            sacrifice: number;
+            insurance: number;
+            otherExpenses: number;
+            currency: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
         };
         CreateBudgetDto: {
             /** @description ID du forfait rattaché */
@@ -1637,6 +2160,23 @@ export interface components {
             sacrifice?: number;
             insurance?: number;
             otherExpenses?: number;
+        };
+        SuccessShape: {
+            /** @example true */
+            success: boolean;
+        };
+        MicroCourseShape: {
+            id: string;
+            title: string;
+            description: string | null;
+            videoUrl: string;
+            durationSeconds: number;
+            order: number;
+            category: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
         };
         CreateMicroCourseDto: {
             /** @description Titre du micro-cours */
@@ -1684,6 +2224,14 @@ export interface components {
              */
             category: string;
         };
+        MicroCourseProgressShape: {
+            id: string;
+            pilgrimId: string;
+            courseId: string;
+            isCompleted: boolean;
+            /** Format: date-time */
+            clientUpdatedAt: string;
+        };
         MicroCourseProgressItemDto: {
             /** @description ID du micro-cours */
             courseId: string;
@@ -1696,14 +2244,85 @@ export interface components {
             /** @description Liste des progressions horodatées à synchroniser */
             items: components["schemas"]["MicroCourseProgressItemDto"][];
         };
+        CommunityMessageShape: {
+            id: string;
+            groupId: string;
+            senderId: string;
+            senderName?: string;
+            content: string;
+            /** Format: date-time */
+            clientSentAt: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
         SendCommunityMessageDto: {
             /** @description Contenu textuel du message */
             content: string;
             /** @description Horodatage de l'envoi côté client */
             clientSentAt: string;
         };
-        CreateQuizQuestionDto: Record<string, never>;
-        SubmitQuizAttemptDto: Record<string, never>;
+        CreateQuizQuestionDto: {
+            riteSheetId: string;
+            question: string;
+            options: string[];
+            correctOption: number;
+            explanation?: string;
+        };
+        QuizQuestionAdminShape: {
+            correctOption: number;
+            explanation: string | null;
+            isValidated: boolean;
+            validatedById: string | null;
+            /** Format: date-time */
+            validatedAt: string | null;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            id: string;
+            riteSheetId: string;
+            question: string;
+            options: string[];
+        };
+        QuizQuestionShape: {
+            id: string;
+            riteSheetId: string;
+            question: string;
+            options: string[];
+        };
+        SubmitQuizAttemptDto: {
+            selectedOption: number;
+        };
+        QuizAttemptResultShape: {
+            correctOption: number;
+            explanation: string | null;
+            id: string;
+            pilgrimId: string;
+            questionId: string;
+            selectedOption: number;
+            isCorrect: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        QuizAttemptQuestionRef: {
+            riteSheetId: string;
+        };
+        QuizAttemptWithRiteShape: {
+            question: components["schemas"]["QuizAttemptQuestionRef"];
+            id: string;
+            pilgrimId: string;
+            questionId: string;
+            selectedOption: number;
+            isCorrect: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        QuizStatsShape: {
+            totalAttempts: number;
+            correctAttempts: number;
+            scorePercentage: number;
+            attempts: components["schemas"]["QuizAttemptWithRiteShape"][];
+        };
     };
     responses: never;
     parameters: never;
@@ -1726,7 +2345,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["HealthShape"];
+                };
             };
         };
     };
@@ -1747,7 +2368,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["SentShape"];
+                };
             };
         };
     };
@@ -1768,7 +2391,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthTokensDto"];
+                };
             };
         };
     };
@@ -1786,6 +2411,52 @@ export interface operations {
         };
         responses: {
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthTokensDto"];
+                };
+            };
+        };
+    };
+    AuthController_forgotPassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ForgotPasswordDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SentShape"];
+                };
+            };
+        };
+    };
+    AuthController_resetPassword: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ResetPasswordDto"];
+            };
+        };
+        responses: {
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -1810,7 +2481,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AuthTokensDto"];
+                };
             };
         };
     };
@@ -1848,7 +2521,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserShape"];
+                };
             };
         };
     };
@@ -1869,7 +2544,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserShape"];
+                };
             };
         };
     };
@@ -1889,7 +2566,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserSummaryShape"][];
+                };
             };
         };
     };
@@ -1908,7 +2587,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserSummaryShape"];
+                };
             };
         };
     };
@@ -1927,7 +2608,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserSummaryShape"];
+                };
             };
         };
     };
@@ -1948,7 +2631,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
             };
         };
     };
@@ -1965,7 +2650,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
             };
         };
     };
@@ -1986,7 +2673,51 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
+            };
+        };
+    };
+    AgenciesController_listOwnGuides: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSummaryShape"][];
+                };
+            };
+        };
+    };
+    AgenciesController_addGuide: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateGuideDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserSummaryShape"];
+                };
             };
         };
     };
@@ -2007,7 +2738,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
             };
         };
     };
@@ -2024,7 +2757,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["LegalDocumentAlertShape"][];
+                };
             };
         };
     };
@@ -2043,7 +2778,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": Record<string, never>;
+                };
             };
         };
     };
@@ -2060,7 +2797,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CalendarSubscriptionShape"];
+                };
             };
         };
     };
@@ -2077,7 +2816,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CalendarSubscriptionShape"];
+                };
             };
         };
     };
@@ -2096,7 +2837,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"][];
+                };
             };
         };
     };
@@ -2115,7 +2858,31 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
+            };
+        };
+    };
+    AgenciesController_getLegalDocumentAccessUrlForAdmin: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                documentId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": Record<string, never>;
+                };
             };
         };
     };
@@ -2134,7 +2901,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
             };
         };
     };
@@ -2157,7 +2926,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["AgencyShape"];
+                };
             };
         };
     };
@@ -2185,7 +2956,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PackageShape"][];
+                };
             };
         };
     };
@@ -2206,7 +2979,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PackageShape"];
+                };
             };
         };
     };
@@ -2223,7 +2998,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PackageShape"][];
+                };
             };
         };
     };
@@ -2242,7 +3019,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PackageShape"];
+                };
             };
         };
     };
@@ -2265,7 +3044,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PackageShape"];
+                };
             };
         };
     };
@@ -2284,7 +3065,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PackageShape"];
+                };
             };
         };
     };
@@ -2305,7 +3088,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"];
+                };
             };
         };
     };
@@ -2322,7 +3107,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"][];
+                };
             };
         };
     };
@@ -2339,7 +3126,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"][];
+                };
             };
         };
     };
@@ -2356,7 +3145,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"][];
+                };
             };
         };
     };
@@ -2375,7 +3166,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"];
+                };
             };
         };
     };
@@ -2398,7 +3191,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"];
+                };
             };
         };
     };
@@ -2418,6 +3213,27 @@ export interface operations {
         };
         responses: {
             201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GroupShape"];
+                };
+            };
+        };
+    };
+    GroupsController_clearLocation: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -2444,7 +3260,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["GroupShape"];
+                };
             };
         };
     };
@@ -2482,7 +3300,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["NotificationShape"][];
+                };
             };
         };
     };
@@ -2501,7 +3321,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["NotificationShape"];
+                };
             };
         };
     };
@@ -2522,7 +3344,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"];
+                };
             };
         };
     };
@@ -2539,7 +3363,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"][];
+                };
             };
         };
     };
@@ -2556,7 +3382,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"][];
+                };
             };
         };
     };
@@ -2575,7 +3403,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"];
+                };
             };
         };
     };
@@ -2598,7 +3428,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"];
+                };
             };
         };
     };
@@ -2621,7 +3453,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"];
+                };
             };
         };
     };
@@ -2640,7 +3474,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BookingShape"];
+                };
             };
         };
     };
@@ -2659,7 +3495,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["FamilyViewLinkShape"];
+                };
             };
         };
     };
@@ -2678,7 +3516,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["FamilyViewLinkShape"];
+                };
             };
         };
     };
@@ -2697,7 +3537,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ChecklistItemShape"][];
+                };
             };
         };
     };
@@ -2720,7 +3562,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ChecklistItemShape"];
+                };
             };
         };
     };
@@ -2741,7 +3585,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PaymentShape"];
+                };
             };
         };
     };
@@ -2758,7 +3604,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PaymentShape"][];
+                };
             };
         };
     };
@@ -2775,7 +3623,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PaymentShape"][];
+                };
             };
         };
     };
@@ -2796,7 +3646,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PaymentShape"];
+                };
             };
         };
     };
@@ -2815,7 +3667,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PaymentShape"];
+                };
             };
         };
     };
@@ -2834,7 +3688,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PaymentShape"];
+                };
             };
         };
     };
@@ -2853,7 +3709,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": Record<string, never>;
+                };
             };
         };
     };
@@ -2872,7 +3730,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["SavingsPlanShape"];
+                };
             };
         };
     };
@@ -2891,7 +3751,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PilgrimDocumentShape"][];
+                };
             };
         };
     };
@@ -2912,7 +3774,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PilgrimDocumentShape"];
+                };
             };
         };
     };
@@ -2929,7 +3793,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PilgrimDocumentShape"][];
+                };
             };
         };
     };
@@ -2948,7 +3814,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["DocumentExpiryAlertShape"][];
+                };
             };
         };
     };
@@ -2967,7 +3835,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": Record<string, never>;
+                };
             };
         };
     };
@@ -2986,7 +3856,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PilgrimDocumentShape"];
+                };
             };
         };
     };
@@ -3009,7 +3881,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PilgrimDocumentShape"];
+                };
             };
         };
     };
@@ -3029,7 +3903,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteSheetShape"][];
+                };
             };
         };
     };
@@ -3050,7 +3926,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteSheetShape"];
+                };
             };
         };
     };
@@ -3067,7 +3945,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteSheetShape"][];
+                };
             };
         };
     };
@@ -3090,7 +3970,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteSheetShape"];
+                };
             };
         };
     };
@@ -3109,7 +3991,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteSheetShape"];
+                };
             };
         };
     };
@@ -3126,7 +4010,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteProgressShape"][];
+                };
             };
         };
     };
@@ -3147,7 +4033,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteProgressShape"][];
+                };
             };
         };
     };
@@ -3166,7 +4054,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["RiteProgressShape"];
+                };
             };
         };
     };
@@ -3187,7 +4077,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ReviewShape"];
+                };
             };
         };
     };
@@ -3204,7 +4096,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ReviewShape"][];
+                };
             };
         };
     };
@@ -3221,7 +4115,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["SatisfactionReportShape"];
+                };
             };
         };
     };
@@ -3238,7 +4134,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": string;
+                };
             };
         };
     };
@@ -3257,7 +4155,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ReviewShape"][];
+                };
             };
         };
     };
@@ -3273,6 +4173,46 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgencyTrustScoreShape"];
+                };
+            };
+        };
+    };
+    MessagingController_listInbox: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InboxConversationShape"][];
+                };
+            };
+        };
+    };
+    MessagingController_markAsRead: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -3296,7 +4236,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["ConversationShape"];
+                };
             };
         };
     };
@@ -3315,7 +4257,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MessageShape"][];
+                };
             };
         };
     };
@@ -3338,7 +4282,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MessageShape"];
+                };
             };
         };
     };
@@ -3355,7 +4301,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["PlatformStatsDto"];
+                };
             };
         };
     };
@@ -3374,7 +4322,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["TripSummaryShape"];
+                };
             };
         };
     };
@@ -3391,7 +4341,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BudgetSimulationShape"][];
+                };
             };
         };
     };
@@ -3412,7 +4364,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BudgetSimulationShape"];
+                };
             };
         };
     };
@@ -3435,7 +4389,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["BudgetSimulationShape"];
+                };
             };
         };
     };
@@ -3454,7 +4410,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["SuccessShape"];
+                };
             };
         };
     };
@@ -3473,7 +4431,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MicroCourseShape"][];
+                };
             };
         };
     };
@@ -3494,7 +4454,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MicroCourseShape"];
+                };
             };
         };
     };
@@ -3513,7 +4475,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MicroCourseShape"];
+                };
             };
         };
     };
@@ -3555,7 +4519,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MicroCourseShape"];
+                };
             };
         };
     };
@@ -3572,7 +4538,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MicroCourseProgressShape"][];
+                };
             };
         };
     };
@@ -3593,7 +4561,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["MicroCourseProgressShape"][];
+                };
             };
         };
     };
@@ -3612,7 +4582,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CommunityMessageShape"][];
+                };
             };
         };
     };
@@ -3635,7 +4607,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CommunityMessageShape"];
+                };
             };
         };
     };
@@ -3656,7 +4630,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["QuizQuestionAdminShape"];
+                };
             };
         };
     };
@@ -3675,7 +4651,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["QuizQuestionAdminShape"];
+                };
             };
         };
     };
@@ -3694,7 +4672,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["QuizQuestionShape"][];
+                };
             };
         };
     };
@@ -3717,7 +4697,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["QuizAttemptResultShape"];
+                };
             };
         };
     };
@@ -3734,7 +4716,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["QuizStatsShape"];
+                };
             };
         };
     };

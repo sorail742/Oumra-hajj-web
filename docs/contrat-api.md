@@ -173,9 +173,17 @@ sens comme dans l'autre.
 
 ---
 
-## Garde-fou à mettre en place
+## Garde-fou en place
 
-Même principe que smartsms-frontend : si `src/lib/api/generated.ts` diffère
-du fichier commité après régénération depuis `openapi.json`, la CI doit
-échouer — c'est ce qui empêche le frontend de dériver silencieusement du
-backend. À câbler dès qu'un pipeline CI existe pour `oumra-hadj-web`.
+Si `src/lib/api/generated.ts` diffère du fichier commité après
+régénération depuis `openapi.json` (`pnpm api:types`), la CI échoue
+(étape « API types up to date ») — c'est ce qui empêche le frontend de
+dériver silencieusement du contrat.
+
+Depuis le ticket #72, `openapi.json` décrit **les schémas de réponse** de
+toutes les routes (le backend les déduit de ses types de retour, et sa
+propre CI vérifie que le fichier est à jour). Pour mettre à jour le
+contrat : copier `openapi.json` du backend, `pnpm prettier --write
+openapi.json`, puis `pnpm api:types`. Les schémas zod de
+`features/*/api/schemas.ts` restent la validation à l'exécution ; les
+types générés servent de référence pour les écrire et les vérifier.
