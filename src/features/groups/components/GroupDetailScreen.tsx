@@ -15,13 +15,20 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { formatDate } from "@/lib/format";
 
 /**
- * `guideAction` : emplacement fourni par la page pour composer un autre
- * domaine (guides de l'agence, #64) sans import entre features (règle 2).
+ * `guideAction` et `apres` : emplacements fournis par la page pour composer
+ * d'autres domaines (guides de l'agence #64, discussion #84) sans import
+ * entre features (règle 2).
  */
 export function GroupDetailScreen({
   id,
   guideAction,
-}: Readonly<{ id: string; guideAction?: (group: Group) => ReactNode }>) {
+  apres,
+}: Readonly<{
+  id: string;
+  guideAction?: (group: Group) => ReactNode;
+  /** Section composée par la page sous le détail (discussion, #84). */
+  apres?: (group: Group) => ReactNode;
+}>) {
   const t = useTranslations("groups");
   const query = useGroup(id);
 
@@ -88,6 +95,7 @@ export function GroupDetailScreen({
               <LocationSharingCard groupId={group.id} />
             </Can>
             <MemberLocations group={group} />
+            {apres?.(group)}
           </div>
         );
       }}

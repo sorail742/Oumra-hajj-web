@@ -113,6 +113,12 @@ export const keys = {
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
   },
 
+  community: {
+    all: ["community"] as const,
+    messages: (groupId: string) =>
+      [...keys.community.all, "messages", groupId] as const,
+  },
+
   quiz: {
     all: ["quiz"] as const,
     questions: (riteSheetId: string) =>

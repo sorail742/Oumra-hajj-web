@@ -491,9 +491,6 @@
     "channelGuide": "Guide",
     "emptyTitle": "Aucun message pour le moment.",
     "emptyDescription": "Écrivez le premier message pour démarrer la conversation.",
-    "placeholder": "Écrire un message…",
-    "send": "Envoyer",
-    "sendError": "Le message n'a pas pu être envoyé. Réessayez.",
     "inbox": {
       "title": "Messagerie",
       "description": "Vos échanges liés aux réservations, avec l'agence ou le guide.",
@@ -1300,5 +1297,16 @@
       "error": "L'action n'a pas abouti. Réessayez.",
       "unknownSheet": "Fiche retirée"
     }
+  },
+  "chat": {
+    "placeholder": "Écrire un message…",
+    "send": "Envoyer",
+    "sendError": "Le message n'a pas pu être envoyé. Réessayez."
+  },
+  "community": {
+    "title": "Discussion du groupe",
+    "description": "Échangez avec les autres pèlerins, le guide et l'agence avant le départ. Les nouveaux messages s'affichent en quelques secondes.",
+    "emptyTitle": "Aucun message pour le moment.",
+    "emptyBody": "Présentez-vous ou posez une question au groupe."
   }
 }
