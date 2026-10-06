@@ -6,6 +6,7 @@ import { useGroup } from "../api/use-groups";
 import type { Group } from "../api/schemas";
 import { ItineraryStepForm } from "./ItineraryStepForm";
 import { LocationSharingCard } from "./LocationSharingCard";
+import { LostButton } from "./LostButton";
 import { MemberLocations } from "./MemberLocations";
 import { SosButton } from "./SosButton";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
@@ -59,7 +60,10 @@ export function GroupDetailScreen({
                 <Can role="agency">{guideAction(group)}</Can>
               ) : null}
               <Can role="pilgrim">
-                <SosButton groupId={group.id} />
+                <div className="flex flex-wrap items-start gap-3">
+                  <LostButton groupId={group.id} />
+                  <SosButton groupId={group.id} />
+                </div>
               </Can>
             </div>
 

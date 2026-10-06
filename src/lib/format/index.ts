@@ -126,6 +126,16 @@ export function formatDateCourte(iso: string | Date): string {
   return format(versDate(iso), "dd/MM", OPTIONS_DATE);
 }
 
+/**
+ * Mois d'une clé `AAAA-MM` renvoyée par le backend (« février 2027 »).
+ * Pas de fuseau : la clé désigne déjà un mois calendaire.
+ */
+export function formatMois(cle: string): string {
+  const [annee, mois] = cle.split("-").map(Number);
+  if (!annee || !mois) return cle;
+  return format(new Date(annee, mois - 1, 1), "MMMM yyyy", { locale: fr });
+}
+
 /** « il y a 3 jours » — à accompagner d'un `title` portant la date absolue. */
 export function formatRelatif(iso: string | Date): string {
   return formatDistanceToNow(versDate(iso), { addSuffix: true, locale: fr });

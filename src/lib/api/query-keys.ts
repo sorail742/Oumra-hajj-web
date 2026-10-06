@@ -80,6 +80,7 @@ export const keys = {
     all: ["payments"] as const,
     mine: () => [...keys.payments.all, "mine"] as const,
     agency: () => [...keys.payments.all, "agency"] as const,
+    treasury: () => [...keys.payments.all, "treasury"] as const,
     detail: (id: string) => [...keys.payments.all, "detail", id] as const,
     byBooking: (bookingId: string) =>
       [...keys.payments.all, "booking", bookingId] as const,

@@ -330,6 +330,15 @@
       "refundedAt": "Remboursé le",
       "receiptTitle": "Reçu de paiement",
       "receiptBody": "Conservez ce numéro de reçu : il atteste le paiement de cette tranche."
+    },
+    "treasury": {
+      "title": "Trésorerie prévisionnelle",
+      "description": "Ce que vos réservations en cours doivent encore rapporter, et quand.",
+      "expected": "Total attendu",
+      "collected": "Déjà encaissé",
+      "outstanding": "Reste à encaisser",
+      "byMonth": "Encaissements prévus par mois",
+      "empty": "Aucune réservation en cours pour le moment."
     }
   },
   "reviews": {
@@ -483,6 +492,15 @@
       "member": "Membre {n}",
       "openMap": "Voir sur la carte",
       "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)"
+    },
+    "lost": {
+      "button": "Je suis perdu",
+      "sending": "Envoi de ma position…",
+      "hint": "Votre guide reçoit votre position et vient vers vous. En cas de danger, utilisez plutôt le bouton SOS.",
+      "sent": "Votre guide a été prévenu et a reçu votre position.",
+      "error": "L'alerte n'a pas pu être envoyée. Réessayez ou appelez votre guide.",
+      "denied": "Le navigateur a refusé l'accès à la position. Autorisez-la pour prévenir votre guide.",
+      "unavailable": "La position est indisponible sur cet appareil pour le moment."
     }
   },
   "messaging": {
