@@ -463,6 +463,25 @@
       "assigned": "Guide assigné au groupe.",
       "error": "Impossible d'assigner ce guide. Réessayez.",
       "noGuide": "Ajoutez d'abord un guide depuis la page « Mon agence »."
+    },
+    "location": {
+      "title": "Partager ma position",
+      "consent": "Votre position sera visible par les membres du groupe, le guide, l'agence et l'administration. Elle est envoyée au plus une fois par minute, seulement tant que cette page reste ouverte. Vous pouvez arrêter à tout moment : la dernière position envoyée est alors effacée.",
+      "start": "Partager ma position",
+      "stop": "Arrêter le partage",
+      "active": "Partage en cours",
+      "stopped": "Partage arrêté, votre position a été effacée.",
+      "stopError": "Le partage est arrêté sur cet appareil, mais l'effacement a échoué. Réessayez.",
+      "sendError": "Votre position n'a pas pu être envoyée. Nouvel essai à la prochaine mise à jour.",
+      "denied": "Le navigateur a refusé l'accès à la position. Autorisez-la dans les réglages du site pour partager.",
+      "unavailable": "La position est indisponible sur cet appareil pour le moment.",
+      "listTitle": "Positions partagées",
+      "listEmpty": "Personne ne partage sa position pour le moment.",
+      "you": "Vous",
+      "guide": "Guide",
+      "member": "Membre {n}",
+      "openMap": "Voir sur la carte",
+      "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)"
     }
   },
   "messaging": {

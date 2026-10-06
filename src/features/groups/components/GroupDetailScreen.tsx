@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { useGroup } from "../api/use-groups";
 import type { Group } from "../api/schemas";
 import { ItineraryStepForm } from "./ItineraryStepForm";
+import { LocationSharingCard } from "./LocationSharingCard";
+import { MemberLocations } from "./MemberLocations";
 import { SosButton } from "./SosButton";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DetailSkeleton } from "@/components/shared/DetailSkeleton";
@@ -82,6 +84,10 @@ export function GroupDetailScreen({
                 <ItineraryStepForm groupId={group.id} />
               </Can>
             </div>
+            <Can role={["pilgrim", "guide"]}>
+              <LocationSharingCard groupId={group.id} />
+            </Can>
+            <MemberLocations group={group} />
           </div>
         );
       }}
