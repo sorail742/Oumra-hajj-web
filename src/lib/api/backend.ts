@@ -52,7 +52,11 @@ export function prefixePour(_chemin: string): string {
  * **pas** l'enveloppe `{success:false,error:{...}}` de smartsms-backend, qui
  * ne s'applique pas ici. Voir `docs/contrat-api.md`.
  */
-export function reponseBackendInjoignable(chemin: string): NextResponse {
+export function reponseBackendInjoignable(
+  chemin: string,
+  cause?: unknown,
+): NextResponse {
+  journaliserEchecBackend(chemin, cause);
   return NextResponse.json(
     {
       statusCode: 502,
@@ -63,4 +67,30 @@ export function reponseBackendInjoignable(chemin: string): NextResponse {
     } satisfies ErrorResponse,
     { status: 502 },
   );
+}
+
+/**
+ * Trace serveur (logs Vercel) de la cause d'un 502 : sans elle, un backend
+ * injoignable, une `BACKEND_URL` absente ou invalide et un `fetch` refusé
+ * avant tout appel réseau sont indiscernables. Seuls le chemin Next, le
+ * nom, le code et le message de l'erreur sont écrits — jamais d'en-tête,
+ * de cookie, de jeton ni de corps de requête (CLAUDE.md backend, données
+ * sensibles).
+ */
+export function journaliserEchecBackend(chemin: string, cause: unknown): void {
+  if (cause === undefined) {
+    return;
+  }
+  const erreur = cause instanceof Error ? cause : new Error(String(cause));
+  const sousCause: unknown = erreur.cause;
+  const code =
+    typeof sousCause === "object" && sousCause !== null && "code" in sousCause
+      ? String(sousCause.code)
+      : undefined;
+  console.error("[proxy] backend injoignable", {
+    chemin,
+    erreur: erreur.name,
+    message: erreur.message,
+    ...(code ? { code } : {}),
+  });
 }

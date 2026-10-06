@@ -4,6 +4,7 @@ import {
   reponseBackendInjoignable,
   urlBackend,
 } from "@/lib/api/backend";
+import { enTetesRelayees } from "@/lib/api/entetes-proxy";
 import {
   expirerJetonsSur,
   lireJetons,
@@ -26,30 +27,6 @@ import {
  * JWT — voir `docs/contrat-api.md`. Ne pas le faire passer par ici.
  */
 
-const ENTETES_A_ECARTER = new Set([
-  "host",
-  "connection",
-  "content-length",
-  "transfer-encoding",
-  // Le cookie ne doit jamais partir vers le backend : il ne le comprend
-  // pas, et le transmettre exposerait les jetons à un service qui n'en a
-  // pas besoin sous cette forme.
-  "cookie",
-]);
-
-function enTetesRelayees(requete: NextRequest, accessToken?: string): Headers {
-  const entetes = new Headers();
-  requete.headers.forEach((valeur, cle) => {
-    if (!ENTETES_A_ECARTER.has(cle.toLowerCase())) {
-      entetes.set(cle, valeur);
-    }
-  });
-  if (accessToken) {
-    entetes.set("Authorization", `Bearer ${accessToken}`);
-  }
-  return entetes;
-}
-
 async function appelerBackend(
   requete: NextRequest,
   relatif: string,
@@ -59,7 +36,7 @@ async function appelerBackend(
   const cible = `${urlBackend()}${prefixePour(relatif)}/${relatif}${requete.nextUrl.search}`;
   return fetch(cible, {
     method: requete.method,
-    headers: enTetesRelayees(requete, accessToken),
+    headers: enTetesRelayees(requete.headers, accessToken),
     ...(corpsCapture ? { body: corpsCapture } : {}),
     // Le proxy ne met rien en cache : c'est TanStack Query qui décide, côté
     // client. Deux caches superposés produiraient des états divergents.
@@ -88,8 +65,8 @@ async function relayer(
   let reponse: Response;
   try {
     reponse = await appelerBackend(requete, relatif, accessToken, corpsCapture);
-  } catch {
-    return reponseBackendInjoignable(requete.nextUrl.pathname);
+  } catch (erreur) {
+    return reponseBackendInjoignable(requete.nextUrl.pathname, erreur);
   }
 
   // Jeton d'accès refusé : tenter un renouvellement silencieux avant
@@ -111,8 +88,8 @@ async function relayer(
           nouveauxJetons.accessToken,
           corpsCapture,
         );
-      } catch {
-        return reponseBackendInjoignable(requete.nextUrl.pathname);
+      } catch (erreur) {
+        return reponseBackendInjoignable(requete.nextUrl.pathname, erreur);
       }
       const relais = await construireReponse(rejeu);
       poserJetonsSur(relais, nouveauxJetons);
