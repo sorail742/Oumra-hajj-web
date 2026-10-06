@@ -113,6 +113,14 @@ export const keys = {
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
   },
 
+  quiz: {
+    all: ["quiz"] as const,
+    questions: (riteSheetId: string) =>
+      [...keys.quiz.all, "questions", riteSheetId] as const,
+    stats: () => [...keys.quiz.all, "stats"] as const,
+    pending: () => [...keys.quiz.all, "pending"] as const,
+  },
+
   groups: {
     all: ["groups"] as const,
     mine: () => [...keys.groups.all, "mine"] as const,

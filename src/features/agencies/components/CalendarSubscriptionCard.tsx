@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
@@ -10,16 +9,8 @@ import {
 } from "../api/use-calendar";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { CopyButton } from "@/components/shared/CopyButton";
+import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /**
@@ -29,47 +20,31 @@ import { Skeleton } from "@/components/ui/skeleton";
  */
 function RegenererLien() {
   const t = useTranslations("calendar");
-  const tc = useTranslations("common");
-  const [ouvert, setOuvert] = useState(false);
   const regeneration = useRegenerateCalendarSubscription();
 
-  function confirmer() {
-    regeneration.mutate(undefined, {
-      onSuccess: () => {
-        toast.success(t("regenerateSuccess"));
-        setOuvert(false);
-      },
-      onError: () => toast.error(t("regenerateError")),
-    });
-  }
-
   return (
-    <Dialog open={ouvert} onOpenChange={setOuvert}>
-      <DialogTrigger asChild>
+    <ConfirmDialog
+      trigger={
         <Button variant="outline" className="gap-2">
           <RefreshCw aria-hidden className="size-4" />
           {t("regenerateAction")}
         </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-(--dialog-md)">
-        <DialogHeader>
-          <DialogTitle>{t("regenerateAction")}</DialogTitle>
-          <DialogDescription>{t("regenerateWarning")}</DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOuvert(false)}>
-            {tc("cancel")}
-          </Button>
-          <Button
-            variant="destructive"
-            onClick={confirmer}
-            disabled={regeneration.isPending}
-          >
-            {t("regenerateConfirm")}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      }
+      title={t("regenerateAction")}
+      description={t("regenerateWarning")}
+      confirmLabel={t("regenerateConfirm")}
+      destructive
+      enCours={regeneration.isPending}
+      onConfirm={() =>
+        regeneration.mutateAsync().then(
+          () => toast.success(t("regenerateSuccess")),
+          (erreur: unknown) => {
+            toast.error(t("regenerateError"));
+            throw erreur;
+          },
+        )
+      }
+    />
   );
 }
 

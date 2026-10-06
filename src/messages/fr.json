@@ -50,7 +50,8 @@
       "agency": "Agences",
       "admin": "Administrateurs"
     },
-    "microCourses": "Micro-cours"
+    "microCourses": "Micro-cours",
+    "quiz": "Quiz"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -1228,6 +1229,76 @@
       "regenerateConfirm": "Créer un nouveau lien",
       "regenerated": "Nouveau lien créé ; l'ancien ne fonctionne plus.",
       "error": "L'opération n'a pas abouti. Réessayez."
+    }
+  },
+  "quiz": {
+    "title": "Quiz des rites",
+    "description": "Vérifiez vos connaissances sur chaque fiche de rite.",
+    "hub": {
+      "statsTitle": "Mes résultats",
+      "sheetsTitle": "S'entraîner",
+      "practice": "Commencer le quiz",
+      "noSheet": "Aucune fiche de rite publiée pour le moment.",
+      "back": "Retour aux quiz",
+      "pilgrimOnly": "Le quiz se joue depuis l'espace pèlerin."
+    },
+    "run": {
+      "progress": "Question {rang} sur {total}",
+      "submit": "Valider ma réponse",
+      "correct": "Bonne réponse !",
+      "incorrect": "Ce n'est pas la bonne réponse. La bonne réponse : {answer}",
+      "explanation": "Explication :",
+      "next": "Question suivante",
+      "finish": "Voir mon score",
+      "doneTitle": "Quiz terminé",
+      "score": "{bonnes} bonne(s) réponse(s) sur {total}.",
+      "restart": "Recommencer",
+      "error": "Votre réponse n'a pas pu être enregistrée. Réessayez.",
+      "emptyTitle": "Pas encore de question pour cette fiche.",
+      "emptyBody": "Les questions apparaissent ici une fois validées par l'administration."
+    },
+    "stats": {
+      "empty": "Vous n'avez encore répondu à aucune question.",
+      "global": "{bonnes} bonne(s) réponse(s) sur {total} ({part}).",
+      "bySheet": "Par fiche",
+      "sheetScore": "{bonnes} / {total} ({part})",
+      "unknownSheet": "Fiche retirée"
+    },
+    "propose": {
+      "title": "Proposer une question",
+      "description": "Votre question sera publiée après validation par l'administration.",
+      "sheet": "Fiche de rite",
+      "sheetPlaceholder": "Choisir une fiche",
+      "sheetRequired": "Choisissez la fiche concernée.",
+      "question": "Question",
+      "questionTooShort": "La question contient au moins 5 caractères.",
+      "options": "Réponses possibles",
+      "optionsHint": "De 2 à 6 réponses ; cochez la bonne.",
+      "optionLabel": "Réponse {n}",
+      "optionEmpty": "Une réponse ne peut pas être vide.",
+      "markCorrect": "Réponse {n} est la bonne",
+      "removeOption": "Retirer la réponse {n}",
+      "addOption": "Ajouter une réponse",
+      "correctRequired": "Cochez la bonne réponse.",
+      "explanation": "Explication (facultative, affichée après la réponse)",
+      "submit": "Proposer la question",
+      "sent": "Question proposée, en attente de validation.",
+      "error": "La question n'a pas pu être enregistrée. Réessayez."
+    },
+    "pending": {
+      "title": "Questions à valider",
+      "empty": "Aucune question en attente.",
+      "correctAnswer": "(bonne réponse)",
+      "validate": "Publier",
+      "validateTitle": "Publier cette question ?",
+      "validateBody": "Elle sera visible par tous les pèlerins dans le quiz de cette fiche.",
+      "validated": "Question publiée.",
+      "reject": "Refuser",
+      "rejectTitle": "Refuser cette question ?",
+      "rejectBody": "Elle sera supprimée définitivement.",
+      "rejected": "Question refusée.",
+      "error": "L'action n'a pas abouti. Réessayez.",
+      "unknownSheet": "Fiche retirée"
     }
   }
 }
