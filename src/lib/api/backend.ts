@@ -81,11 +81,15 @@ export function journaliserEchecBackend(chemin: string, cause: unknown): void {
   if (cause === undefined) {
     return;
   }
-  const erreur = cause instanceof Error ? cause : new Error(String(cause));
+  const erreur =
+    cause instanceof Error ? cause : new Error("Erreur non standard");
   const sousCause: unknown = erreur.cause;
   const code =
-    typeof sousCause === "object" && sousCause !== null && "code" in sousCause
-      ? String(sousCause.code)
+    typeof sousCause === "object" &&
+    sousCause !== null &&
+    "code" in sousCause &&
+    typeof sousCause.code === "string"
+      ? sousCause.code
       : undefined;
   console.error("[proxy] backend injoignable", {
     chemin,

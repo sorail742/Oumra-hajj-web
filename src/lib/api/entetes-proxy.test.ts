@@ -14,7 +14,7 @@ describe("enTetesRelayees", () => {
 
     const relayees = enTetesRelayees(source, "jeton-factice");
 
-    expect([...relayees.keys()].sort()).toEqual([
+    expect([...relayees.keys()].sort((a, b) => a.localeCompare(b))).toEqual([
       "accept",
       "authorization",
       "content-type",
@@ -22,15 +22,16 @@ describe("enTetesRelayees", () => {
     expect(relayees.get("authorization")).toBe("Bearer jeton-factice");
   });
 
-  it("produit des en-têtes que fetch accepte malgré les hop-by-hop reçus", async () => {
+  it("écarte les en-têtes hop-by-hop que fetch (undici) refuse", () => {
     const relayees = enTetesRelayees(
-      new Headers({ "keep-alive": "timeout=5", upgrade: "h2c" }),
+      new Headers({
+        "keep-alive": "timeout=5",
+        upgrade: "h2c",
+        connection: "keep-alive",
+        "transfer-encoding": "chunked",
+      }),
     );
-    // Une URL injoignable suffit : l'échec attendu est réseau, pas un rejet
-    // des en-têtes par undici (« invalid keep-alive header »).
-    const erreur = await fetch("http://127.0.0.1:9/", {
-      headers: relayees,
-    }).catch((e: unknown) => e);
-    expect(String((erreur as Error).cause)).not.toMatch(/header/i);
+
+    expect([...relayees.keys()]).toEqual([]);
   });
 });
