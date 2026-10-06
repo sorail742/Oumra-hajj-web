@@ -28,3 +28,23 @@ export const messageSchema = z.object({
 });
 
 export type Message = z.infer<typeof messageSchema>;
+
+/**
+ * Entrée de la boîte de réception — `InboxConversationShape` du backend
+ * (`GET /messaging/conversations`, ticket #67).
+ */
+export const inboxConversationSchema = z.object({
+  id: z.string(),
+  bookingId: z.string(),
+  channel: messagingChannelSchema,
+  counterpartName: z.string(),
+  packageTitle: z.string(),
+  lastMessage: z.object({
+    content: z.string(),
+    senderId: z.string(),
+    createdAt: z.string(),
+  }),
+  unreadCount: z.number().int().nonnegative(),
+});
+
+export type InboxConversation = z.infer<typeof inboxConversationSchema>;

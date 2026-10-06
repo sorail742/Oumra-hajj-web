@@ -11,7 +11,9 @@ vi.mock("@/lib/auth/role-context", () => ({
 const useConversation = vi.fn();
 const useMessages = vi.fn();
 const useSendMessage = vi.fn();
+const marquerLu = vi.fn();
 vi.mock("../api/use-messaging", () => ({
+  useMarquerLu: () => ({ mutate: marquerLu }),
   useConversation: (...args: unknown[]) => useConversation(...args),
   useMessages: (...args: unknown[]) => useMessages(...args),
   useSendMessage: (...args: unknown[]) => useSendMessage(...args),
@@ -61,5 +63,54 @@ describe("ConversationView", () => {
     const leurMessage = screen.getByText("Bonsoir").closest(".flex");
     expect(monMessage).toHaveClass("justify-end");
     expect(leurMessage).toHaveClass("justify-start");
+  });
+
+  it("accuse réception des seuls messages reçus non lus", () => {
+    useMessages.mockReturnValue({
+      data: [
+        {
+          id: "m1",
+          senderId: "user-agence",
+          content: "Bonsoir",
+          createdAt: "2026-01-01T10:01:00Z",
+        },
+      ],
+      isPending: false,
+      isError: false,
+      refetch: vi.fn(),
+    });
+    marquerLu.mockReset();
+
+    afficher();
+
+    expect(marquerLu).toHaveBeenCalledWith("conv-1");
+  });
+
+  it("n'appelle pas l'accusé de lecture quand tout est déjà lu", () => {
+    useMessages.mockReturnValue({
+      data: [
+        {
+          id: "m1",
+          senderId: "user-agence",
+          content: "Bonsoir",
+          readAt: "2026-01-01T10:02:00Z",
+          createdAt: "2026-01-01T10:01:00Z",
+        },
+        {
+          id: "m2",
+          senderId: "user-moi",
+          content: "Merci",
+          createdAt: "2026-01-01T10:03:00Z",
+        },
+      ],
+      isPending: false,
+      isError: false,
+      refetch: vi.fn(),
+    });
+    marquerLu.mockReset();
+
+    afficher();
+
+    expect(marquerLu).not.toHaveBeenCalled();
   });
 });

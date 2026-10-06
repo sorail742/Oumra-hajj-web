@@ -473,7 +473,20 @@
     "emptyDescription": "Écrivez le premier message pour démarrer la conversation.",
     "placeholder": "Écrire un message…",
     "send": "Envoyer",
-    "sendError": "Le message n'a pas pu être envoyé. Réessayez."
+    "sendError": "Le message n'a pas pu être envoyé. Réessayez.",
+    "inbox": {
+      "title": "Messagerie",
+      "description": "Vos échanges liés aux réservations, avec l'agence ou le guide.",
+      "listLabel": "Conversations",
+      "channelAgency": "Agence",
+      "channelGuide": "Guide",
+      "fromMe": "Vous : {content}",
+      "unread": "{count, plural, one {# message non lu} other {# messages non lus}}",
+      "emptyTitle": "Aucune conversation pour le moment.",
+      "emptyBody": "Les échanges démarrent depuis le détail d'une réservation ; ils apparaîtront ici dès le premier message.",
+      "pick": "Choisissez une conversation pour l'afficher.",
+      "back": "Retour aux conversations"
+    }
   },
   "agencyCompliance": {
     "title": "Conformité documentaire",

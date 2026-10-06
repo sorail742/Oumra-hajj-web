@@ -127,6 +127,7 @@ export const keys = {
       [...keys.messaging.all, "conversation", bookingId, channel] as const,
     messages: (conversationId: string) =>
       [...keys.messaging.all, "messages", conversationId] as const,
+    inbox: () => [...keys.messaging.all, "inbox"] as const,
   },
 
   checklist: {

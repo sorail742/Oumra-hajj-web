@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import {
   useConversation,
+  useMarquerLu,
   useMessages,
   useSendMessage,
 } from "../api/use-messaging";
@@ -36,6 +37,17 @@ export function ConversationView({
   useEffect(() => {
     finListe.current?.scrollIntoView({ block: "end" });
   }, [messages.data?.length]);
+
+  // Accusé de lecture dès qu'un message reçu non lu est affiché (#67).
+  const { mutate: marquer } = useMarquerLu();
+  const conversationId = conversation.data?.id;
+  const aDesNonLus =
+    messages.data?.some((m) => m.senderId !== userId && !m.readAt) ?? false;
+  useEffect(() => {
+    if (conversationId && userId && aDesNonLus) {
+      marquer(conversationId);
+    }
+  }, [conversationId, userId, aDesNonLus, marquer]);
 
   async function envoyer(e: FormEvent) {
     e.preventDefault();

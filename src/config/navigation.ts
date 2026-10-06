@@ -7,6 +7,7 @@ import {
   FileCheck,
   GraduationCap,
   LayoutDashboard,
+  MessageSquare,
   Package,
   PackagePlus,
   ShieldCheck,
@@ -67,6 +68,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     href: "/groups",
     cle: "groups",
     icone: Users,
+    roles: ["pilgrim", "guide", "agency"],
+  },
+  {
+    href: "/messaging",
+    cle: "messaging",
+    icone: MessageSquare,
     roles: ["pilgrim", "guide", "agency"],
   },
   {
