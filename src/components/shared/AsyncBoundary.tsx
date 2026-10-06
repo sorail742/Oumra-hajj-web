@@ -8,7 +8,7 @@ import { ErrorState } from "./ErrorState";
  * réimplémente jamais chargement/vide/erreur/nominal à la main.
  */
 
-interface QueryLike<T> {
+export interface QueryLike<T> {
   data: T | undefined;
   isPending: boolean;
   isError: boolean;

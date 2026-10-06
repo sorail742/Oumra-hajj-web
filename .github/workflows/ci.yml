@@ -39,6 +39,16 @@ jobs:
       - name: Typecheck
         run: pnpm tsc --noEmit
 
+      # Le frontend ne doit pas dériver du contrat : generated.ts doit être
+      # exactement ce que produit openapi.json (docs/contrat-api.md).
+      - name: API types up to date
+        run: |
+          pnpm api:types
+          git diff --exit-code src/lib/api/generated.ts || {
+            echo "::error::src/lib/api/generated.ts est obsolète : lancez pnpm api:types et committez le fichier."
+            exit 1
+          }
+
       - name: Security Audit
         run: pnpm audit --prod
 

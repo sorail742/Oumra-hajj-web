@@ -97,3 +97,36 @@ export function useAssignerGuide(groupId: string) {
     },
   });
 }
+
+/**
+ * Partage de position (ticket #85) : envoi volontaire de la position du
+ * membre ou du guide. Les coordonnées ne sont jamais journalisées.
+ */
+export function useEnvoyerPosition(groupId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (position: { lat: number; lng: number }) =>
+      groupSchema.parse(
+        await api.patch<unknown>(
+          `/api/groups/${encodeURIComponent(groupId)}/location`,
+          position,
+        ),
+      ),
+    onSuccess: (groupe) => {
+      queryClient.setQueryData(keys.groups.detail(groupId), groupe);
+    },
+  });
+}
+
+/** Arrêt du partage : le backend efface la dernière position connue. */
+export function useArreterPartage(groupId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () =>
+      api.delete<unknown>(
+        `/api/groups/${encodeURIComponent(groupId)}/location`,
+      ),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: keys.groups.detail(groupId) }),
+  });
+}

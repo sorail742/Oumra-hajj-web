@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { useGroup } from "../api/use-groups";
 import type { Group } from "../api/schemas";
 import { ItineraryStepForm } from "./ItineraryStepForm";
+import { LocationSharingCard } from "./LocationSharingCard";
+import { MemberLocations } from "./MemberLocations";
 import { SosButton } from "./SosButton";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { DetailSkeleton } from "@/components/shared/DetailSkeleton";
@@ -13,13 +15,20 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { formatDate } from "@/lib/format";
 
 /**
- * `guideAction` : emplacement fourni par la page pour composer un autre
- * domaine (guides de l'agence, #64) sans import entre features (règle 2).
+ * `guideAction` et `apres` : emplacements fournis par la page pour composer
+ * d'autres domaines (guides de l'agence #64, discussion #84) sans import
+ * entre features (règle 2).
  */
 export function GroupDetailScreen({
   id,
   guideAction,
-}: Readonly<{ id: string; guideAction?: (group: Group) => ReactNode }>) {
+  apres,
+}: Readonly<{
+  id: string;
+  guideAction?: (group: Group) => ReactNode;
+  /** Section composée par la page sous le détail (discussion, #84). */
+  apres?: (group: Group) => ReactNode;
+}>) {
   const t = useTranslations("groups");
   const query = useGroup(id);
 
@@ -82,6 +91,11 @@ export function GroupDetailScreen({
                 <ItineraryStepForm groupId={group.id} />
               </Can>
             </div>
+            <Can role={["pilgrim", "guide"]}>
+              <LocationSharingCard groupId={group.id} />
+            </Can>
+            <MemberLocations group={group} />
+            {apres?.(group)}
           </div>
         );
       }}
