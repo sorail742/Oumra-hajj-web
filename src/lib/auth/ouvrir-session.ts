@@ -53,8 +53,8 @@ export async function ouvrirSession(
         cache: "no-store",
       },
     );
-  } catch {
-    return reponseBackendInjoignable(cheminFront);
+  } catch (erreur) {
+    return reponseBackendInjoignable(cheminFront, erreur);
   }
 
   const charge: unknown = await retourBackend.json().catch(() => null);
