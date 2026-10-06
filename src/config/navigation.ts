@@ -7,6 +7,8 @@ import {
   FileCheck,
   GraduationCap,
   LayoutDashboard,
+  ListChecks,
+  MessageSquare,
   Package,
   PackagePlus,
   ShieldCheck,
@@ -70,6 +72,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     roles: ["pilgrim", "guide", "agency"],
   },
   {
+    href: "/messaging",
+    cle: "messaging",
+    icone: MessageSquare,
+    roles: ["pilgrim", "guide", "agency"],
+  },
+  {
     href: "/calendar",
     cle: "calendar",
     icone: CalendarDays,
@@ -94,6 +102,12 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     roles: ["pilgrim", "agency"],
   },
   { href: "/rites", cle: "rites", icone: BookOpen, roles: TOUS },
+  {
+    href: "/quiz",
+    cle: "quiz",
+    icone: ListChecks,
+    roles: ["pilgrim", "guide", "admin"],
+  },
   {
     href: "/micro-courses",
     cle: "microCourses",

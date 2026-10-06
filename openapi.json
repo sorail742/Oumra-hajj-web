@@ -7,7 +7,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthShape"
+                }
+              }
+            }
           }
         },
         "tags": ["health"]
@@ -29,7 +36,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["auth"]
@@ -51,7 +65,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokensDto"
+                }
+              }
+            }
           }
         },
         "tags": ["auth"]
@@ -73,6 +94,64 @@
         },
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokensDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["auth"]
+      }
+    },
+    "/api/v1/auth/password/forgot": {
+      "post": {
+        "operationId": "AuthController_forgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SentShape"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["auth"]
+      }
+    },
+    "/api/v1/auth/password/reset": {
+      "post": {
+        "operationId": "AuthController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
             "description": ""
           }
         },
@@ -95,7 +174,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokensDto"
+                }
+              }
+            }
           }
         },
         "tags": ["auth"]
@@ -128,13 +214,44 @@
         ]
       }
     },
+    "/api/v1/auth/realtime-ticket": {
+      "post": {
+        "operationId": "AuthController_realtimeTicket",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RealtimeTicketShape"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["auth"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/users/me": {
       "get": {
         "operationId": "UsersController_getProfile",
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserShape"
+                }
+              }
+            }
           }
         },
         "tags": ["users"],
@@ -159,7 +276,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserShape"
+                }
+              }
+            }
           }
         },
         "tags": ["users"],
@@ -193,7 +317,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserSummaryShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["users"],
@@ -219,7 +353,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSummaryShape"
+                }
+              }
+            }
           }
         },
         "tags": ["users"],
@@ -245,7 +386,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSummaryShape"
+                }
+              }
+            }
           }
         },
         "tags": ["users"],
@@ -272,7 +420,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"]
@@ -284,7 +439,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -309,7 +471,73 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["agencies"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/agencies/me/guides": {
+      "get": {
+        "operationId": "AgenciesController_listOwnGuides",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserSummaryShape"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["agencies"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "AgenciesController_addGuide",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGuideDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSummaryShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -336,7 +564,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -353,7 +588,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LegalDocumentAlertShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -379,7 +624,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -396,7 +648,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarSubscriptionShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -413,7 +672,14 @@
         "parameters": [],
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarSubscriptionShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -439,7 +705,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AgencyShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -465,7 +741,55 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["agencies"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/agencies/{id}/legal-documents/{documentId}/access-url": {
+      "get": {
+        "operationId": "AgenciesController_getLegalDocumentAccessUrlForAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "documentId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -491,7 +815,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -527,7 +858,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyShape"
+                }
+              }
+            }
           }
         },
         "tags": ["agencies"],
@@ -565,6 +903,7 @@
             "in": "query",
             "description": "Budget maximum, dans la devise du forfait",
             "schema": {
+              "minimum": 1,
               "type": "number"
             }
           },
@@ -574,6 +913,7 @@
             "in": "query",
             "description": "Nombre de pèlerins du groupe — filtre sur les places restantes",
             "schema": {
+              "minimum": 1,
               "type": "number"
             }
           },
@@ -598,7 +938,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["packages"]
@@ -618,7 +968,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageShape"
+                }
+              }
+            }
           }
         },
         "tags": ["packages"],
@@ -635,7 +992,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["packages"],
@@ -661,7 +1028,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageShape"
+                }
+              }
+            }
           }
         },
         "tags": ["packages"]
@@ -690,7 +1064,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageShape"
+                }
+              }
+            }
           }
         },
         "tags": ["packages"],
@@ -716,7 +1097,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageShape"
+                }
+              }
+            }
           }
         },
         "tags": ["packages"],
@@ -743,7 +1131,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupShape"
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -760,7 +1155,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -777,7 +1182,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -794,7 +1209,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -820,7 +1245,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupShape"
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -856,7 +1288,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupShape"
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -892,7 +1331,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupShape"
+                }
+              }
+            }
           }
         },
         "tags": ["groups"],
@@ -928,6 +1374,37 @@
         },
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupShape"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["groups"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "GroupsController_clearLocation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
             "description": ""
           }
         },
@@ -980,7 +1457,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NotificationShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["notifications"],
@@ -1006,7 +1493,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationShape"
+                }
+              }
+            }
           }
         },
         "tags": ["notifications"],
@@ -1033,7 +1527,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1050,7 +1551,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1067,7 +1578,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1093,7 +1614,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1129,7 +1657,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1165,7 +1700,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1191,7 +1733,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1217,7 +1766,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FamilyViewLinkShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1243,7 +1799,14 @@
         ],
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FamilyViewLinkShape"
+                }
+              }
+            }
           }
         },
         "tags": ["bookings"],
@@ -1269,7 +1832,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChecklistItemShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["checklist"],
@@ -1305,7 +1878,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChecklistItemShape"
+                }
+              }
+            }
           }
         },
         "tags": ["checklist"],
@@ -1332,7 +1912,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1349,7 +1936,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1366,7 +1963,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1393,7 +2000,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["payments"]
@@ -1414,7 +2028,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1440,7 +2061,14 @@
         ],
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1466,7 +2094,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1490,7 +2125,14 @@
         ],
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavingsPlanShape"
+                }
+              }
+            }
           }
         },
         "tags": ["payments"],
@@ -1517,7 +2159,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PilgrimDocumentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1541,7 +2190,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PilgrimDocumentShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1558,7 +2217,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PilgrimDocumentShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1584,7 +2253,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DocumentExpiryAlertShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1610,7 +2289,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1636,7 +2322,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PilgrimDocumentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1672,7 +2365,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PilgrimDocumentShape"
+                }
+              }
+            }
           }
         },
         "tags": ["documents"],
@@ -1706,7 +2406,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RiteSheetShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["rites"]
@@ -1726,7 +2436,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiteSheetShape"
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1743,7 +2460,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RiteSheetShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1779,7 +2506,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiteSheetShape"
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1805,7 +2539,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiteSheetShape"
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1822,7 +2563,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RiteProgressShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1849,7 +2600,17 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RiteProgressShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1875,7 +2636,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RiteProgressShape"
+                }
+              }
+            }
           }
         },
         "tags": ["rites"],
@@ -1902,7 +2670,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewShape"
+                }
+              }
+            }
           }
         },
         "tags": ["reviews"],
@@ -1919,7 +2694,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["reviews"],
@@ -1936,7 +2721,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SatisfactionReportShape"
+                }
+              }
+            }
           }
         },
         "tags": ["reviews"],
@@ -1953,7 +2745,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         },
         "tags": ["reviews"],
@@ -1979,7 +2778,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReviewShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["reviews"]
@@ -2000,10 +2809,70 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgencyTrustScoreShape"
+                }
+              }
+            }
           }
         },
         "tags": ["reviews"]
+      }
+    },
+    "/api/v1/messaging/conversations": {
+      "get": {
+        "operationId": "MessagingController_listInbox",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InboxConversationShape"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["messaging"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/messaging/conversations/{id}/read": {
+      "post": {
+        "operationId": "MessagingController_markAsRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": ["messaging"],
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/api/v1/messaging/bookings/{bookingId}/conversations/{channel}": {
@@ -2029,7 +2898,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationShape"
+                }
+              }
+            }
           }
         },
         "tags": ["messaging"],
@@ -2055,7 +2931,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["messaging"],
@@ -2089,7 +2975,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageShape"
+                }
+              }
+            }
           }
         },
         "tags": ["messaging"],
@@ -2106,7 +2999,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlatformStatsDto"
+                }
+              }
+            }
           }
         },
         "tags": ["admin"],
@@ -2132,7 +3032,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripSummaryShape"
+                }
+              }
+            }
           }
         },
         "tags": ["trip-summary"],
@@ -2149,7 +3056,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BudgetSimulationShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["budget"],
@@ -2176,7 +3093,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetSimulationShape"
+                }
+              }
+            }
           }
         },
         "tags": ["budget"],
@@ -2212,7 +3136,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetSimulationShape"
+                }
+              }
+            }
           }
         },
         "tags": ["budget"],
@@ -2236,7 +3167,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessShape"
+                }
+              }
+            }
           }
         },
         "tags": ["budget"],
@@ -2262,7 +3200,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MicroCourseShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["micro-courses"]
@@ -2282,7 +3230,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MicroCourseShape"
+                }
+              }
+            }
           }
         },
         "tags": ["micro-courses"],
@@ -2308,7 +3263,14 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MicroCourseShape"
+                }
+              }
+            }
           }
         },
         "tags": ["micro-courses"]
@@ -2337,7 +3299,14 @@
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MicroCourseShape"
+                }
+              }
+            }
           }
         },
         "tags": ["micro-courses"],
@@ -2378,7 +3347,17 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MicroCourseProgressShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["micro-courses"],
@@ -2405,7 +3384,17 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MicroCourseProgressShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["micro-courses"],
@@ -2431,7 +3420,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CommunityMessageShape"
+                  }
+                }
+              }
+            }
           }
         },
         "tags": ["community"],
@@ -2465,7 +3464,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunityMessageShape"
+                }
+              }
+            }
           }
         },
         "tags": ["community"],
@@ -2492,7 +3498,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizQuestionAdminShape"
+                }
+              }
+            }
           }
         }
       }
@@ -2512,6 +3525,54 @@
         ],
         "responses": {
           "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizQuestionAdminShape"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz/questions/pending": {
+      "get": {
+        "operationId": "QuizController_listPending",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuizQuestionAdminShape"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/quiz/questions/{id}": {
+      "delete": {
+        "operationId": "QuizController_rejectQuestion",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
             "description": ""
           }
         }
@@ -2532,7 +3593,17 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QuizQuestionShape"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -2562,7 +3633,14 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizAttemptResultShape"
+                }
+              }
+            }
           }
         }
       }
@@ -2573,7 +3651,14 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuizStatsShape"
+                }
+              }
+            }
           }
         }
       }
@@ -2596,15 +3681,40 @@
       }
     },
     "schemas": {
+      "HealthShape": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "required": ["status", "timestamp"]
+      },
       "RequestOtpDto": {
         "type": "object",
         "properties": {
           "phone": {
             "type": "string",
             "example": "+224620000000"
+          },
+          "email": {
+            "type": "string",
+            "example": "pelerin@example.com"
+          }
+        }
+      },
+      "SentShape": {
+        "type": "object",
+        "properties": {
+          "sent": {
+            "type": "boolean",
+            "example": true
           }
         },
-        "required": ["phone"]
+        "required": ["sent"]
       },
       "VerifyOtpDto": {
         "type": "object",
@@ -2613,15 +3723,34 @@
             "type": "string",
             "example": "+224620000000"
           },
+          "email": {
+            "type": "string",
+            "example": "pelerin@example.com"
+          },
           "code": {
             "type": "string",
+            "minLength": 4,
+            "maxLength": 8,
             "example": "123456"
           },
           "fullName": {
+            "type": "string",
+            "minLength": 2
+          }
+        },
+        "required": ["code"]
+      },
+      "AuthTokensDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "refreshToken": {
             "type": "string"
           }
         },
-        "required": ["phone", "code"]
+        "required": ["accessToken", "refreshToken"]
       },
       "AgencyLoginDto": {
         "type": "object",
@@ -2630,10 +3759,37 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "minLength": 8
           }
         },
         "required": ["email", "password"]
+      },
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "contact@agence.example"
+          }
+        },
+        "required": ["email"]
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 43,
+            "maxLength": 43
+          },
+          "newPassword": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 72
+          }
+        },
+        "required": ["token", "newPassword"]
       },
       "RefreshTokenDto": {
         "type": "object",
@@ -2643,6 +3799,90 @@
           }
         },
         "required": ["refreshToken"]
+      },
+      "RealtimeTicketShape": {
+        "type": "object",
+        "properties": {
+          "ticket": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["ticket", "expiresAt"]
+      },
+      "EmergencyContactShape": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "relationship": {
+            "type": "string"
+          }
+        },
+        "required": ["fullName", "phone"]
+      },
+      "UserShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "enum": ["pilgrim", "agency", "guide", "admin"],
+            "type": "string"
+          },
+          "preferredLanguage": {
+            "type": "string"
+          },
+          "emergencyContact": {
+            "$ref": "#/components/schemas/EmergencyContactShape"
+          },
+          "bloodType": {
+            "type": "string"
+          },
+          "passportNumber": {
+            "type": "string"
+          },
+          "agencyId": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "fullName",
+          "role",
+          "preferredLanguage",
+          "isActive",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "EmergencyContactDto": {
         "type": "object",
@@ -2665,7 +3905,8 @@
             "type": "string"
           },
           "preferredLanguage": {
-            "type": "string"
+            "type": "string",
+            "enum": ["fr", "en", "ar"]
           },
           "emergencyContact": {
             "$ref": "#/components/schemas/EmergencyContactDto"
@@ -2678,11 +3919,44 @@
           }
         }
       },
+      "UserSummaryShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "enum": ["pilgrim", "agency", "guide", "admin"],
+            "type": "string"
+          },
+          "agencyId": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "fullName", "role", "isActive", "createdAt"]
+      },
       "RegisterAgencyDto": {
         "type": "object",
         "properties": {
           "legalName": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2
           },
           "contactEmail": {
             "type": "string"
@@ -2691,7 +3965,8 @@
             "type": "string"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "minLength": 8
           },
           "address": {
             "type": "string"
@@ -2699,22 +3974,158 @@
         },
         "required": ["legalName", "contactEmail", "contactPhone", "password"]
       },
+      "LegalDocumentShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "storageRef": {
+            "type": "string"
+          },
+          "uploadedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "label", "storageRef", "uploadedAt"]
+      },
+      "BankDetailsShape": {
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "type": "string"
+          },
+          "accountNumber": {
+            "type": "string"
+          },
+          "bankName": {
+            "type": "string"
+          }
+        },
+        "required": ["accountName", "accountNumber", "bankName"]
+      },
+      "AgencyShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "legalName": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "legalDocuments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LegalDocumentShape"
+            }
+          },
+          "validationStatus": {
+            "enum": ["pending", "approved", "rejected"],
+            "type": "string"
+          },
+          "rejectionReason": {
+            "type": "string"
+          },
+          "validatedById": {
+            "type": "string"
+          },
+          "validatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "commissionRate": {
+            "type": "number"
+          },
+          "bankDetails": {
+            "$ref": "#/components/schemas/BankDetailsShape"
+          }
+        },
+        "required": [
+          "id",
+          "legalName",
+          "ownerId",
+          "contactEmail",
+          "contactPhone",
+          "legalDocuments",
+          "validationStatus",
+          "commissionRate"
+        ]
+      },
+      "BankDetailsDto": {
+        "type": "object",
+        "properties": {
+          "accountName": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "accountNumber": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "bankName": {
+            "type": "string",
+            "maxLength": 120
+          }
+        },
+        "required": ["accountName", "accountNumber", "bankName"]
+      },
       "UpdateAgencyDto": {
         "type": "object",
         "properties": {
           "address": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 300
           },
           "bankDetails": {
-            "type": "object"
+            "$ref": "#/components/schemas/BankDetailsDto"
           }
         }
+      },
+      "CreateGuideDto": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "phone": {
+            "type": "string",
+            "example": "+224620000000"
+          },
+          "email": {
+            "type": "string",
+            "example": "guide@example.com"
+          }
+        },
+        "required": ["fullName"]
       },
       "AddLegalDocumentDto": {
         "type": "object",
         "properties": {
           "label": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2
           },
           "expiresAt": {
             "type": "string"
@@ -2722,14 +4133,144 @@
         },
         "required": ["label"]
       },
+      "LegalDocumentAlertShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "type": "object"
+          }
+        },
+        "required": ["id", "label", "expiresAt", "status"]
+      },
+      "CalendarSubscriptionShape": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "subscriptionUrl": {
+            "type": "string"
+          }
+        },
+        "required": ["token", "subscriptionUrl"]
+      },
       "RejectAgencyDto": {
         "type": "object",
         "properties": {
           "reason": {
-            "type": "string"
+            "type": "string",
+            "minLength": 3
           }
         },
         "required": ["reason"]
+      },
+      "PackageStageShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "hotelName": {
+            "type": "string"
+          },
+          "distanceToMosqueMeters": {
+            "type": "number"
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "city", "hotelName", "startDate", "endDate"]
+      },
+      "PackageShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "agencyId": {
+            "type": "string"
+          },
+          "type": {
+            "enum": ["oumra", "hadj"],
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "capacity": {
+            "type": "number"
+          },
+          "seatsTaken": {
+            "type": "number"
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PackageStageShape"
+            }
+          },
+          "inclusions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "enum": ["open", "full", "closed"],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "agencyId",
+          "type",
+          "title",
+          "startDate",
+          "endDate",
+          "price",
+          "currency",
+          "capacity",
+          "seatsTaken",
+          "stages",
+          "inclusions",
+          "status"
+        ]
       },
       "PackageStageDto": {
         "type": "object",
@@ -2756,11 +4297,12 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "enum": ["oumra", "hadj"]
+            "enum": ["oumra", "hadj"],
+            "type": "string"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "minLength": 3
           },
           "description": {
             "type": "string"
@@ -2772,13 +4314,15 @@
             "type": "string"
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "minimum": 1
           },
           "currency": {
             "type": "string"
           },
           "capacity": {
-            "type": "number"
+            "type": "number",
+            "minimum": 1
           },
           "stages": {
             "type": "array",
@@ -2807,11 +4351,12 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "enum": ["oumra", "hadj"]
+            "enum": ["oumra", "hadj"],
+            "type": "string"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "minLength": 3
           },
           "description": {
             "type": "string"
@@ -2823,13 +4368,15 @@
             "type": "string"
           },
           "price": {
-            "type": "number"
+            "type": "number",
+            "minimum": 1
           },
           "currency": {
             "type": "string"
           },
           "capacity": {
-            "type": "number"
+            "type": "number",
+            "minimum": 1
           },
           "stages": {
             "type": "array",
@@ -2852,10 +4399,93 @@
             "type": "string"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2
           }
         },
         "required": ["packageId", "title"]
+      },
+      "ItineraryStepShape": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": ["label", "date"]
+      },
+      "MemberLocationShape": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["userId", "lat", "lng", "updatedAt"]
+      },
+      "GroupShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "packageId": {
+            "type": "string"
+          },
+          "agencyId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "guideId": {
+            "type": "string"
+          },
+          "memberIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "itinerary": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItineraryStepShape"
+            }
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MemberLocationShape"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "packageId",
+          "agencyId",
+          "title",
+          "memberIds",
+          "itinerary",
+          "locations"
+        ]
       },
       "AssignGuideDto": {
         "type": "object",
@@ -2870,7 +4500,8 @@
         "type": "object",
         "properties": {
           "label": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2
           },
           "date": {
             "type": "string"
@@ -2893,6 +4524,56 @@
         },
         "required": ["lat", "lng"]
       },
+      "NotificationShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "recipientId": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "booking_status",
+              "payment",
+              "document",
+              "rite_reminder",
+              "sos",
+              "group_message",
+              "moderation",
+              "other"
+            ],
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "isCritical": {
+            "type": "boolean"
+          },
+          "readAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "recipientId",
+          "type",
+          "title",
+          "content",
+          "isCritical",
+          "createdAt"
+        ]
+      },
       "CreateBookingDto": {
         "type": "object",
         "properties": {
@@ -2902,7 +4583,7 @@
         },
         "required": ["packageId"]
       },
-      "UpdateStepDto": {
+      "DossierStepShape": {
         "type": "object",
         "properties": {
           "key": {
@@ -2912,6 +4593,62 @@
           "status": {
             "type": "string",
             "enum": ["pending", "in_progress", "done"]
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["key", "status", "updatedAt"]
+      },
+      "BookingShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
+          "packageId": {
+            "type": "string"
+          },
+          "agencyId": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "status": {
+            "enum": ["pending_payment", "confirmed", "cancelled", "completed"],
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DossierStepShape"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "pilgrimId",
+          "packageId",
+          "agencyId",
+          "status",
+          "steps"
+        ]
+      },
+      "UpdateStepDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "enum": ["payment", "visa", "flight", "vaccination", "documents"],
+            "type": "string"
+          },
+          "status": {
+            "enum": ["pending", "in_progress", "done"],
+            "type": "string"
           }
         },
         "required": ["key", "status"]
@@ -2924,6 +4661,65 @@
           }
         },
         "required": ["groupId"]
+      },
+      "FamilyViewLinkShape": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "viewUrl": {
+            "type": "string"
+          }
+        },
+        "required": ["token", "viewUrl"]
+      },
+      "ChecklistItemShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "reminderDate": {
+            "format": "date-time",
+            "type": "string",
+            "nullable": true
+          },
+          "reminderSent": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "bookingId",
+          "title",
+          "category",
+          "isCompleted",
+          "reminderDate",
+          "reminderSent",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "UpdateChecklistStatusDto": {
         "type": "object",
@@ -2942,14 +4738,70 @@
             "type": "string"
           },
           "amount": {
-            "type": "number"
+            "type": "number",
+            "minimum": 1
           },
           "method": {
-            "type": "string",
-            "enum": ["mobile_money_orange", "mobile_money_mtn", "card"]
+            "enum": ["mobile_money_orange", "mobile_money_mtn", "card"],
+            "type": "string"
           }
         },
         "required": ["bookingId", "amount", "method"]
+      },
+      "PaymentShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "installmentNumber": {
+            "type": "number"
+          },
+          "method": {
+            "enum": ["mobile_money_orange", "mobile_money_mtn", "card"],
+            "type": "string"
+          },
+          "status": {
+            "enum": ["pending", "succeeded", "failed", "refunded"],
+            "type": "string"
+          },
+          "providerReference": {
+            "type": "string"
+          },
+          "receiptRef": {
+            "type": "string"
+          },
+          "confirmedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "refundedAmount": {
+            "type": "number"
+          },
+          "refundedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "bookingId",
+          "amount",
+          "currency",
+          "installmentNumber",
+          "method",
+          "status",
+          "providerReference"
+        ]
       },
       "PaymentWebhookDto": {
         "type": "object",
@@ -2958,16 +4810,110 @@
             "type": "string"
           },
           "status": {
-            "type": "string",
-            "enum": ["pending", "succeeded", "failed", "refunded"]
+            "enum": ["pending", "succeeded", "failed", "refunded"],
+            "type": "string"
           }
         },
         "required": ["providerReference", "status"]
+      },
+      "SavingsPlanShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "targetAmount": {
+            "type": "number"
+          },
+          "autoDeduct": {
+            "type": "boolean"
+          },
+          "deductAmount": {
+            "type": "number"
+          },
+          "frequency": {
+            "type": "string"
+          },
+          "nextDeductDate": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["id", "bookingId", "targetAmount", "autoDeduct"]
       },
       "UploadDocumentDto": {
         "type": "object",
         "properties": {
           "bookingId": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "passport",
+              "visa",
+              "flight_ticket",
+              "vaccination_certificate"
+            ],
+            "type": "string"
+          },
+          "expiresAt": {
+            "type": "string"
+          }
+        },
+        "required": ["bookingId", "type"]
+      },
+      "PilgrimDocumentShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "passport",
+              "visa",
+              "flight_ticket",
+              "vaccination_certificate"
+            ],
+            "type": "string"
+          },
+          "storageRef": {
+            "type": "string"
+          },
+          "status": {
+            "enum": ["pending", "validated", "rejected"],
+            "type": "string"
+          },
+          "rejectionReason": {
+            "type": "string"
+          },
+          "expiresAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "bookingId",
+          "pilgrimId",
+          "type",
+          "storageRef",
+          "status"
+        ]
+      },
+      "DocumentExpiryAlertShape": {
+        "type": "object",
+        "properties": {
+          "id": {
             "type": "string"
           },
           "type": {
@@ -2980,23 +4926,31 @@
             ]
           },
           "expiresAt": {
+            "format": "date-time",
             "type": "string"
+          },
+          "status": {
+            "type": "object"
           }
         },
-        "required": ["bookingId", "type"]
+        "required": ["id", "type", "expiresAt", "status"]
       },
       "RejectDocumentDto": {
         "type": "object",
         "properties": {
           "reason": {
-            "type": "string"
+            "type": "string",
+            "minLength": 3
           }
         },
         "required": ["reason"]
       },
-      "CreateRiteSheetDto": {
+      "RiteSheetShape": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "key": {
             "type": "string"
           },
@@ -3004,8 +4958,8 @@
             "type": "string"
           },
           "pilgrimageType": {
-            "type": "string",
-            "enum": ["oumra", "hadj", "both"]
+            "enum": ["oumra", "hadj", "both"],
+            "type": "string"
           },
           "order": {
             "type": "number"
@@ -3018,6 +4972,62 @@
           },
           "language": {
             "type": "string"
+          },
+          "version": {
+            "type": "number"
+          },
+          "isValidated": {
+            "type": "boolean"
+          },
+          "validatedById": {
+            "type": "string"
+          },
+          "validatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "title",
+          "pilgrimageType",
+          "order",
+          "content",
+          "language",
+          "version",
+          "isValidated"
+        ]
+      },
+      "CreateRiteSheetDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 2
+          },
+          "title": {
+            "type": "string",
+            "minLength": 2
+          },
+          "pilgrimageType": {
+            "enum": ["oumra", "hadj", "both"],
+            "type": "string"
+          },
+          "order": {
+            "type": "number",
+            "minimum": 0
+          },
+          "content": {
+            "type": "string",
+            "minLength": 10
+          },
+          "audioRef": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "enum": ["fr", "en", "ar"]
           }
         },
         "required": ["key", "title", "pilgrimageType", "order", "content"]
@@ -3026,32 +5036,43 @@
         "type": "object",
         "properties": {
           "key": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "minLength": 2
           },
           "pilgrimageType": {
-            "type": "string",
-            "enum": ["oumra", "hadj", "both"]
+            "enum": ["oumra", "hadj", "both"],
+            "type": "string"
           },
           "order": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "content": {
-            "type": "string"
+            "type": "string",
+            "minLength": 10
           },
           "audioRef": {
             "type": "string"
           },
           "language": {
-            "type": "string"
+            "type": "string",
+            "enum": ["fr", "en", "ar"]
           }
         }
       },
-      "RiteProgressItemDto": {
+      "RiteProgressShape": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
           "riteKey": {
             "type": "string"
           },
@@ -3063,6 +5084,39 @@
           },
           "saiCount": {
             "type": "number"
+          },
+          "clientUpdatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "pilgrimId",
+          "riteKey",
+          "completed",
+          "tawafCount",
+          "saiCount",
+          "clientUpdatedAt"
+        ]
+      },
+      "RiteProgressItemDto": {
+        "type": "object",
+        "properties": {
+          "riteKey": {
+            "type": "string",
+            "minLength": 2
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "tawafCount": {
+            "type": "number",
+            "minimum": 0
+          },
+          "saiCount": {
+            "type": "number",
+            "minimum": 0
           },
           "clientUpdatedAt": {
             "type": "string"
@@ -3099,11 +5153,253 @@
         },
         "required": ["bookingId", "rating"]
       },
-      "SendMessageDto": {
+      "ReviewShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
+          "agencyId": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "number"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "pilgrimId",
+          "agencyId",
+          "bookingId",
+          "rating",
+          "createdAt"
+        ]
+      },
+      "RatingDistributionEntry": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          }
+        },
+        "required": ["rating", "count"]
+      },
+      "SatisfactionReportReview": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "number"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["rating", "createdAt"]
+      },
+      "SatisfactionReportShape": {
+        "type": "object",
+        "properties": {
+          "agencyId": {
+            "type": "string"
+          },
+          "agencyName": {
+            "type": "string"
+          },
+          "generatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "reviewCount": {
+            "type": "number"
+          },
+          "reviewAverage": {
+            "type": "number"
+          },
+          "ratingDistribution": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RatingDistributionEntry"
+            }
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SatisfactionReportReview"
+            }
+          }
+        },
+        "required": [
+          "agencyId",
+          "agencyName",
+          "generatedAt",
+          "reviewCount",
+          "ratingDistribution",
+          "reviews"
+        ]
+      },
+      "AgencyTrustScoreShape": {
+        "type": "object",
+        "properties": {
+          "agencyId": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "reviewAverage": {
+            "type": "number"
+          },
+          "reviewCount": {
+            "type": "number"
+          },
+          "completionRate": {
+            "type": "number"
+          },
+          "concludedBookingsCount": {
+            "type": "number"
+          },
+          "badge": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "agencyId",
+          "reviewCount",
+          "concludedBookingsCount",
+          "badge"
+        ]
+      },
+      "InboxLastMessage": {
         "type": "object",
         "properties": {
           "content": {
             "type": "string"
+          },
+          "senderId": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["content", "senderId", "createdAt"]
+      },
+      "InboxConversationShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string",
+            "enum": ["agency", "guide"]
+          },
+          "counterpartName": {
+            "type": "string"
+          },
+          "packageTitle": {
+            "type": "string"
+          },
+          "lastMessage": {
+            "$ref": "#/components/schemas/InboxLastMessage"
+          },
+          "unreadCount": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "bookingId",
+          "channel",
+          "counterpartName",
+          "packageTitle",
+          "lastMessage",
+          "unreadCount"
+        ]
+      },
+      "ConversationShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "bookingId": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string",
+            "enum": ["agency", "guide"]
+          }
+        },
+        "required": ["id", "bookingId", "channel"]
+      },
+      "MessageShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "conversationId": {
+            "type": "string"
+          },
+          "senderId": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "clientSentAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "readAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "conversationId",
+          "senderId",
+          "content",
+          "clientSentAt",
+          "createdAt"
+        ]
+      },
+      "SendMessageDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "minLength": 1
           },
           "clientSentAt": {
             "type": "string"
@@ -3111,12 +5407,167 @@
         },
         "required": ["content", "clientSentAt"]
       },
-      "CreateBudgetDto": {
+      "PlatformStatsDto": {
         "type": "object",
         "properties": {
+          "totalPilgrims": {
+            "type": "number"
+          },
+          "totalGuides": {
+            "type": "number"
+          },
+          "agenciesByStatus": {
+            "type": "object"
+          },
+          "bookingsByStatus": {
+            "type": "object"
+          },
+          "totalRevenue": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "totalPilgrims",
+          "totalGuides",
+          "agenciesByStatus",
+          "bookingsByStatus",
+          "totalRevenue"
+        ]
+      },
+      "TripSummaryStepShape": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "enum": ["payment", "visa", "flight", "vaccination", "documents"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "done"]
+          },
+          "completedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": ["key", "status"]
+      },
+      "TripSummaryRiteShape": {
+        "type": "object",
+        "properties": {
+          "riteKey": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "tawafCount": {
+            "type": "number"
+          },
+          "saiCount": {
+            "type": "number"
+          }
+        },
+        "required": ["riteKey", "completed", "tawafCount", "saiCount"]
+      },
+      "TripSummaryReviewShape": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "number"
+          },
+          "comment": {
+            "type": "string"
+          }
+        },
+        "required": ["rating"]
+      },
+      "TripSummaryShape": {
+        "type": "object",
+        "properties": {
+          "bookingId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending_payment", "confirmed", "cancelled", "completed"]
+          },
+          "packageTitle": {
+            "type": "string"
+          },
+          "pilgrimageType": {
+            "type": "string",
+            "enum": ["oumra", "hadj"]
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "agencyName": {
+            "type": "string"
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TripSummaryStepShape"
+            }
+          },
+          "totalPaid": {
+            "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "installmentsCount": {
+            "type": "number"
+          },
+          "rites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TripSummaryRiteShape"
+            }
+          },
+          "review": {
+            "$ref": "#/components/schemas/TripSummaryReviewShape"
+          }
+        },
+        "required": [
+          "bookingId",
+          "status",
+          "packageTitle",
+          "pilgrimageType",
+          "startDate",
+          "endDate",
+          "agencyName",
+          "steps",
+          "totalPaid",
+          "currency",
+          "installmentsCount",
+          "rites"
+        ]
+      },
+      "BudgetSimulationShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
           "packageId": {
             "type": "string",
-            "description": "ID du forfait rattaché"
+            "nullable": true
+          },
+          "packagePrice": {
+            "type": "number"
           },
           "pocketMoney": {
             "type": "number"
@@ -3132,6 +5583,60 @@
           },
           "otherExpenses": {
             "type": "number"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "pilgrimId",
+          "packageId",
+          "packagePrice",
+          "pocketMoney",
+          "gifts",
+          "sacrifice",
+          "insurance",
+          "otherExpenses",
+          "currency",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "CreateBudgetDto": {
+        "type": "object",
+        "properties": {
+          "packageId": {
+            "type": "string",
+            "description": "ID du forfait rattaché"
+          },
+          "pocketMoney": {
+            "type": "number",
+            "minimum": 0
+          },
+          "gifts": {
+            "type": "number",
+            "minimum": 0
+          },
+          "sacrifice": {
+            "type": "number",
+            "minimum": 0
+          },
+          "insurance": {
+            "type": "number",
+            "minimum": 0
+          },
+          "otherExpenses": {
+            "type": "number",
+            "minimum": 0
           }
         }
       },
@@ -3143,27 +5648,89 @@
             "description": "ID du forfait rattaché"
           },
           "pocketMoney": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "gifts": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "sacrifice": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "insurance": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           },
           "otherExpenses": {
-            "type": "number"
+            "type": "number",
+            "minimum": 0
           }
         }
+      },
+      "SuccessShape": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": ["success"]
+      },
+      "MicroCourseShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "videoUrl": {
+            "type": "string"
+          },
+          "durationSeconds": {
+            "type": "number"
+          },
+          "order": {
+            "type": "number"
+          },
+          "category": {
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "description",
+          "videoUrl",
+          "durationSeconds",
+          "order",
+          "category",
+          "createdAt",
+          "updatedAt"
+        ]
       },
       "CreateMicroCourseDto": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
+            "minLength": 3,
             "description": "Titre du micro-cours"
           },
           "description": {
@@ -3176,11 +5743,13 @@
           },
           "durationSeconds": {
             "type": "number",
+            "minimum": 0,
             "description": "Durée en secondes",
             "default": 0
           },
           "order": {
             "type": "number",
+            "minimum": 0,
             "description": "Ordre d'affichage",
             "default": 0
           },
@@ -3197,6 +5766,7 @@
         "properties": {
           "title": {
             "type": "string",
+            "minLength": 3,
             "description": "Titre du micro-cours"
           },
           "description": {
@@ -3209,11 +5779,13 @@
           },
           "durationSeconds": {
             "type": "number",
+            "minimum": 0,
             "description": "Durée en secondes",
             "default": 0
           },
           "order": {
             "type": "number",
+            "minimum": 0,
             "description": "Ordre d'affichage",
             "default": 0
           },
@@ -3223,6 +5795,34 @@
             "default": "preparation"
           }
         }
+      },
+      "MicroCourseProgressShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
+          "courseId": {
+            "type": "string"
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "clientUpdatedAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "pilgrimId",
+          "courseId",
+          "isCompleted",
+          "clientUpdatedAt"
+        ]
       },
       "MicroCourseProgressItemDto": {
         "type": "object",
@@ -3255,11 +5855,48 @@
         },
         "required": ["items"]
       },
+      "CommunityMessageShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "groupId": {
+            "type": "string"
+          },
+          "senderId": {
+            "type": "string"
+          },
+          "senderName": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "clientSentAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "groupId",
+          "senderId",
+          "content",
+          "clientSentAt",
+          "createdAt"
+        ]
+      },
       "SendCommunityMessageDto": {
         "type": "object",
         "properties": {
           "content": {
             "type": "string",
+            "minLength": 1,
             "description": "Contenu textuel du message"
           },
           "clientSentAt": {
@@ -3271,11 +5908,231 @@
       },
       "CreateQuizQuestionDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "riteSheetId": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correctOption": {
+            "type": "number",
+            "minimum": 0
+          },
+          "explanation": {
+            "type": "string"
+          }
+        },
+        "required": ["riteSheetId", "question", "options", "correctOption"]
+      },
+      "QuizQuestionAdminShape": {
+        "type": "object",
+        "properties": {
+          "correctOption": {
+            "type": "number"
+          },
+          "explanation": {
+            "type": "string",
+            "nullable": true
+          },
+          "isValidated": {
+            "type": "boolean"
+          },
+          "validatedById": {
+            "type": "string",
+            "nullable": true
+          },
+          "validatedAt": {
+            "format": "date-time",
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "riteSheetId": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "correctOption",
+          "explanation",
+          "isValidated",
+          "validatedById",
+          "validatedAt",
+          "createdAt",
+          "updatedAt",
+          "id",
+          "riteSheetId",
+          "question",
+          "options"
+        ]
+      },
+      "QuizQuestionShape": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "riteSheetId": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": ["id", "riteSheetId", "question", "options"]
       },
       "SubmitQuizAttemptDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "selectedOption": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "required": ["selectedOption"]
+      },
+      "QuizAttemptResultShape": {
+        "type": "object",
+        "properties": {
+          "correctOption": {
+            "type": "number"
+          },
+          "explanation": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
+          "questionId": {
+            "type": "string"
+          },
+          "selectedOption": {
+            "type": "number"
+          },
+          "isCorrect": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "correctOption",
+          "explanation",
+          "id",
+          "pilgrimId",
+          "questionId",
+          "selectedOption",
+          "isCorrect",
+          "createdAt"
+        ]
+      },
+      "QuizAttemptQuestionRef": {
+        "type": "object",
+        "properties": {
+          "riteSheetId": {
+            "type": "string"
+          }
+        },
+        "required": ["riteSheetId"]
+      },
+      "QuizAttemptWithRiteShape": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "$ref": "#/components/schemas/QuizAttemptQuestionRef"
+          },
+          "id": {
+            "type": "string"
+          },
+          "pilgrimId": {
+            "type": "string"
+          },
+          "questionId": {
+            "type": "string"
+          },
+          "selectedOption": {
+            "type": "number"
+          },
+          "isCorrect": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "question",
+          "id",
+          "pilgrimId",
+          "questionId",
+          "selectedOption",
+          "isCorrect",
+          "createdAt"
+        ]
+      },
+      "QuizStatsShape": {
+        "type": "object",
+        "properties": {
+          "totalAttempts": {
+            "type": "number"
+          },
+          "correctAttempts": {
+            "type": "number"
+          },
+          "scorePercentage": {
+            "type": "number"
+          },
+          "attempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuizAttemptWithRiteShape"
+            }
+          }
+        },
+        "required": [
+          "totalAttempts",
+          "correctAttempts",
+          "scorePercentage",
+          "attempts"
+        ]
       }
     }
   }

@@ -50,7 +50,8 @@
       "agency": "Agences",
       "admin": "Administrateurs"
     },
-    "microCourses": "Micro-cours"
+    "microCourses": "Micro-cours",
+    "quiz": "Quiz"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -463,6 +464,25 @@
       "assigned": "Guide assigné au groupe.",
       "error": "Impossible d'assigner ce guide. Réessayez.",
       "noGuide": "Ajoutez d'abord un guide depuis la page « Mon agence »."
+    },
+    "location": {
+      "title": "Partager ma position",
+      "consent": "Votre position sera visible par les membres du groupe, le guide, l'agence et l'administration. Elle est envoyée au plus une fois par minute, seulement tant que cette page reste ouverte. Vous pouvez arrêter à tout moment : la dernière position envoyée est alors effacée.",
+      "start": "Partager ma position",
+      "stop": "Arrêter le partage",
+      "active": "Partage en cours",
+      "stopped": "Partage arrêté, votre position a été effacée.",
+      "stopError": "Le partage est arrêté sur cet appareil, mais l'effacement a échoué. Réessayez.",
+      "sendError": "Votre position n'a pas pu être envoyée. Nouvel essai à la prochaine mise à jour.",
+      "denied": "Le navigateur a refusé l'accès à la position. Autorisez-la dans les réglages du site pour partager.",
+      "unavailable": "La position est indisponible sur cet appareil pour le moment.",
+      "listTitle": "Positions partagées",
+      "listEmpty": "Personne ne partage sa position pour le moment.",
+      "you": "Vous",
+      "guide": "Guide",
+      "member": "Membre {n}",
+      "openMap": "Voir sur la carte",
+      "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)"
     }
   },
   "messaging": {
@@ -471,9 +491,19 @@
     "channelGuide": "Guide",
     "emptyTitle": "Aucun message pour le moment.",
     "emptyDescription": "Écrivez le premier message pour démarrer la conversation.",
-    "placeholder": "Écrire un message…",
-    "send": "Envoyer",
-    "sendError": "Le message n'a pas pu être envoyé. Réessayez."
+    "inbox": {
+      "title": "Messagerie",
+      "description": "Vos échanges liés aux réservations, avec l'agence ou le guide.",
+      "listLabel": "Conversations",
+      "channelAgency": "Agence",
+      "channelGuide": "Guide",
+      "fromMe": "Vous : {content}",
+      "unread": "{count, plural, one {# message non lu} other {# messages non lus}}",
+      "emptyTitle": "Aucune conversation pour le moment.",
+      "emptyBody": "Les échanges démarrent depuis le détail d'une réservation ; ils apparaîtront ici dès le premier message.",
+      "pick": "Choisissez une conversation pour l'afficher.",
+      "back": "Retour aux conversations"
+    }
   },
   "agencyCompliance": {
     "title": "Conformité documentaire",
@@ -651,14 +681,15 @@
     "cardTitle": "Abonnement iCalendar",
     "cardDescription": "Utilisez ce lien pour vous abonner au calendrier dynamique de vos forfaits et départs.",
     "copyAction": "Copier le lien",
-    "copySuccess": "Lien copié dans le presse-papiers.",
-    "copyError": "Impossible de copier le lien.",
-    "warningTitle": "Attention",
+    "warningTitle": "Lien confidentiel",
     "warningDescription": "La régénération du lien révoquera l'accès à l'ancien lien. Vous devrez mettre à jour vos applications de calendrier avec le nouveau lien.",
     "regenerateAction": "Régénérer le lien",
     "regenerateWarning": "Confirmez-vous la régénération du lien ? Vos calendriers actuels ne se synchroniseront plus.",
     "regenerateSuccess": "Lien de calendrier régénéré avec succès.",
-    "regenerateError": "Une erreur est survenue lors de la régénération du lien."
+    "regenerateError": "Une erreur est survenue lors de la régénération du lien.",
+    "regenerateConfirm": "Régénérer",
+    "howTo": "Dans Google Agenda : « Autres agendas » → « À partir de l'URL ». Dans Outlook : « Ajouter un calendrier » → « S'abonner à partir du web ». Collez-y ce lien.",
+    "secretWarning": "Toute personne qui possède ce lien voit vos échéances : ne le partagez qu'avec votre équipe."
   },
   "tripSummary": {
     "typeOumra": "Oumra",
@@ -1196,5 +1227,86 @@
       "regenerated": "Nouveau lien créé ; l'ancien ne fonctionne plus.",
       "error": "L'opération n'a pas abouti. Réessayez."
     }
+  },
+  "quiz": {
+    "title": "Quiz des rites",
+    "description": "Vérifiez vos connaissances sur chaque fiche de rite.",
+    "hub": {
+      "statsTitle": "Mes résultats",
+      "sheetsTitle": "S'entraîner",
+      "practice": "Commencer le quiz",
+      "noSheet": "Aucune fiche de rite publiée pour le moment.",
+      "back": "Retour aux quiz",
+      "pilgrimOnly": "Le quiz se joue depuis l'espace pèlerin."
+    },
+    "run": {
+      "progress": "Question {rang} sur {total}",
+      "submit": "Valider ma réponse",
+      "correct": "Bonne réponse !",
+      "incorrect": "Ce n'est pas la bonne réponse. La bonne réponse : {answer}",
+      "explanation": "Explication :",
+      "next": "Question suivante",
+      "finish": "Voir mon score",
+      "doneTitle": "Quiz terminé",
+      "score": "{bonnes} bonne(s) réponse(s) sur {total}.",
+      "restart": "Recommencer",
+      "error": "Votre réponse n'a pas pu être enregistrée. Réessayez.",
+      "emptyTitle": "Pas encore de question pour cette fiche.",
+      "emptyBody": "Les questions apparaissent ici une fois validées par l'administration."
+    },
+    "stats": {
+      "empty": "Vous n'avez encore répondu à aucune question.",
+      "global": "{bonnes} bonne(s) réponse(s) sur {total} ({part}).",
+      "bySheet": "Par fiche",
+      "sheetScore": "{bonnes} / {total} ({part})",
+      "unknownSheet": "Fiche retirée"
+    },
+    "propose": {
+      "title": "Proposer une question",
+      "description": "Votre question sera publiée après validation par l'administration.",
+      "sheet": "Fiche de rite",
+      "sheetPlaceholder": "Choisir une fiche",
+      "sheetRequired": "Choisissez la fiche concernée.",
+      "question": "Question",
+      "questionTooShort": "La question contient au moins 5 caractères.",
+      "options": "Réponses possibles",
+      "optionsHint": "De 2 à 6 réponses ; cochez la bonne.",
+      "optionLabel": "Réponse {n}",
+      "optionEmpty": "Une réponse ne peut pas être vide.",
+      "markCorrect": "Réponse {n} est la bonne",
+      "removeOption": "Retirer la réponse {n}",
+      "addOption": "Ajouter une réponse",
+      "correctRequired": "Cochez la bonne réponse.",
+      "explanation": "Explication (facultative, affichée après la réponse)",
+      "submit": "Proposer la question",
+      "sent": "Question proposée, en attente de validation.",
+      "error": "La question n'a pas pu être enregistrée. Réessayez."
+    },
+    "pending": {
+      "title": "Questions à valider",
+      "empty": "Aucune question en attente.",
+      "correctAnswer": "(bonne réponse)",
+      "validate": "Publier",
+      "validateTitle": "Publier cette question ?",
+      "validateBody": "Elle sera visible par tous les pèlerins dans le quiz de cette fiche.",
+      "validated": "Question publiée.",
+      "reject": "Refuser",
+      "rejectTitle": "Refuser cette question ?",
+      "rejectBody": "Elle sera supprimée définitivement.",
+      "rejected": "Question refusée.",
+      "error": "L'action n'a pas abouti. Réessayez.",
+      "unknownSheet": "Fiche retirée"
+    }
+  },
+  "chat": {
+    "placeholder": "Écrire un message…",
+    "send": "Envoyer",
+    "sendError": "Le message n'a pas pu être envoyé. Réessayez."
+  },
+  "community": {
+    "title": "Discussion du groupe",
+    "description": "Échangez avec les autres pèlerins, le guide et l'agence avant le départ. Les nouveaux messages s'affichent dès leur envoi.",
+    "emptyTitle": "Aucun message pour le moment.",
+    "emptyBody": "Présentez-vous ou posez une question au groupe."
   }
 }

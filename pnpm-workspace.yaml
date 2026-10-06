@@ -8,3 +8,13 @@ allowBuilds:
   "core-js": true
   "esbuild": true
   "unrs-resolver": true
+
+# Correctifs de sécurité de dépendances transitives (pnpm audit en CI).
+# À retirer quand les dépendances directes embarquent la version corrigée.
+overrides:
+  # GHSA-68fv-2mgg-jv7q (déni de service) — via next, postcss et @sentry/nextjs.
+  source-map-js: "1.2.2"
+  # CVE-2026-96889 (librsvg) — via next (optimisation d'images). Aussi
+  # déclaré en devDependency épinglée : seul moyen de fixer le pair optionnel
+  # de minimizer-webpack-plugin (via @sentry/nextjs), que l'override ne couvre pas.
+  sharp: "0.35.5"

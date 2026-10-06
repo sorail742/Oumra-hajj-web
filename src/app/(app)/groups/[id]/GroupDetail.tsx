@@ -1,6 +1,7 @@
 "use client";
 
 import { useMyGuides } from "@/features/agencies/api/use-my-guides";
+import { GroupChat } from "@/features/community/components/GroupChat";
 import { AssignGuideSelect } from "@/features/groups/components/AssignGuideSelect";
 import { GroupDetailScreen } from "@/features/groups/components/GroupDetailScreen";
 
@@ -27,7 +28,10 @@ function AssignerGuide({
   );
 }
 
-/** Détail du groupe avec l'assignation du guide branchée (rôle agence). */
+/**
+ * Détail du groupe avec l'assignation du guide (rôle agence) et la
+ * discussion de groupe (#84).
+ */
 export function GroupDetail({ id }: Readonly<{ id: string }>) {
   return (
     <GroupDetailScreen
@@ -35,6 +39,7 @@ export function GroupDetail({ id }: Readonly<{ id: string }>) {
       guideAction={(group) => (
         <AssignerGuide groupId={group.id} guideId={group.guideId} />
       )}
+      apres={(group) => <GroupChat groupId={group.id} />}
     />
   );
 }

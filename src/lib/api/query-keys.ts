@@ -113,6 +113,20 @@ export const keys = {
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
   },
 
+  community: {
+    all: ["community"] as const,
+    messages: (groupId: string) =>
+      [...keys.community.all, "messages", groupId] as const,
+  },
+
+  quiz: {
+    all: ["quiz"] as const,
+    questions: (riteSheetId: string) =>
+      [...keys.quiz.all, "questions", riteSheetId] as const,
+    stats: () => [...keys.quiz.all, "stats"] as const,
+    pending: () => [...keys.quiz.all, "pending"] as const,
+  },
+
   groups: {
     all: ["groups"] as const,
     mine: () => [...keys.groups.all, "mine"] as const,
@@ -127,6 +141,7 @@ export const keys = {
       [...keys.messaging.all, "conversation", bookingId, channel] as const,
     messages: (conversationId: string) =>
       [...keys.messaging.all, "messages", conversationId] as const,
+    inbox: () => [...keys.messaging.all, "inbox"] as const,
   },
 
   checklist: {
