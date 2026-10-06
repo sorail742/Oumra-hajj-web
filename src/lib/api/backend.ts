@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import type { ErrorResponse } from "./types";
+
+const causeSysteme = z.object({ code: z.string() });
 
 /**
  * Accès au backend NestJS (Oumra-hadj-project) depuis le serveur Next —
@@ -18,7 +21,11 @@ export function urlBackend(): string {
       "BACKEND_URL absente. Définir la variable dans .env.local — voir .env.example.",
     );
   }
-  return base.replace(/\/+$/, "");
+  let sansBarreFinale = base;
+  while (sansBarreFinale.endsWith("/")) {
+    sansBarreFinale = sansBarreFinale.slice(0, -1);
+  }
+  return sansBarreFinale;
 }
 
 /**
@@ -83,14 +90,9 @@ export function journaliserEchecBackend(chemin: string, cause: unknown): void {
   }
   const erreur =
     cause instanceof Error ? cause : new Error("Erreur non standard");
-  const sousCause: unknown = erreur.cause;
-  const code =
-    typeof sousCause === "object" &&
-    sousCause !== null &&
-    "code" in sousCause &&
-    typeof sousCause.code === "string"
-      ? sousCause.code
-      : undefined;
+  // Code système (ECONNREFUSED, ENOTFOUND…) porté par `cause` chez undici.
+  const sousCause = causeSysteme.safeParse(erreur.cause);
+  const code = sousCause.success ? sousCause.data.code : undefined;
   console.error("[proxy] backend injoignable", {
     chemin,
     erreur: erreur.name,
