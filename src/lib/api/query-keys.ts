@@ -114,6 +114,7 @@ export const keys = {
     all: ["rites"] as const,
     sheets: (f: Filtres = {}) => [...keys.rites.all, "sheets", f] as const,
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
+    admin: () => [...keys.rites.all, "admin"] as const,
   },
 
   budget: {

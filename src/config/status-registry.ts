@@ -80,6 +80,14 @@ export const statusRegistry = {
       tone: "warning",
     },
   },
+  /**
+   * `RiteSheet.isValidated` — fiche de rite publiée ou en attente de
+   * relecture par une personne qualifiée (CLAUDE.md, contenu religieux).
+   */
+  riteSheet: {
+    validated: { label: "Validée", tone: "success" },
+    pending: { label: "À valider", tone: "warning" },
+  },
 } as const satisfies Record<string, Record<string, StatusEntry>>;
 
 export type StatusKind = keyof typeof statusRegistry;

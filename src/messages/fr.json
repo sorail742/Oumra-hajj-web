@@ -445,6 +445,52 @@
       "resetBody": "Les compteurs de tawaf et de sa'i de ce rite reviennent à zéro.",
       "resetConfirm": "Remettre à zéro",
       "error": "La progression n'a pas pu être enregistrée. Réessayez."
+    },
+    "admin": {
+      "title": "Gestion des fiches",
+      "description": "Toutes les fiches, publiées ou non. Une fiche n'est visible des pèlerins qu'après validation par une personne qualifiée.",
+      "create": "Nouvelle fiche",
+      "empty": "Aucune fiche pour le moment.",
+      "meta": "{key} · {type} · {language} · ordre {order} · version {version}",
+      "edit": "Modifier",
+      "validate": "Valider",
+      "validateTitle": "Valider « {title} » ?",
+      "validateBody": "Confirmez qu'une personne qualifiée a relu ce texte. La fiche sera publiée pour les pèlerins.",
+      "validated": "Fiche validée et publiée.",
+      "error": "L'action a échoué. Réessayez.",
+      "form": {
+        "createTitle": "Nouvelle fiche de rite",
+        "createBody": "La fiche ne sera pas publiée avant validation par une personne qualifiée.",
+        "editTitle": "Modifier la fiche",
+        "editBody": "Toute modification retire la validation : la fiche devra être relue et validée de nouveau avant d'être republiée.",
+        "fields": {
+          "key": "Clé",
+          "title": "Titre",
+          "pilgrimageType": "Pèlerinage",
+          "language": "Langue",
+          "order": "Ordre d'affichage",
+          "audioRef": "Référence audio (facultatif)",
+          "content": "Contenu"
+        },
+        "types": {
+          "oumra": "Oumra",
+          "hadj": "Hadj",
+          "both": "Oumra et Hadj"
+        },
+        "languages": {
+          "fr": "Français",
+          "en": "Anglais",
+          "ar": "Arabe"
+        },
+        "tooShort": "2 caractères minimum.",
+        "orderInvalid": "Saisissez un nombre entier positif.",
+        "contentTooShort": "10 caractères minimum.",
+        "saveCreate": "Créer la fiche",
+        "saveEdit": "Enregistrer",
+        "created": "Fiche créée, en attente de validation.",
+        "updated": "Fiche modifiée, en attente de nouvelle validation.",
+        "error": "La fiche n'a pas pu être enregistrée. Réessayez."
+      }
     }
   },
   "groups": {

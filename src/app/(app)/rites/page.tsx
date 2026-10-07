@@ -1,5 +1,7 @@
 import { getTranslations } from "next-intl/server";
+import { Can } from "@/components/shared/Can";
 import { PageHeader } from "@/components/shared/PageHeader";
+import { RiteSheetsAdmin } from "@/features/rites/components/RiteSheetsAdmin";
 import { RiteSheetsScreen } from "@/features/rites/components/RiteSheetsScreen";
 import { RiteProgressChecklist } from "@/features/rites/components/RiteProgressChecklist";
 
@@ -9,6 +11,10 @@ export default async function RitesPage() {
   return (
     <div className="space-y-8">
       <PageHeader title={t("title")} description={t("description")} />
+
+      <Can role="admin">
+        <RiteSheetsAdmin />
+      </Can>
 
       <section>
         <h2 className="mb-3 text-lg font-medium">{t("sheetsTitle")}</h2>
