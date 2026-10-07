@@ -39,6 +39,30 @@ const ORDRE = /^\d{1,4}$/;
 const CLASSE_SELECT =
   "border-input bg-background h-(--size-field) w-full rounded-md border px-3 text-sm";
 
+/** Valeurs du formulaire : celles de la fiche modifiée, sinon vides. */
+function valeursDepuis(fiche: RiteSheet | undefined) {
+  if (!fiche) {
+    return {
+      key: "",
+      title: "",
+      pilgrimageType: "oumra" as const,
+      order: "0",
+      language: "fr" as const,
+      content: "",
+      audioRef: "",
+    };
+  }
+  return {
+    key: fiche.key,
+    title: fiche.title,
+    pilgrimageType: fiche.pilgrimageType,
+    order: String(fiche.order),
+    language: LANGUES.find((l) => l === fiche.language) ?? "fr",
+    content: fiche.content,
+    audioRef: fiche.audioRef ?? "",
+  };
+}
+
 /**
  * Création ou modification d'une fiche de rite (administrateur). Une fiche
  * créée n'est pas publiée, une fiche modifiée perd sa validation : le
@@ -69,15 +93,7 @@ export function RiteSheetFormDialog({
     [t],
   );
   type Valeurs = z.infer<typeof schema>;
-  const valeursInitiales: Valeurs = {
-    key: fiche?.key ?? "",
-    title: fiche?.title ?? "",
-    pilgrimageType: fiche?.pilgrimageType ?? "oumra",
-    order: String(fiche?.order ?? 0),
-    language: LANGUES.find((l) => l === fiche?.language) ?? "fr",
-    content: fiche?.content ?? "",
-    audioRef: fiche?.audioRef ?? "",
-  };
+  const valeursInitiales = valeursDepuis(fiche);
   const form = useForm<Valeurs>({
     resolver: zodResolver(schema),
     defaultValues: valeursInitiales,
