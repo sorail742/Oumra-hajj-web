@@ -340,6 +340,30 @@
       "outstanding": "Reste à encaisser",
       "byMonth": "Encaissements prévus par mois",
       "empty": "Aucune réservation en cours pour le moment."
+    },
+    "savings": {
+      "title": "Plan d'épargne",
+      "description": "Cotisez à votre rythme jusqu'au prix du forfait. À chaque échéance, un paiement Mobile Money vous est proposé : rien n'est débité sans votre validation sur le téléphone.",
+      "target": "Objectif",
+      "next": "Prochaine cotisation",
+      "paused": "Cotisations en pause",
+      "count": "Cotisations nécessaires (estimation)",
+      "countValue": "{count, plural, one {# cotisation} other {# cotisations}}",
+      "form": {
+        "autoDeduct": "Activer les cotisations automatiques",
+        "amount": "Montant de chaque cotisation (GNF)",
+        "frequency": "Fréquence",
+        "chooseFrequency": "Choisir une fréquence",
+        "frequencies": {
+          "weekly": "Chaque semaine",
+          "monthly": "Chaque mois"
+        },
+        "amountInvalid": "Saisissez un montant en chiffres, d'au moins 1 GNF.",
+        "frequencyRequired": "Choisissez une fréquence.",
+        "save": "Enregistrer le plan",
+        "saved": "Plan d'épargne enregistré.",
+        "error": "Le plan n'a pas pu être enregistré. Réessayez."
+      }
     }
   },
   "reviews": {
