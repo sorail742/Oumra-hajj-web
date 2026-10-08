@@ -293,6 +293,23 @@ du pèlerin, référence de paiement) en titre, le `StatusBadge`, deux à trois
 champs utiles, les actions en menu — même mécanique que smartsms, appliquée
 à des dossiers plutôt qu'à des contacts.
 
+### Grand texte et contraste élevé
+
+Public souvent âgé (issue backend #32) : le bouton « Aa » de l'en-tête
+(`components/layout/DisplaySettings.tsx`) règle la taille du texte
+(normal, grand 112,5 %, très grand 125 %), le contraste (standard, élevé)
+et le thème. Les choix sont posés en attributs `data-text-size` /
+`data-contrast` sur `<html>` par le layout, depuis deux cookies non
+sensibles (`lib/affichage`) — rendu serveur direct, pas de saut au
+chargement. Conséquences pour tout nouveau composant :
+
+- **tailles en rem uniquement** (échelle de texte, `--size-field`,
+  `--sidebar-width`…) : une valeur en `px` ne suivrait pas le réglage ;
+- **aucune couleur hors tokens** : le contraste élevé redéfinit les tokens
+  (`globals.css` § 2 bis), une couleur en dur y échapperait ;
+- vérifier un nouvel écran en « très grand » à 360 px, pas seulement en
+  taille normale.
+
 ---
 
 ## 6. Responsive — points de rupture

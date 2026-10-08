@@ -73,7 +73,29 @@
       "toLight": "Passer en mode clair"
     },
     "emergency": "Urgences",
-    "directory": "Agences validées"
+    "directory": "Agences validées",
+    "display": {
+      "open": "Réglages d'affichage (taille du texte, contraste)",
+      "title": "Affichage",
+      "hint": "Agrandir le texte ou renforcer le contraste. Réglage retenu sur cet appareil.",
+      "textSize": "Taille du texte",
+      "sizes": {
+        "normal": "Normal",
+        "large": "Grand",
+        "x-large": "Très grand"
+      },
+      "contrast": "Contraste",
+      "contrasts": {
+        "normal": "Standard",
+        "high": "Élevé"
+      },
+      "theme": "Thème",
+      "themes": {
+        "light": "Clair",
+        "dark": "Sombre",
+        "system": "Système"
+      }
+    }
   },
   "auth": {
     "backHome": "Retour à l'accueil",

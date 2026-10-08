@@ -6,6 +6,8 @@ import { getMessages } from "next-intl/server";
 import { Providers } from "./providers";
 import { lireJetons } from "@/lib/auth/session";
 import { decoderPayloadUtile } from "@/lib/auth/jwt";
+import { lirePreferencesAffichage } from "@/lib/affichage/lire-preferences";
+import { attributsAffichage } from "@/lib/affichage/preferences";
 import "./globals.css";
 
 /**
@@ -39,9 +41,12 @@ export default async function RootLayout({
   const messages = await getMessages();
   const { accessToken } = await lireJetons();
   const { role, userId } = decoderPayloadUtile(accessToken);
+  // Taille du texte et contraste rendus dès le serveur : pas de saut au
+  // chargement (`lib/affichage`, `globals.css` § Accessibilité).
+  const affichage = attributsAffichage(await lirePreferencesAffichage());
 
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning {...affichage}>
       <body
         className={`${sourceSans3.variable} ${ibmPlexMono.variable} antialiased`}
       >
