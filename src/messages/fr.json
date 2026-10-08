@@ -598,7 +598,8 @@
       "guide": "Guide",
       "member": "Membre {n}",
       "openMap": "Voir sur la carte",
-      "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)"
+      "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)",
+      "guideNamed": "{name} (guide)"
     },
     "lost": {
       "button": "Je suis perdu",

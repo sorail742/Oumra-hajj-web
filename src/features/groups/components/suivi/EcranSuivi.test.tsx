@@ -99,6 +99,25 @@ describe("EcranSuivi (ADR-0007)", () => {
     expect(props.selection).toBe("m1");
   });
 
+  it("affiche le nom de chaque personne quand le backend le fournit", async () => {
+    fetchMock.mockResolvedValue(
+      Response.json({
+        ...groupe,
+        locations: [
+          { ...groupe.locations[0], fullName: "Guide Factice" },
+          { ...groupe.locations[1], fullName: "Pèlerin Factice" },
+        ],
+      }),
+    );
+    afficher();
+    const liste = await screen.findByRole("list");
+    expect(
+      within(liste).getByText("Guide Factice (guide)"),
+    ).toBeInTheDocument();
+    expect(within(liste).getByText("Pèlerin Factice")).toBeInTheDocument();
+    expect(within(liste).queryByText("Membre 1")).toBeNull();
+  });
+
   it("filtre les positions anciennes via l'URL", async () => {
     recherche = new URLSearchParams("filtre=stale");
     afficher();

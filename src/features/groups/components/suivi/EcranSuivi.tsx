@@ -19,6 +19,7 @@ import type { Group } from "../../api/schemas";
 import {
   filtrer,
   fraicheur,
+  libellePosition,
   lireFiltre,
   positionsSuivies,
   type FiltreSuivi,
@@ -93,12 +94,7 @@ function Suivi({ group }: Readonly<{ group: Group }>) {
     });
   }
 
-  const libelle = (p: PositionSuivie) =>
-    p.role === "moi"
-      ? tPosition("you")
-      : p.role === "guide"
-        ? tPosition("guide")
-        : tPosition("member", { n: p.numero });
+  const libelle = (p: PositionSuivie) => libellePosition(p, tPosition);
 
   const retour = (
     <Button variant="outline" asChild>
