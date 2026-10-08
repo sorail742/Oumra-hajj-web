@@ -81,6 +81,8 @@ export const keys = {
     mine: () => [...keys.payments.all, "mine"] as const,
     agency: () => [...keys.payments.all, "agency"] as const,
     treasury: () => [...keys.payments.all, "treasury"] as const,
+    savingsPlan: (bookingId: string) =>
+      [...keys.payments.all, "savings-plan", bookingId] as const,
     detail: (id: string) => [...keys.payments.all, "detail", id] as const,
     byBooking: (bookingId: string) =>
       [...keys.payments.all, "booking", bookingId] as const,
@@ -112,6 +114,7 @@ export const keys = {
     all: ["rites"] as const,
     sheets: (f: Filtres = {}) => [...keys.rites.all, "sheets", f] as const,
     myProgress: () => [...keys.rites.all, "my-progress"] as const,
+    admin: () => [...keys.rites.all, "admin"] as const,
   },
 
   budget: {
