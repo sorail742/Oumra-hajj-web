@@ -36,9 +36,14 @@ export function useGroups() {
   });
 }
 
-export function useGroup(id: string) {
+/**
+ * `suivi` : rafraîchit toutes les 30 s (écran de suivi, ADR-0007) — les
+ * positions arrivent au plus une fois par minute.
+ */
+export function useGroup(id: string, { suivi = false } = {}) {
   return useQuery({
     queryKey: keys.groups.detail(id),
+    refetchInterval: suivi ? 30_000 : false,
     queryFn: async () => {
       const donnees = await api.get<unknown>(`/api/groups/${id}`);
       return groupSchema.parse(donnees);

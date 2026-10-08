@@ -54,3 +54,6 @@ next-env.d.ts
 /playwright-report
 /blob-report
 /e2e/.cache
+
+# worker MapLibre copié au build (scripts/copier-worker-maplibre.mjs, ADR-0007)
+/public/vendor/maplibre-gl/

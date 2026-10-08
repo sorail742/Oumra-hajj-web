@@ -2,8 +2,22 @@
 
 ## Statut
 
-**Proposé** (2026-10-08) — en attente de décision du porteur de projet.
-Rien n'est implémenté tant que ce statut n'est pas « Accepté ».
+**Accepté** (2026-10-08) — option A retenue par le porteur de projet
+(« il doit avoir tout » : carte, liste et détail).
+
+Mise en œuvre : `src/features/groups/components/suivi/` (écran
+`/groups/:id/tracking`), `src/features/groups/lib/suivi.ts` (logique pure,
+testée). Variables publiques facultatives : `NEXT_PUBLIC_MAP_STYLE_LIGHT`,
+`NEXT_PUBLIC_MAP_STYLE_DARK` (par défaut, styles OpenFreeMap `positron` et
+`dark`).
+
+**Point technique découvert à la mise en œuvre** : MapLibre v6 calcule
+l'adresse de son Web Worker à l'exécution, à côté de son propre fichier —
+adresse perdue une fois le code empaqueté par Next (« Worker failed to
+load »). `scripts/copier-worker-maplibre.mjs` copie le worker et le module
+partagé qu'il importe dans `public/vendor/maplibre-gl/<version>/` avant
+`next dev` et `next build` (dossier ignoré par git), et la carte s'y
+réfère par `setWorkerUrl`. Le proxy d'authentification exclut `/vendor/`.
 
 ## Contexte
 

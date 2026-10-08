@@ -591,6 +591,39 @@
       "error": "L'alerte n'a pas pu être envoyée. Réessayez ou appelez votre guide.",
       "denied": "Le navigateur a refusé l'accès à la position. Autorisez-la pour prévenir votre guide.",
       "unavailable": "La position est indisponible sur cet appareil pour le moment."
+    },
+    "tracking": {
+      "title": "Suivi du groupe",
+      "description": "{group} — positions partagées volontairement, actualisées toutes les 30 secondes.",
+      "back": "Retour au groupe",
+      "open": "Ouvrir le suivi sur la carte",
+      "listTitle": "Membres localisés",
+      "count": "{count, plural, =0 {aucune position} one {# position} other {# positions}}",
+      "filtersLabel": "Filtrer les positions",
+      "filters": {
+        "all": "Tous",
+        "live": "En direct",
+        "guide": "Guide",
+        "stale": "Anciennes"
+      },
+      "filteredEmpty": "Aucune position ne correspond à ce filtre.",
+      "emptyTitle": "Personne ne partage sa position",
+      "emptyDescription": "Les positions apparaissent ici dès qu'un membre ou le guide active le partage depuis la page du groupe.",
+      "mapLabel": "Carte des positions du groupe",
+      "mapError": "La carte n'a pas pu être chargée. Les positions restent consultables dans la liste et sur OpenStreetMap.",
+      "recenter": "Recentrer sur le groupe",
+      "tabsLabel": "Détail de la position",
+      "tabs": {
+        "overview": "Aperçu",
+        "itinerary": "Itinéraire"
+      },
+      "selectPrompt": "Sélectionnez un membre dans la liste ou sur la carte.",
+      "updated": "Dernière position",
+      "coordinates": "Coordonnées",
+      "distanceGuide": "Distance du guide",
+      "guideNotLocated": "Guide non localisé",
+      "isGuide": "C'est la position du guide",
+      "copyCoordinates": "Copier les coordonnées"
     }
   },
   "messaging": {
