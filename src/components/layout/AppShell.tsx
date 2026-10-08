@@ -11,6 +11,7 @@ import { PageContext } from "./PageContext";
 import { SidebarAccount } from "./SidebarAccount";
 import { SidebarBrand } from "./SidebarBrand";
 import { SidebarNav } from "./SidebarNav";
+import { ThemeToggle } from "./ThemeToggle";
 
 /**
  * Coquille de l'espace authentifié — barre latérale posée sur le canevas
@@ -100,6 +101,7 @@ export async function AppShell({
               <PageContext />
             </div>
             <div className="flex items-center gap-2">
+              <ThemeToggle />
               <NotificationBell />
               <UserMenu />
             </div>
