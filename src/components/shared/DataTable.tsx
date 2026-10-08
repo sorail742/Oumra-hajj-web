@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { useTranslations } from "next-intl";
 import {
   flexRender,
   getCoreRowModel,
@@ -17,8 +16,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { EmptyState } from "./EmptyState";
+import { TablePagination } from "./TablePagination";
 
 /**
  * Tableau générique — pagination **toujours côté client** (aucun endpoint
@@ -43,7 +42,6 @@ export function DataTable<T>({
   pageSize = 20,
   empty,
 }: DataTableProps<T>) {
-  const t = useTranslations("common");
   const [pagination, setPagination] = useState({ pageIndex: 0, pageSize });
 
   const table = useReactTable({
@@ -60,6 +58,17 @@ export function DataTable<T>({
     return <>{empty ?? <EmptyState />}</>;
   }
 
+  const piedDePage =
+    table.getPageCount() > 1 ? (
+      <TablePagination
+        pageIndex={table.getState().pagination.pageIndex}
+        pageCount={table.getPageCount()}
+        pageSize={table.getState().pagination.pageSize}
+        totalRows={data.length}
+        onPageChange={(page) => table.setPageIndex(page)}
+      />
+    ) : null;
+
   return (
     <div className="space-y-4">
       {/* Cartes — sous md */}
@@ -70,7 +79,7 @@ export function DataTable<T>({
       </div>
 
       {/* Tableau réel — md et plus */}
-      <div className="hidden overflow-x-auto rounded-lg border md:block">
+      <div className="bg-card hidden overflow-hidden rounded-lg border shadow-(--shadow-card) md:block">
         <Table className="text-sm">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -100,34 +109,13 @@ export function DataTable<T>({
             ))}
           </TableBody>
         </Table>
+        {piedDePage}
       </div>
 
-      {table.getPageCount() > 1 ? (
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-muted-foreground">
-            {t("tablePage", {
-              page: table.getState().pagination.pageIndex + 1,
-              total: table.getPageCount(),
-            })}
-          </span>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              {t("tablePrevious")}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-              {t("tableNext")}
-            </Button>
-          </div>
+      {/* Sous md, la pagination suit les cartes. */}
+      {piedDePage ? (
+        <div className="bg-card rounded-lg border md:hidden [&>nav]:border-t-0">
+          {piedDePage}
         </div>
       ) : null}
     </div>

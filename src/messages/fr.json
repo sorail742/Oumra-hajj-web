@@ -13,7 +13,10 @@
     "tableNext": "Suivant",
     "copy": "Copier",
     "copySuccess": "Copié dans le presse-papiers.",
-    "copyError": "Impossible de copier."
+    "copyError": "Impossible de copier.",
+    "tableRange": "{from}–{to} sur {total}",
+    "tableGoToPage": "Aller à la page {page}",
+    "tablePagination": "Pagination du tableau"
   },
   "nav": {
     "dashboard": "Tableau de bord",
@@ -52,7 +55,19 @@
     },
     "microCourses": "Micro-cours",
     "quiz": "Quiz",
-    "budget": "Budget"
+    "budget": "Budget",
+    "space": {
+      "pilgrim": "Espace pèlerin",
+      "guide": "Espace guide",
+      "agency": "Espace agence",
+      "admin": "Administration"
+    },
+    "sections": {
+      "main": "Principal",
+      "journey": "Suivi du voyage",
+      "agency": "Mon agence",
+      "learning": "Apprendre"
+    }
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -840,7 +855,9 @@
     "nextItineraryStep": "Prochaine étape : {label} — {date}",
     "noUpcomingStep": "Aucune étape à venir.",
     "seeGroups": "Voir les groupes",
-    "adminDescription": "L'état de la plateforme et ce qui attend votre décision."
+    "adminDescription": "L'état de la plateforme et ce qui attend votre décision.",
+    "greeting": "Bonjour, {name}",
+    "greetingNoName": "Bonjour"
   },
   "landing": {
     "brand": "Oumra & Hadj",
