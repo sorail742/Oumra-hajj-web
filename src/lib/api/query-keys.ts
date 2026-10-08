@@ -136,12 +136,29 @@ export const keys = {
     pending: () => [...keys.quiz.all, "pending"] as const,
   },
 
+  emergency: {
+    all: ["emergency"] as const,
+    numbers: () => [...keys.emergency.all, "numbers"] as const,
+    contacts: () => [...keys.emergency.all, "contacts"] as const,
+  },
+
+  directory: {
+    all: ["directory"] as const,
+    agencies: () => [...keys.directory.all, "agencies"] as const,
+  },
+
+  specialNeeds: {
+    all: ["special-needs"] as const,
+    mine: () => [...keys.specialNeeds.all, "mine"] as const,
+  },
+
   groups: {
     all: ["groups"] as const,
     mine: () => [...keys.groups.all, "mine"] as const,
     assigned: () => [...keys.groups.all, "assigned"] as const,
     joined: () => [...keys.groups.all, "joined"] as const,
     detail: (id: string) => [...keys.groups.all, "detail", id] as const,
+    roster: (id: string) => [...keys.groups.all, "roster", id] as const,
   },
 
   messaging: {

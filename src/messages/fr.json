@@ -71,7 +71,9 @@
     "theme": {
       "toDark": "Passer en mode sombre",
       "toLight": "Passer en mode clair"
-    }
+    },
+    "emergency": "Urgences",
+    "directory": "Agences validées"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -642,6 +644,23 @@
       "guideNotLocated": "Guide non localisé",
       "isGuide": "C'est la position du guide",
       "copyCoordinates": "Copier les coordonnées"
+    },
+    "roster": {
+      "title": "Liste du groupe",
+      "description": "Coordonnées, dossier, contact d'urgence et besoins spéciaux de chaque membre. Données personnelles : à ne partager qu'avec l'équipe du voyage.",
+      "download": "Télécharger (CSV)",
+      "member": "Membre",
+      "booking": "Réservation",
+      "emergencyContact": "Contact d'urgence",
+      "needs": "Besoins spéciaux",
+      "noNeeds": "Aucun besoin déclaré",
+      "noEmergencyContact": "Aucun contact d'urgence",
+      "mobility": {
+        "reduced": "Mobilité réduite",
+        "wheelchair": "Fauteuil roulant"
+      },
+      "emptyTitle": "Aucun membre dans ce groupe",
+      "emptyDescription": "Rattachez des réservations à ce groupe depuis leur détail pour y ajouter les pèlerins."
     }
   },
   "messaging": {
@@ -1531,5 +1550,85 @@
       "deleted": "Simulation supprimée.",
       "error": "La suppression a échoué. Réessayez."
     }
+  },
+  "emergency": {
+    "title": "Numéros d'urgence",
+    "description": "Les numéros à composer en un geste pendant le voyage : votre guide, votre agence, les secours et l'ambassade.",
+    "sosHint": "Danger immédiat ? Le bouton SOS de votre groupe alerte votre guide et votre contact d'urgence.",
+    "sosLink": "Ouvrir mes groupes",
+    "mineTitle": "Vos contacts",
+    "mineEmpty": "Vos contacts apparaîtront ici dès que vous aurez une réservation ou un groupe.",
+    "guideOf": "Guide du groupe « {group} »",
+    "yourAgency": "Votre agence",
+    "noPhone": "Téléphone non renseigné",
+    "directoryTitle": "Secours et représentations",
+    "directoryEmptyTitle": "Aucun numéro renseigné pour le moment",
+    "directoryEmptyDescription": "L'administration de la plateforme publie ici des numéros vérifiés : secours, police, ambassade.",
+    "category": {
+      "police": "Police",
+      "medical": "Secours médicaux",
+      "civil_defense": "Protection civile",
+      "embassy": "Ambassade / consulat",
+      "other": "Autre"
+    },
+    "manage": {
+      "add": "Ajouter un numéro",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "addTitle": "Ajouter un numéro d'urgence",
+      "editTitle": "Modifier le numéro",
+      "description": "Ne publiez qu'un numéro vérifié auprès d'une source officielle : un pèlerin en détresse le composera tel quel.",
+      "label": "Intitulé",
+      "category": "Catégorie",
+      "phone": "Numéro",
+      "country": "Pays (code ISO : SA, GN…)",
+      "city": "Ville (facultatif)",
+      "notes": "Précision (facultatif)",
+      "order": "Ordre",
+      "save": "Enregistrer",
+      "created": "Numéro ajouté.",
+      "updated": "Numéro mis à jour.",
+      "deleted": "Numéro supprimé.",
+      "error": "L'enregistrement a échoué. Réessayez.",
+      "deleteTitle": "Supprimer « {label} » ?",
+      "deleteBody": "Le numéro disparaîtra de l'annuaire de tous les utilisateurs.",
+      "labelTooShort": "Au moins 2 caractères.",
+      "phoneInvalid": "Chiffres, espaces et + uniquement.",
+      "countryInvalid": "Deux lettres, par exemple SA ou GN.",
+      "orderInvalid": "Nombre entier positif."
+    }
+  },
+  "directory": {
+    "title": "Agences validées",
+    "description": "Les agences dont le dossier a été vérifié et approuvé par l'administration de la plateforme. Vérifiez votre agence avant de payer.",
+    "search": "Rechercher une agence",
+    "emptyTitle": "Aucune agence validée pour le moment.",
+    "noMatch": "Aucune agence ne correspond à cette recherche.",
+    "validatedOn": "Validée le {date}",
+    "noReviews": "Pas encore d'avis",
+    "reviews": "{note} / 5 · {count, plural, one {# avis} other {# avis}}",
+    "profile": "Voir le profil",
+    "packages": "Ses forfaits"
+  },
+  "specialNeeds": {
+    "title": "Besoins spéciaux",
+    "description": "Ce que votre agence et votre guide doivent savoir pour bien vous accompagner pendant le voyage.",
+    "privacy": "Visible seulement par l'agence de vos réservations et le guide de votre groupe — jamais par l'administration de la plateforme. Laissez vide ce que vous ne souhaitez pas partager ; un champ vidé est effacé.",
+    "mobility": "Mobilité",
+    "mobilityLevels": {
+      "none": "Aucune difficulté",
+      "reduced": "Mobilité réduite",
+      "wheelchair": "Fauteuil roulant"
+    },
+    "dietary": "Régime alimentaire",
+    "dietaryPlaceholder": "Ex. : diabétique, sans sel, allergie aux arachides",
+    "medical": "Information médicale",
+    "medicalPlaceholder": "Traitement à prendre, condition que le guide doit connaître",
+    "assistance": "Accompagnement souhaité",
+    "assistancePlaceholder": "Ex. : aide pour monter dans le bus, accompagnement au Tawaf",
+    "save": "Enregistrer mes besoins",
+    "saved": "Besoins spéciaux enregistrés.",
+    "error": "L'enregistrement a échoué. Réessayez.",
+    "updatedOn": "Mis à jour le {date}"
   }
 }

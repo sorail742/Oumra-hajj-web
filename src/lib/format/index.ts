@@ -39,6 +39,24 @@ export function formatNombre(valeur: number): string {
   return new Intl.NumberFormat("fr-FR").format(valeur);
 }
 
+/** Nom d'un pays depuis son code ISO alpha-2 : « Arabie saoudite ». */
+export function formatPays(code: string): string {
+  try {
+    return (
+      new Intl.DisplayNames(["fr"], { type: "region" }).of(
+        code.toUpperCase(),
+      ) ?? code
+    );
+  } catch {
+    return code;
+  }
+}
+
+/** Lien `tel:` d'un numéro saisi avec espaces : « +966 12 … » → « tel:+96612… ». */
+export function lienTelephone(numero: string): string {
+  return `tel:${numero.replace(/[^\d+]/g, "")}`;
+}
+
 /** Distance : « 850 m », « 1,2 km », « 342 km ». */
 export function formatDistance(metres: number): string {
   if (metres < 1000) {

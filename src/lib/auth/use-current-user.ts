@@ -72,8 +72,15 @@ export function useMettreAJourProfil() {
 
 /** Initiales pour l'avatar : « Aminata Diallo » → « AD ». */
 export function initiales(nom: string): string {
-  const mots = nom.trim().split(/\s+/).filter(Boolean);
-  const premiere = mots[0]?.[0] ?? "";
-  const derniere = mots.length > 1 ? (mots.at(-1)?.[0] ?? "") : "";
+  // Étiquettes entre crochets (« [DÉMO] ») ignorées ; première lettre de
+  // chaque mot restant : « [DÉMO] Mariama Diallo » → « MD ».
+  const lettres = nom
+    .trim()
+    .split(/\s+/)
+    .filter((mot) => !/^\[.*\]$/.test(mot))
+    .map((mot) => mot.match(/\p{L}/u)?.[0])
+    .filter((lettre) => lettre !== undefined);
+  const premiere = lettres[0] ?? "";
+  const derniere = lettres.length > 1 ? (lettres.at(-1) ?? "") : "";
   return `${premiere}${derniere}`.toUpperCase() || "?";
 }
