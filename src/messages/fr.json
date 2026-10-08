@@ -71,7 +71,8 @@
     "theme": {
       "toDark": "Passer en mode sombre",
       "toLight": "Passer en mode clair"
-    }
+    },
+    "emergency": "Urgences"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -1530,6 +1531,53 @@
       "deleteBody": "Elle sera retirée de votre liste.",
       "deleted": "Simulation supprimée.",
       "error": "La suppression a échoué. Réessayez."
+    }
+  },
+  "emergency": {
+    "title": "Numéros d'urgence",
+    "description": "Les numéros à composer en un geste pendant le voyage : votre guide, votre agence, les secours et l'ambassade.",
+    "sosHint": "Danger immédiat ? Le bouton SOS de votre groupe alerte votre guide et votre contact d'urgence.",
+    "sosLink": "Ouvrir mes groupes",
+    "mineTitle": "Vos contacts",
+    "mineEmpty": "Vos contacts apparaîtront ici dès que vous aurez une réservation ou un groupe.",
+    "guideOf": "Guide du groupe « {group} »",
+    "yourAgency": "Votre agence",
+    "noPhone": "Téléphone non renseigné",
+    "directoryTitle": "Secours et représentations",
+    "directoryEmptyTitle": "Aucun numéro renseigné pour le moment",
+    "directoryEmptyDescription": "L'administration de la plateforme publie ici des numéros vérifiés : secours, police, ambassade.",
+    "category": {
+      "police": "Police",
+      "medical": "Secours médicaux",
+      "civil_defense": "Protection civile",
+      "embassy": "Ambassade / consulat",
+      "other": "Autre"
+    },
+    "manage": {
+      "add": "Ajouter un numéro",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "addTitle": "Ajouter un numéro d'urgence",
+      "editTitle": "Modifier le numéro",
+      "description": "Ne publiez qu'un numéro vérifié auprès d'une source officielle : un pèlerin en détresse le composera tel quel.",
+      "label": "Intitulé",
+      "category": "Catégorie",
+      "phone": "Numéro",
+      "country": "Pays (code ISO : SA, GN…)",
+      "city": "Ville (facultatif)",
+      "notes": "Précision (facultatif)",
+      "order": "Ordre",
+      "save": "Enregistrer",
+      "created": "Numéro ajouté.",
+      "updated": "Numéro mis à jour.",
+      "deleted": "Numéro supprimé.",
+      "error": "L'enregistrement a échoué. Réessayez.",
+      "deleteTitle": "Supprimer « {label} » ?",
+      "deleteBody": "Le numéro disparaîtra de l'annuaire de tous les utilisateurs.",
+      "labelTooShort": "Au moins 2 caractères.",
+      "phoneInvalid": "Chiffres, espaces et + uniquement.",
+      "countryInvalid": "Deux lettres, par exemple SA ou GN.",
+      "orderInvalid": "Nombre entier positif."
     }
   }
 }
