@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   distanceMetres,
+  libellePosition,
   filtrer,
   fraicheur,
   lireFiltre,
@@ -80,5 +81,29 @@ describe("lireFiltre", () => {
     expect(lireFiltre("live")).toBe("live");
     expect(lireFiltre("nimporte")).toBe("all");
     expect(lireFiltre(null)).toBe("all");
+  });
+});
+
+describe("libellePosition", () => {
+  const t = (cle: string, valeurs?: Record<string, string | number>) =>
+    `${cle}${valeurs ? JSON.stringify(valeurs) : ""}`;
+
+  it("nomme chaque personne quand le backend fournit son nom", () => {
+    expect(
+      libellePosition({ role: "moi", numero: 0, fullName: "Moi" }, t),
+    ).toBe("you");
+    expect(
+      libellePosition({ role: "guide", numero: 0, fullName: "Aïcha" }, t),
+    ).toBe('guideNamed{"name":"Aïcha"}');
+    expect(
+      libellePosition({ role: "membre", numero: 2, fullName: "Mamadou" }, t),
+    ).toBe("Mamadou");
+  });
+
+  it("retombe sur « Guide » / « Membre n » sans nom", () => {
+    expect(libellePosition({ role: "guide", numero: 0 }, t)).toBe("guide");
+    expect(libellePosition({ role: "membre", numero: 2 }, t)).toBe(
+      'member{"n":2}',
+    );
   });
 });

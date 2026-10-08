@@ -220,7 +220,8 @@
       "hint": "Mettez à jour chaque étape : le pèlerin voit le changement dans son dossier.",
       "label": "Statut de l'étape « {step} »",
       "saved": "Étape mise à jour.",
-      "error": "La mise à jour n'a pas abouti. Réessayez."
+      "error": "La mise à jour n'a pas abouti. Réessayez.",
+      "paymentAuto": "Suit les paiements confirmés"
     },
     "cancel": {
       "action": "Annuler la réservation",
@@ -230,6 +231,21 @@
       "keep": "Garder ma réservation",
       "done": "Réservation annulée.",
       "error": "L'annulation n'a pas abouti. Réessayez."
+    },
+    "group": {
+      "title": "Groupe de voyage",
+      "description": "Rattacher la réservation à un groupe ajoute le pèlerin à ses membres : itinéraire du groupe, bouton SOS et partage de position.",
+      "label": "Groupe",
+      "placeholder": "Choisir un groupe",
+      "submit": "Rattacher au groupe",
+      "success": "Le pèlerin a rejoint le groupe.",
+      "error": "Le rattachement a échoué. Réessayez.",
+      "definitive": "Le rattachement ne peut pas être changé depuis l'interface : vérifiez le groupe avant de valider.",
+      "attached": "Réservation rattachée au groupe « {group} ».",
+      "attachedUnknown": "Réservation rattachée à un groupe.",
+      "openGroup": "Voir le groupe",
+      "noGroup": "Aucun groupe n'existe encore pour ce forfait.",
+      "createGroup": "Créer un groupe"
     }
   },
   "documents": {
@@ -434,7 +450,8 @@
       "distribution": "Répartition des notes",
       "comments": "Commentaires",
       "noComments": "Aucun commentaire pour le moment."
-    }
+    },
+    "agencyPackages": "Voir les forfaits de cette agence"
   },
   "rites": {
     "title": "Rites",
@@ -581,7 +598,8 @@
       "guide": "Guide",
       "member": "Membre {n}",
       "openMap": "Voir sur la carte",
-      "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)"
+      "newTab": "(s'ouvre dans un nouvel onglet, sur OpenStreetMap)",
+      "guideNamed": "{name} (guide)"
     },
     "lost": {
       "button": "Je suis perdu",
@@ -648,7 +666,7 @@
   },
   "agencyCompliance": {
     "title": "Conformité documentaire",
-    "description": "Documents légaux dont l'échéance approche ou est dépassée.",
+    "description": "Les documents légaux de votre agence : dépôt, échéances et alertes.",
     "columnDocument": "Document",
     "columnExpiry": "Échéance",
     "columnStatus": "Statut",
@@ -657,7 +675,31 @@
     "openError": "Impossible d'ouvrir le document. Réessayez.",
     "emptyTitle": "Aucune alerte de conformité pour le moment.",
     "emptyDescription": "Tous vos documents légaux sont à jour ou sans échéance renseignée.",
-    "roleUnsupportedTitle": "Réservé à l'espace agence."
+    "roleUnsupportedTitle": "Réservé à l'espace agence.",
+    "alertsTitle": "Alertes d'échéance",
+    "upload": {
+      "title": "Déposer un document légal",
+      "description": "Agrément, licence, attestation d'assurance… Renseignez l'échéance quand le document en a une : les alertes en dépendent.",
+      "label": "Intitulé du document",
+      "labelPlaceholder": "Ex. : agrément du ministère",
+      "labelRequired": "Indiquez l'intitulé du document (2 caractères minimum).",
+      "expiresAt": "Date d'échéance (facultative)",
+      "expiresAtHint": "Laissez vide pour un document sans échéance, comme les statuts de la société.",
+      "success": "Document déposé.",
+      "errors": {
+        "tooLarge": "Le fichier dépasse la taille autorisée (10 Mo).",
+        "invalid": "Le dépôt a été refusé : vérifiez l'intitulé et la date.",
+        "error": "Le dépôt a échoué. Réessayez."
+      }
+    },
+    "library": {
+      "title": "Tous les documents",
+      "uploaded": "Déposé le {date}",
+      "expires": "échéance le {date}",
+      "noExpiry": "sans échéance",
+      "emptyTitle": "Aucun document légal déposé",
+      "emptyDescription": "Déposez vos documents ci-dessus : l'administration les consulte pour valider votre agence."
+    }
   },
   "packages": {
     "title": "Forfaits",
@@ -701,7 +743,8 @@
       "price": "Prix",
       "availability": "Disponibilité",
       "notFoundTitle": "Ce forfait n'existe pas ou n'est plus disponible.",
-      "notFoundAction": "Revenir aux forfaits"
+      "notFoundAction": "Revenir aux forfaits",
+      "agencyPackages": "Tous ses forfaits"
     },
     "manage": {
       "title": "Mes forfaits",
@@ -754,7 +797,10 @@
         "endBeforeStart": "La date de fin doit suivre la date de début.",
         "stagesRequired": "Ajoutez au moins une étape."
       }
-    }
+    },
+    "filterAgency": "Forfaits d'une seule agence",
+    "filterAgencyProfile": "Voir l'agence",
+    "filterAgencyRemove": "Retirer le filtre d'agence"
   },
   "agencies": {
     "title": "Validation des agences",

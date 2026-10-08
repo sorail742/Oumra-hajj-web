@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 import { statusRegistry } from "@/config/status-registry";
 import { useMettreAJourEtape } from "../api/use-bookings";
 import type { DossierStep } from "../api/schemas";
@@ -10,8 +11,10 @@ import { CLE_TRADUCTION_ETAPE, ORDRE_ETAPES } from "../lib/dossier-steps";
 /**
  * Mise à jour des étapes du dossier par l'agence (ticket #52) —
  * `PATCH /bookings/:id/step`. Libellés de statut tirés du registre unique
- * (`CLAUDE.md` règle 10).
+ * (`CLAUDE.md` règle 10). L'étape `payment` est en lecture seule : le
+ * backend la réconcilie avec les paiements confirmés.
  */
+const ETAPE_PILOTEE_PAR_LES_PAIEMENTS = "payment";
 
 const STATUTS: readonly DossierStep["status"][] = [
   "pending",
@@ -52,23 +55,32 @@ export function BookingStepEditor({
               className="flex items-center justify-between gap-4 px-4 py-3"
             >
               <span className="text-sm font-medium">{libelle}</span>
-              <select
-                aria-label={t("stepEditor.label", { step: libelle })}
-                value={statut}
-                disabled={miseAJour.isPending}
-                onChange={(e) => {
-                  changer(cle, e.target.value as DossierStep["status"]).catch(
-                    () => undefined,
-                  );
-                }}
-                className="border-input bg-background h-(--size-field) rounded-md border px-3 text-sm"
-              >
-                {STATUTS.map((valeur) => (
-                  <option key={valeur} value={valeur}>
-                    {statusRegistry.dossierStep[valeur].label}
-                  </option>
-                ))}
-              </select>
+              {cle === ETAPE_PILOTEE_PAR_LES_PAIEMENTS ? (
+                <span className="flex items-center gap-2">
+                  <span className="text-muted-foreground hidden text-xs sm:inline">
+                    {t("stepEditor.paymentAuto")}
+                  </span>
+                  <StatusBadge kind="dossierStep" value={statut} />
+                </span>
+              ) : (
+                <select
+                  aria-label={t("stepEditor.label", { step: libelle })}
+                  value={statut}
+                  disabled={miseAJour.isPending}
+                  onChange={(e) => {
+                    changer(cle, e.target.value as DossierStep["status"]).catch(
+                      () => undefined,
+                    );
+                  }}
+                  className="border-input bg-background h-(--size-field) rounded-md border px-3 text-sm"
+                >
+                  {STATUTS.map((valeur) => (
+                    <option key={valeur} value={valeur}>
+                      {statusRegistry.dossierStep[valeur].label}
+                    </option>
+                  ))}
+                </select>
+              )}
             </li>
           );
         })}

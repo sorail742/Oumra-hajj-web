@@ -11,9 +11,10 @@ import { MessagingSection } from "@/features/messaging/components/MessagingSecti
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
 import { SavingsPlanCard } from "@/features/payments/components/SavingsPlanCard";
 import { AvisReservation } from "./AvisReservation";
+import { RattachementGroupe } from "./RattachementGroupe";
 
 /**
- * Compose plusieurs domaines (réservations, documents, paiements, checklist, avis, vue famille, messagerie) — c'est le rôle d'une
+ * Compose plusieurs domaines (réservations, groupes, documents, paiements, checklist, avis, vue famille, messagerie) — c'est le rôle d'une
  * page, pas d'un `features/*`, qui n'importe jamais un autre `features/*`
  * (voir `CLAUDE.md` règle 2).
  */
@@ -47,6 +48,7 @@ export default async function BookingDetailPage({
         <FamilyShareCard bookingId={id} />
       </Can>
       <Can role="agency">
+        <RattachementGroupe bookingId={id} />
         <BookingDocumentsReview bookingId={id} />
       </Can>
       <MessagingSection bookingId={id} />
