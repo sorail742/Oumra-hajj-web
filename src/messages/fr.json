@@ -230,6 +230,21 @@
       "keep": "Garder ma réservation",
       "done": "Réservation annulée.",
       "error": "L'annulation n'a pas abouti. Réessayez."
+    },
+    "group": {
+      "title": "Groupe de voyage",
+      "description": "Rattacher la réservation à un groupe ajoute le pèlerin à ses membres : itinéraire du groupe, bouton SOS et partage de position.",
+      "label": "Groupe",
+      "placeholder": "Choisir un groupe",
+      "submit": "Rattacher au groupe",
+      "success": "Le pèlerin a rejoint le groupe.",
+      "error": "Le rattachement a échoué. Réessayez.",
+      "definitive": "Le rattachement ne peut pas être changé depuis l'interface : vérifiez le groupe avant de valider.",
+      "attached": "Réservation rattachée au groupe « {group} ».",
+      "attachedUnknown": "Réservation rattachée à un groupe.",
+      "openGroup": "Voir le groupe",
+      "noGroup": "Aucun groupe n'existe encore pour ce forfait.",
+      "createGroup": "Créer un groupe"
     }
   },
   "documents": {
