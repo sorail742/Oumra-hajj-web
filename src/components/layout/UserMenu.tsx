@@ -49,9 +49,9 @@ export function UserMenu() {
         aria-expanded={ouvert}
         aria-haspopup="menu"
         aria-label={t("accountMenu")}
-        className="hover:bg-muted flex items-center gap-2 rounded-full py-1 pr-2 pl-1"
+        className="hover:bg-muted flex h-10 items-center gap-2 rounded-md border py-1 pr-2 pl-1"
       >
-        <span className="bg-primary text-primary-foreground inline-flex size-8 items-center justify-center rounded-full text-xs font-semibold">
+        <span className="bg-primary text-primary-foreground inline-flex size-8 items-center justify-center rounded-sm text-xs font-semibold">
           {nom ? initiales(nom) : <UserRound aria-hidden className="size-4" />}
         </span>
         <span className="hidden max-w-40 truncate text-sm font-medium sm:inline">

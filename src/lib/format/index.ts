@@ -39,6 +39,22 @@ export function formatNombre(valeur: number): string {
   return new Intl.NumberFormat("fr-FR").format(valeur);
 }
 
+/** Distance : « 850 m », « 1,2 km », « 342 km ». */
+export function formatDistance(metres: number): string {
+  if (metres < 1000) {
+    return `${formatNombre(Math.round(metres / 10) * 10)} m`;
+  }
+  const km = metres / 1000;
+  return `${new Intl.NumberFormat("fr-FR", {
+    maximumFractionDigits: km < 10 ? 1 : 0,
+  }).format(km)} km`;
+}
+
+/** Coordonnées GPS, cinq décimales (≈ 1 m) : « 21.42250, 39.82620 ». */
+export function formatCoordonnees(lat: number, lng: number): string {
+  return `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+}
+
 /** Durée d'une vidéo : « 4 min 05 », ou « 45 s » sous une minute. */
 export function formatDuree(secondes: number): string {
   const minutes = Math.floor(secondes / 60);
@@ -120,6 +136,11 @@ export function formatDate(iso: string | Date): string {
 
 export function formatDateHeure(iso: string | Date): string {
   return format(versDate(iso), "dd/MM/yyyy 'à' HH:mm", OPTIONS_DATE);
+}
+
+/** Date en toutes lettres (« jeudi 8 octobre 2026 ») — en-tête d'accueil. */
+export function formatDateLongue(iso: string | Date): string {
+  return format(versDate(iso), "EEEE d MMMM yyyy", OPTIONS_DATE);
 }
 
 export function formatDateCourte(iso: string | Date): string {

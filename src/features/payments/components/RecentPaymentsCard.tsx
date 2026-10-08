@@ -32,14 +32,16 @@ export function RecentPaymentsCard() {
             {recents.length === 0 ? (
               t("recentPaymentsNone")
             ) : (
-              <ul className="space-y-1">
+              <ul className="divide-y">
                 {recents.map((p) => (
                   <li
                     key={p.id}
-                    className="flex items-center justify-between gap-2"
+                    className="flex items-center justify-between gap-2 py-2 first:pt-0 last:pb-0"
                   >
-                    <Money montant={p.amount} />
-                    <span className="text-muted-foreground">
+                    <span className="text-foreground font-medium">
+                      <Money montant={p.amount} />
+                    </span>
+                    <span className="text-xs">
                       <RelativeTime iso={p.confirmedAt} />
                     </span>
                   </li>

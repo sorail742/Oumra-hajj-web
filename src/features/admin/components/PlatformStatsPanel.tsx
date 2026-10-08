@@ -5,7 +5,11 @@ import { usePlatformStats } from "../api/use-platform-stats";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { Money } from "@/components/shared/Money";
 import { ProportionList } from "@/components/shared/ProportionList";
-import { StatCard, StatCardSkeleton } from "@/components/shared/StatCard";
+import {
+  StatCard,
+  StatCardSkeleton,
+  StatGrid,
+} from "@/components/shared/StatCard";
 import { StatusBadge } from "@/components/shared/StatusBadge";
 import type { StatusKind } from "@/config/status-registry";
 import { formatNombre } from "@/lib/format";
@@ -32,7 +36,7 @@ function Repartition({
   const total = lignes.reduce((somme, [, n]) => somme + n, 0);
 
   return (
-    <section className="bg-card space-y-4 rounded-lg border p-4">
+    <section className="bg-card space-y-4 rounded-lg border p-5 shadow-(--shadow-card)">
       <div className="flex items-baseline justify-between gap-2">
         <h2 className="text-sm font-medium">{titre}</h2>
         <span className="text-muted-foreground text-xs">
@@ -59,17 +63,17 @@ export function PlatformStatsPanel() {
       query={query}
       isEmpty={() => false}
       skeleton={
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatGrid>
           <StatCardSkeleton />
           <StatCardSkeleton />
           <StatCardSkeleton />
           <StatCardSkeleton />
-        </div>
+        </StatGrid>
       }
     >
       {(stats) => (
         <div className="space-y-4">
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatGrid>
             <StatCard
               title={t("pendingAgencies")}
               value={formatNombre(stats.agenciesByStatus.pending)}
@@ -94,7 +98,7 @@ export function PlatformStatsPanel() {
             >
               <span className="text-muted-foreground">{t("revenueHint")}</span>
             </StatCard>
-          </div>
+          </StatGrid>
           <div className="grid gap-4 lg:grid-cols-2">
             <Repartition
               titre={t("agenciesByStatus")}

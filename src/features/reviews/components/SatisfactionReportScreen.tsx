@@ -10,7 +10,11 @@ import { RatingStars } from "./RatingStars";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { ProportionList } from "@/components/shared/ProportionList";
 import { RelativeTime } from "@/components/shared/RelativeTime";
-import { StatCard, StatCardSkeleton } from "@/components/shared/StatCard";
+import {
+  StatCard,
+  StatCardSkeleton,
+  StatGrid,
+} from "@/components/shared/StatCard";
 import { formatDateHeure, formatNombre, formatNote } from "@/lib/format";
 
 /**
@@ -56,7 +60,7 @@ export function SatisfactionReportScreen() {
                 {t("export")}
               </a>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <StatGrid columns={2}>
               <StatCard
                 title={t("count")}
                 value={formatNombre(rapport.reviewCount)}
@@ -71,8 +75,8 @@ export function SatisfactionReportScreen() {
                       })
                 }
               />
-            </div>
-            <section className="bg-card space-y-4 rounded-lg border p-4">
+            </StatGrid>
+            <section className="bg-card space-y-4 rounded-lg border p-5 shadow-(--shadow-card)">
               <h2 className="text-sm font-medium">{t("distribution")}</h2>
               <ProportionList
                 items={NOTES_DECROISSANTES.map((note) => ({

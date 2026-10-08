@@ -47,6 +47,17 @@ describe("SidebarNav", () => {
     ).not.toHaveAttribute("aria-current");
   });
 
+  it("range les entrées en sections, sans section vide pour le rôle", () => {
+    afficher("pilgrim");
+    expect(screen.getByText("Principal")).toBeInTheDocument();
+    expect(screen.getByText("Suivi du voyage")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Groupes" })).toHaveAttribute(
+      "href",
+      "/groups",
+    );
+    expect(screen.queryByText("Mon agence")).toBeNull();
+  });
+
   it("ne montre rien sans rôle connu", () => {
     afficher(undefined);
     expect(screen.queryAllByRole("link")).toHaveLength(0);

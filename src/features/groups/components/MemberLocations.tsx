@@ -1,15 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, Map as MapIcon } from "lucide-react";
 import type { Group } from "../api/schemas";
 import { RelativeTime } from "@/components/shared/RelativeTime";
 import { useUserId } from "@/lib/auth/role-context";
 
 /**
  * Positions partagées volontairement par les membres et le guide (ticket
- * #85). Pas de carte intégrée : une bibliothèque cartographique demande un
- * ADR (règle 11). Chaque position s'ouvre, à la demande de l'utilisateur,
+ * #85). La carte intégrée vit sur l'écran de suivi (ADR-0007), ouvert par
+ * le lien de cette section ; chaque position s'ouvre aussi, à la demande,
  * sur OpenStreetMap. Les coordonnées ne sont jamais journalisées.
  */
 function lienCarte(lat: number, lng: number): string {
@@ -22,6 +23,7 @@ function lienCarte(lat: number, lng: number): string {
 
 export function MemberLocations({ group }: Readonly<{ group: Group }>) {
   const t = useTranslations("groups.location");
+  const tSuivi = useTranslations("groups.tracking");
   const userId = useUserId();
   const positions = [...group.locations].sort((a, b) =>
     b.updatedAt.localeCompare(a.updatedAt),
@@ -41,11 +43,20 @@ export function MemberLocations({ group }: Readonly<{ group: Group }>) {
 
   return (
     <section className="space-y-3">
-      <h2 className="text-lg font-medium">{t("listTitle")}</h2>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-lg font-medium">{t("listTitle")}</h2>
+        <Link
+          href={`/groups/${group.id}/tracking`}
+          className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
+        >
+          <MapIcon aria-hidden className="size-4" />
+          {tSuivi("open")}
+        </Link>
+      </div>
       {positions.length === 0 ? (
         <p className="text-muted-foreground text-sm">{t("listEmpty")}</p>
       ) : (
-        <ul className="divide-y rounded-lg border">
+        <ul className="bg-card divide-y rounded-lg border shadow-(--shadow-card)">
           {positions.map((p) => (
             <li
               key={p.userId}

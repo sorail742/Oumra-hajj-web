@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Can } from "@/components/shared/Can";
-import { PageHeader } from "@/components/shared/PageHeader";
+import { StatGrid } from "@/components/shared/StatCard";
+import { DashboardGreeting } from "@/components/layout/DashboardGreeting";
 import { PlatformStatsPanel } from "@/features/admin/components/PlatformStatsPanel";
 import { ComplianceAlertsCard } from "@/features/agencies/components/ComplianceAlertsCard";
 import { BookingsToProcessCard } from "@/features/bookings/components/BookingsToProcessCard";
@@ -18,39 +19,33 @@ import { RecentPaymentsCard } from "@/features/payments/components/RecentPayment
  */
 export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
-  const grille = "grid gap-4 sm:grid-cols-2 lg:grid-cols-3";
 
   return (
     <div className="space-y-6">
-      <PageHeader title={t("title")} />
       <Can role="pilgrim">
-        <p className="text-sm text-muted-foreground">
-          {t("pilgrimDescription")}
-        </p>
-        <div className={grille}>
+        <DashboardGreeting description={t("pilgrimDescription")} />
+        <StatGrid columns={3}>
           <NextDossierStepCard />
           <PendingPaymentsCard />
           <SosQuickAccessCard />
-        </div>
+        </StatGrid>
       </Can>
       <Can role="agency">
-        <p className="text-sm text-muted-foreground">
-          {t("agencyDescription")}
-        </p>
-        <div className={grille}>
+        <DashboardGreeting description={t("agencyDescription")} />
+        <StatGrid columns={3}>
           <BookingsToProcessCard />
           <ComplianceAlertsCard />
           <RecentPaymentsCard />
-        </div>
+        </StatGrid>
       </Can>
       <Can role="guide">
-        <p className="text-sm text-muted-foreground">{t("guideDescription")}</p>
-        <div className={grille}>
+        <DashboardGreeting description={t("guideDescription")} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <AssignedGroupsCard />
         </div>
       </Can>
       <Can role="admin">
-        <p className="text-sm text-muted-foreground">{t("adminDescription")}</p>
+        <DashboardGreeting description={t("adminDescription")} />
         <PlatformStatsPanel />
       </Can>
     </div>

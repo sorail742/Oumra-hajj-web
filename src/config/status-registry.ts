@@ -88,6 +88,16 @@ export const statusRegistry = {
     validated: { label: "Validée", tone: "success" },
     pending: { label: "À valider", tone: "warning" },
   },
+  /**
+   * Ancienneté d'une position partagée (ADR-0007) — dérivée de `updatedAt`
+   * par `features/groups/lib/suivi.ts`, pas un enum d'API, mais un statut
+   * affiché comme les autres : sa couleur se décide ici.
+   */
+  locationFreshness: {
+    live: { label: "En direct", tone: "success" },
+    recent: { label: "Récente", tone: "progress" },
+    stale: { label: "Ancienne", tone: "pending" },
+  },
 } as const satisfies Record<string, Record<string, StatusEntry>>;
 
 export type StatusKind = keyof typeof statusRegistry;
