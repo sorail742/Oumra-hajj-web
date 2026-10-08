@@ -1,7 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { EmptyState } from "@/components/shared/EmptyState";
@@ -17,7 +19,9 @@ import { PackageCard } from "./PackageCard";
  * Catalogue public des forfaits (ticket #51) : cartes, filtres dans l'URL
  * (`CLAUDE.md` règle 8) — type, budget maximum, nombre de voyageurs
  * (`familySize`, filtre côté backend sur les places restantes) et fenêtre
- * de départ.
+ * de départ. Filtre par agence (`agencyId`) atteint depuis le profil
+ * public d'une agence ou le détail d'un forfait — aucune liste publique
+ * des agences n'existe pour en faire un menu (ticket #51).
  */
 
 const CLES_FILTRES = [
@@ -26,6 +30,7 @@ const CLES_FILTRES = [
   "familySize",
   "startDateFrom",
   "startDateTo",
+  "agencyId",
 ] as const;
 
 function nombreOuRien(valeur: string | null): number | undefined {
@@ -52,6 +57,7 @@ function useFiltres(): [
       familySize: nombreOuRien(params.get("familySize")),
       startDateFrom: params.get("startDateFrom") ?? undefined,
       startDateTo: params.get("startDateTo") ?? undefined,
+      agencyId: params.get("agencyId") ?? undefined,
     };
   }, [params]);
 
@@ -155,6 +161,25 @@ export function PackagesListScreen() {
             onChange={(e) => definir({ startDateTo: e.target.value })}
           />
         </div>
+        {filtres.agencyId && (
+          <span className="bg-primary-subtle text-primary inline-flex h-(--size-field) items-center gap-2 rounded-md px-3 text-sm font-medium">
+            {t("filterAgency")}
+            <Link
+              href={`/agencies/${filtres.agencyId}`}
+              className="underline-offset-2 hover:underline"
+            >
+              {t("filterAgencyProfile")}
+            </Link>
+            <button
+              type="button"
+              onClick={() => definir({ agencyId: undefined })}
+              aria-label={t("filterAgencyRemove")}
+              className="hover:bg-primary/10 inline-flex size-6 items-center justify-center rounded-sm"
+            >
+              <X aria-hidden className="size-4" />
+            </button>
+          </span>
+        )}
         {filtreActif && (
           <button
             type="button"

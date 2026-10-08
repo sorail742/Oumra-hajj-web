@@ -450,7 +450,8 @@
       "distribution": "Répartition des notes",
       "comments": "Commentaires",
       "noComments": "Aucun commentaire pour le moment."
-    }
+    },
+    "agencyPackages": "Voir les forfaits de cette agence"
   },
   "rites": {
     "title": "Rites",
@@ -741,7 +742,8 @@
       "price": "Prix",
       "availability": "Disponibilité",
       "notFoundTitle": "Ce forfait n'existe pas ou n'est plus disponible.",
-      "notFoundAction": "Revenir aux forfaits"
+      "notFoundAction": "Revenir aux forfaits",
+      "agencyPackages": "Tous ses forfaits"
     },
     "manage": {
       "title": "Mes forfaits",
@@ -794,7 +796,10 @@
         "endBeforeStart": "La date de fin doit suivre la date de début.",
         "stagesRequired": "Ajoutez au moins une étape."
       }
-    }
+    },
+    "filterAgency": "Forfaits d'une seule agence",
+    "filterAgencyProfile": "Voir l'agence",
+    "filterAgencyRemove": "Retirer le filtre d'agence"
   },
   "agencies": {
     "title": "Validation des agences",

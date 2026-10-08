@@ -2,7 +2,9 @@
 
 import { useMemo } from "react";
 import type { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { ArrowRight } from "lucide-react";
 import { useAgencyReviews, useAgencyTrustScore } from "../api/use-reviews";
 import type { Review } from "../api/schemas";
 import { AgencyTrustCard } from "./AgencyTrustCard";
@@ -48,6 +50,13 @@ export function AgencyReviewsScreen({
       >
         {(score) => <AgencyTrustCard trustScore={score} />}
       </AsyncBoundary>
+      <Link
+        href={`/packages?agencyId=${encodeURIComponent(agencyId)}`}
+        className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
+      >
+        {t("agencyPackages")}
+        <ArrowRight aria-hidden className="size-4" />
+      </Link>
 
       <div>
         <h2 className="mb-3 text-lg font-medium">{t("agencyReviewsTitle")}</h2>
