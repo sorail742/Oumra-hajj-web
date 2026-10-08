@@ -93,3 +93,26 @@ export function useAnnulerReservation(bookingId: string) {
       ]),
   });
 }
+
+/**
+ * `PATCH /bookings/:id/group` (agence, ticket #54) — rattache la
+ * réservation à un groupe : le backend ajoute le pèlerin aux membres du
+ * groupe (seul moyen d'en ajouter un). Invalide aussi les groupes.
+ */
+export function useRattacherGroupe(bookingId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (groupId: string) =>
+      bookingSchema.parse(
+        await api.patch<unknown>(
+          `/api/bookings/${encodeURIComponent(bookingId)}/group`,
+          { groupId },
+        ),
+      ),
+    onSuccess: () =>
+      Promise.all([
+        queryClient.invalidateQueries({ queryKey: keys.bookings.all }),
+        queryClient.invalidateQueries({ queryKey: keys.groups.all }),
+      ]),
+  });
+}

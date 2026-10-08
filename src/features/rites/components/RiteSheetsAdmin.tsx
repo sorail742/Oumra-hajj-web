@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import type { RiteSheet } from "../api/schemas";
 import { useFichesAdmin, useValiderFiche } from "../api/use-rites-admin";
+import { fileDeModeration } from "../lib/moderation";
 import { RiteSheetFormDialog } from "./RiteSheetFormDialog";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { ConfirmDialog } from "@/components/shared/ConfirmDialog";
@@ -14,7 +15,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * Gestion des fiches de rites (administrateur) : toutes les fiches,
- * publiées ou non, avec création, modification et validation explicite.
+ * publiées ou non — celles à valider en tête (ticket #62) —, avec
+ * création, modification et validation explicite.
  * Valider engage la personne qualifiée qui a relu le texte — d'où la
  * confirmation (CLAUDE.md, contenu religieux).
  */
@@ -44,8 +46,8 @@ export function RiteSheetsAdmin() {
         empty={<p className="text-muted-foreground text-sm">{t("empty")}</p>}
       >
         {(fiches) => (
-          <ul className="bg-card divide-y rounded-xl border">
-            {fiches.map((fiche) => (
+          <ul className="bg-card divide-y rounded-lg border shadow-(--shadow-card)">
+            {fileDeModeration(fiches).map((fiche) => (
               <LigneFiche key={fiche.id} fiche={fiche} />
             ))}
           </ul>
