@@ -95,7 +95,9 @@
         "dark": "Sombre",
         "system": "Système"
       }
-    }
+    },
+    "rooms": "Hébergement",
+    "disputes": "Litiges"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -422,6 +424,30 @@
         "save": "Enregistrer le plan",
         "saved": "Plan d'épargne enregistré.",
         "error": "Le plan n'a pas pu être enregistré. Réessayez."
+      }
+    },
+    "accounting": {
+      "title": "Export comptable",
+      "description": "Journal des encaissements et remboursements de la période, prêt pour Excel ou un import Sage.",
+      "from": "Du",
+      "to": "Au",
+      "period": "Période du {from} au {to}",
+      "download": "Télécharger le CSV",
+      "invalidPeriod": "La date de début doit précéder la date de fin.",
+      "collected": "Encaissé",
+      "refunded": "Remboursé",
+      "net": "Net",
+      "emptyTitle": "Aucun mouvement sur la période",
+      "emptyDescription": "Aucun paiement confirmé ni remboursement entre ces dates.",
+      "columnDate": "Date",
+      "columnJournal": "Journal",
+      "columnPiece": "N° pièce",
+      "columnLabel": "Libellé",
+      "columnDebit": "Débit",
+      "columnCredit": "Crédit",
+      "journals": {
+        "ENC": "Encaissement",
+        "REM": "Remboursement"
       }
     }
   },
@@ -1652,5 +1678,171 @@
     "saved": "Besoins spéciaux enregistrés.",
     "error": "L'enregistrement a échoué. Réessayez.",
     "updatedOn": "Mis à jour le {date}"
+  },
+  "rooms": {
+    "title": "Hébergement",
+    "description": "Hôtels, chambres et répartition des pèlerins pendant le voyage.",
+    "filterPackage": "Forfait",
+    "allPackages": "Tous les forfaits",
+    "emptyTitle": "Aucun bloc de chambres",
+    "emptyDescription": "Déclarez les chambres réservées auprès d'un hôtel pour y placer vos pèlerins au fil des ventes.",
+    "statBeds": "Places réservées",
+    "statAssigned": "Places attribuées",
+    "statUnsold": "Places à vendre",
+    "toPlace": "{count, plural, one {# réservation attend} other {# réservations attendent}} une chambre.",
+    "types": {
+      "double": "Double (2 places)",
+      "triple": "Triple (3 places)",
+      "quadruple": "Quadruple (4 places)",
+      "quintuple": "Quintuple (5 places)"
+    },
+    "create": {
+      "action": "Nouveau bloc",
+      "title": "Nouveau bloc de chambres",
+      "description": "Chambres réservées à l'avance auprès d'un hôtel pour un forfait.",
+      "package": "Forfait",
+      "packagePlaceholder": "Choisir un forfait",
+      "packageRequired": "Choisissez un forfait.",
+      "hotel": "Hôtel",
+      "otherHotel": "Autre hôtel (à saisir)",
+      "hotelName": "Nom de l'hôtel",
+      "city": "Ville",
+      "hotelRequired": "Indiquez le nom de l'hôtel.",
+      "cityRequired": "Indiquez la ville.",
+      "roomType": "Type de chambre",
+      "roomCount": "Nombre de chambres",
+      "roomCountInvalid": "Entre 1 et 500 chambres.",
+      "releaseDate": "Date de rétrocession",
+      "releaseDateHint": "Date limite fixée par l'hôtel pour lui rendre les chambres non vendues.",
+      "notes": "Notes",
+      "submit": "Créer le bloc",
+      "created": "Bloc de chambres créé.",
+      "error": "Le bloc n'a pas pu être créé."
+    },
+    "block": {
+      "subtitle": "{city} · {type} · {rooms, plural, one {# chambre} other {# chambres}} · {package}",
+      "roomingList": "Rooming list",
+      "delete": "Supprimer",
+      "deleteBlocked": "Retirez d'abord les pèlerins placés.",
+      "deleteTitle": "Supprimer ce bloc ?",
+      "deleteDescription": "Le bloc et ses chambres seront retirés de l'allotement.",
+      "occupancy": "{assigned} / {total} places attribuées",
+      "occupancyLabel": "Taux d'occupation du bloc",
+      "unsold": "{count, plural, =0 {Bloc complet} one {# place à vendre} other {# places à vendre}}",
+      "release": "Rétrocession le {date}",
+      "releaseSoon": "Rétrocession le {date} : {count, plural, one {# place invendue} other {# places invendues}}",
+      "room": "Chambre {number}",
+      "freeBed": "Place libre",
+      "unassign": "Retirer {name} de la chambre",
+      "unassignError": "La place n'a pas pu être libérée."
+    },
+    "assign": {
+      "pilgrim": "Pèlerin à placer",
+      "pilgrimPlaceholder": "{count, plural, one {# réservation à placer} other {# réservations à placer}}",
+      "room": "Chambre",
+      "firstFree": "Première chambre libre",
+      "roomOption": "Chambre {number} ({free, plural, one {# place} other {# places}})",
+      "submit": "Placer",
+      "full": "Bloc complet",
+      "done": "Pèlerin placé.",
+      "error": "Le placement a échoué.",
+      "nobodyLeft": "Toutes les réservations du forfait ont une place dans ce bloc."
+    },
+    "mine": {
+      "emptyTitle": "Aucune chambre attribuée pour l'instant",
+      "emptyDescription": "Votre agence vous attribuera une chambre avant le départ.",
+      "room": "Chambre {number}",
+      "dates": "du {from} au {to}"
+    }
+  },
+  "disputes": {
+    "title": "Litiges",
+    "description": "Un problème avec votre voyage se règle d'abord avec l'agence ; la plateforme arbitre si besoin.",
+    "filterStatus": "Statut",
+    "allStatuses": "Tous les statuts",
+    "statusFilter": {
+      "open": "En attente de l'agence",
+      "agency_responded": "Réponse de l'agence",
+      "escalated": "Arbitrage en cours",
+      "resolved": "Résolus à l'amiable",
+      "closed": "Tranchés"
+    },
+    "emptyTitle": "Aucun litige",
+    "emptyDescription": "Les litiges ouverts sur une réservation apparaîtront ici.",
+    "parties": "{pilgrim} ↔ {agency}",
+    "updated": "Mis à jour",
+    "back": "Tous les litiges",
+    "opened": "ouvert le {date}",
+    "decisionTitle": "Décision de la plateforme",
+    "thread": "Échanges",
+    "threadEmpty": "Aucun message",
+    "adminWaits": "L'administration n'intervient qu'en cas d'escalade.",
+    "closedThread": "Ce litige est clos : les échanges sont conservés en lecture seule.",
+    "progress": "Médiation",
+    "steps": {
+      "dialogue": {
+        "title": "Dialogue avec l'agence",
+        "description": "Le pèlerin et l'agence cherchent une solution ensemble."
+      },
+      "arbitration": {
+        "title": "Arbitrage",
+        "description": "L'administration examine les échanges et tranche."
+      },
+      "closed": {
+        "title": "Clos",
+        "description": "Résolu à l'amiable ou par décision."
+      }
+    },
+    "statusHelp": {
+      "open": "En attente d'une réponse de l'agence.",
+      "agency_responded": "L'agence a répondu : le pèlerin peut poursuivre, clore ou demander l'arbitrage.",
+      "escalated": "L'administration examine le litige.",
+      "resolved": "Clos à l'amiable par le pèlerin.",
+      "closed": "Clos par décision de l'administration."
+    },
+    "categories": {
+      "payment": "Paiement",
+      "refund": "Remboursement",
+      "accommodation": "Hébergement",
+      "transport": "Transport",
+      "documents": "Documents et visa",
+      "service": "Prestation",
+      "other": "Autre"
+    },
+    "create": {
+      "action": "Signaler un litige",
+      "title": "Signaler un litige",
+      "description": "Expliquez le problème : l'agence sera prévenue et dispose de 7 jours pour répondre.",
+      "booking": "Réservation",
+      "bookingPlaceholder": "Choisir une réservation",
+      "bookingRequired": "Choisissez la réservation concernée.",
+      "category": "Nature du problème",
+      "subject": "Objet",
+      "subjectTooShort": "5 caractères au moins.",
+      "subjectTooLong": "140 caractères au plus.",
+      "message": "Votre exposé",
+      "messageTooShort": "10 caractères au moins.",
+      "messageTooLong": "2 000 caractères au plus.",
+      "privacyHint": "N'indiquez ni donnée de santé ni numéro de passeport : ce texte est lu par l'agence et, en cas d'escalade, par l'administration.",
+      "submit": "Envoyer",
+      "created": "Litige ouvert. L'agence a été prévenue.",
+      "error": "Le litige n'a pas pu être ouvert."
+    },
+    "actions": {
+      "pilgrimTitle": "Suite à donner",
+      "resolve": "Clore à l'amiable",
+      "resolveTitle": "Clore ce litige ?",
+      "resolveDescription": "Vous indiquez que la réponse de l'agence vous convient. Le litige sera clos.",
+      "escalate": "Demander l'arbitrage",
+      "escalateTitle": "Demander l'arbitrage de la plateforme ?",
+      "escalateDescription": "L'administration lira les échanges et rendra une décision. L'agence en sera prévenue.",
+      "escalateLater": "L'arbitrage pourra être demandé dès la réponse de l'agence, ou à partir du {date} sans réponse.",
+      "adminTitle": "Rendre une décision",
+      "decision": "Décision motivée",
+      "decisionHint": "Visible du pèlerin et de l'agence. 10 caractères au moins.",
+      "decide": "Rendre la décision",
+      "decided": "Décision rendue.",
+      "error": "L'action a échoué."
+    }
   }
 }

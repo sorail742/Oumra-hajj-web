@@ -98,6 +98,17 @@ export const statusRegistry = {
     recent: { label: "Récente", tone: "progress" },
     stale: { label: "Ancienne", tone: "pending" },
   },
+  /**
+   * `DisputeStatus` (idée #62) — médiation : dialogue pèlerin-agence,
+   * puis arbitrage de l'administration si besoin.
+   */
+  dispute: {
+    open: { label: "En attente de l'agence", tone: "pending" },
+    agency_responded: { label: "Réponse de l'agence", tone: "progress" },
+    escalated: { label: "Arbitrage en cours", tone: "warning" },
+    resolved: { label: "Résolu à l'amiable", tone: "success" },
+    closed: { label: "Tranché", tone: "success" },
+  },
 } as const satisfies Record<string, Record<string, StatusEntry>>;
 
 export type StatusKind = keyof typeof statusRegistry;
