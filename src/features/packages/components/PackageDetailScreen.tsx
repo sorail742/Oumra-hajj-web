@@ -219,12 +219,20 @@ function Contenu({
               {t("detail.agency")}
             </h2>
           </div>
-          <Link
-            href={`/agencies/${forfait.agencyId}`}
-            className="text-primary text-sm font-medium hover:underline"
-          >
-            {t("detail.agencyLink")}
-          </Link>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link
+              href={`/agencies/${forfait.agencyId}`}
+              className="text-primary text-sm font-medium hover:underline"
+            >
+              {t("detail.agencyLink")}
+            </Link>
+            <Link
+              href={`/packages?agencyId=${encodeURIComponent(forfait.agencyId)}`}
+              className="text-primary text-sm font-medium hover:underline"
+            >
+              {t("detail.agencyPackages")}
+            </Link>
+          </div>
         </section>
       </div>
 

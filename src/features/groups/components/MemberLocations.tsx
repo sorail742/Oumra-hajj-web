@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ExternalLink, Map as MapIcon } from "lucide-react";
 import type { Group } from "../api/schemas";
+import { libellePosition, positionsSuivies } from "../lib/suivi";
 import { RelativeTime } from "@/components/shared/RelativeTime";
 import { useUserId } from "@/lib/auth/role-context";
 
@@ -25,21 +26,7 @@ export function MemberLocations({ group }: Readonly<{ group: Group }>) {
   const t = useTranslations("groups.location");
   const tSuivi = useTranslations("groups.tracking");
   const userId = useUserId();
-  const positions = [...group.locations].sort((a, b) =>
-    b.updatedAt.localeCompare(a.updatedAt),
-  );
-  const libelles = new Map<string, string>();
-  let numero = 0;
-  for (const p of positions) {
-    if (p.userId === userId) {
-      libelles.set(p.userId, t("you"));
-    } else if (p.userId === group.guideId) {
-      libelles.set(p.userId, t("guide"));
-    } else {
-      numero += 1;
-      libelles.set(p.userId, t("member", { n: numero }));
-    }
-  }
+  const positions = positionsSuivies(group, userId);
 
   return (
     <section className="space-y-3">
@@ -62,7 +49,7 @@ export function MemberLocations({ group }: Readonly<{ group: Group }>) {
               key={p.userId}
               className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-sm"
             >
-              <span className="font-medium">{libelles.get(p.userId)}</span>
+              <span className="font-medium">{libellePosition(p, t)}</span>
               <span className="text-muted-foreground text-xs">
                 <RelativeTime iso={p.updatedAt} />
               </span>

@@ -1,11 +1,15 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
 import { useRole } from "@/lib/auth/role-context";
-import { accessUrlSchema, legalDocumentAlertSchema } from "./schemas";
+import {
+  accessUrlSchema,
+  agencySchema,
+  legalDocumentAlertSchema,
+} from "./schemas";
 
 /** `GET /agencies/me/legal-documents/alerts` — agence uniquement. */
 export function useComplianceAlerts() {
@@ -35,6 +39,39 @@ export function useLegalDocumentAccessUrl() {
         `/api/agencies/me/legal-documents/${documentId}/access-url`,
       );
       return accessUrlSchema.parse(donnees);
+    },
+  });
+}
+
+export interface DepotDocumentLegal {
+  fichier: File;
+  label: string;
+  /** Date `AAAA-MM-JJ` ; absente pour un document sans échéance. */
+  expiresAt?: string;
+}
+
+/**
+ * `POST /agencies/me/legal-documents` (multipart, ticket #48). Le backend
+ * renvoie l'agence à jour : sa liste de documents remplace le cache de
+ * `GET /agencies/me`, et les alertes d'échéance sont relues.
+ */
+export function useDeposerDocumentLegal() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ fichier, label, expiresAt }: DepotDocumentLegal) => {
+      const formulaire = new FormData();
+      formulaire.append("file", fichier);
+      formulaire.append("label", label);
+      if (expiresAt) formulaire.append("expiresAt", expiresAt);
+      return agencySchema.parse(
+        await api.post<unknown>("/api/agencies/me/legal-documents", formulaire),
+      );
+    },
+    onSuccess: (agence) => {
+      queryClient.setQueryData(keys.agencies.me(), agence);
+      return queryClient.invalidateQueries({
+        queryKey: keys.agencies.complianceAlerts(),
+      });
     },
   });
 }

@@ -33,7 +33,7 @@ afterEach(() => {
 });
 
 describe("BookingStepEditor", () => {
-  it("affiche le statut courant de chaque étape, « À faire » par défaut", () => {
+  it("affiche le statut courant de chaque étape, « À faire » par défaut, paiement en lecture seule (#52)", () => {
     afficherAvecProviders(
       <BookingStepEditor
         bookingId={RESERVATION}
@@ -50,8 +50,12 @@ describe("BookingStepEditor", () => {
     expect(
       screen.getByRole("combobox", { name: "Statut de l'étape « Visa »" }),
     ).toHaveValue("pending");
-    expect(screen.getAllByRole("combobox")).toHaveLength(5);
-    expect(screen.getAllByRole("combobox")[0]).toHaveValue("done");
+    // L'étape paiement suit les paiements confirmés : pas de sélecteur.
+    expect(screen.getAllByRole("combobox")).toHaveLength(4);
+    expect(screen.queryByRole("combobox", { name: /Paiement/ })).toBeNull();
+    expect(
+      screen.getByText("Terminée", { selector: "span" }),
+    ).toBeInTheDocument();
   });
 
   it("envoie la clé et le nouveau statut au backend", async () => {

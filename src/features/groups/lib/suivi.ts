@@ -13,6 +13,8 @@ export type Fraicheur = "live" | "recent" | "stale";
 
 export interface PositionSuivie {
   userId: string;
+  /** Nom joint par le backend ; absent d'une réponse plus ancienne. */
+  fullName?: string;
   role: RolePosition;
   /** Numéro d'ordre parmi les membres (« Membre 2 »), `0` sinon. */
   numero: number;
@@ -51,6 +53,27 @@ export function positionsSuivies(
       numero += 1;
       return { ...p, role: "membre", numero };
     });
+}
+
+/** Messages `groups.location` utiles au libellé (traducteur next-intl). */
+export type TraduireLibelle = (
+  cle: "you" | "guide" | "guideNamed" | "member",
+  valeurs?: Record<string, string | number>,
+) => string;
+
+/**
+ * Libellé d'une position : « Vous » pour soi ; sinon le nom du membre
+ * (avec « guide » pour le guide), ou, sans nom, « Guide » / « Membre n ».
+ */
+export function libellePosition(
+  p: Pick<PositionSuivie, "role" | "numero" | "fullName">,
+  t: TraduireLibelle,
+): string {
+  if (p.role === "moi") return t("you");
+  if (p.role === "guide") {
+    return p.fullName ? t("guideNamed", { name: p.fullName }) : t("guide");
+  }
+  return p.fullName ?? t("member", { n: p.numero });
 }
 
 const RAYON_TERRE_M = 6_371_000;

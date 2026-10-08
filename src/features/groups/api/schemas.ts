@@ -13,14 +13,15 @@ export const itineraryStepSchema = z.object({
 
 /**
  * Position d'un membre — donnée sensible et opt-in côté backend (voir le
- * commentaire de `GroupsService.findAuthorizedOrFail`). Consommée
- * aujourd'hui seulement pour compter les positions partagées, jamais
- * affichée sur une carte (aucune bibliothèque cartographique dans la
- * pile — voir `docs/socle-frontend.md` §2 — à ajouter seulement si un
- * écran réel l'exige).
+ * commentaire de `GroupsService.findAuthorizedOrFail`), affichée par
+ * l'écran de suivi (ADR-0007) et la liste du détail de groupe.
+ * `fullName` : nom du membre joint par le backend depuis le 2026-10-08 ;
+ * facultatif ici tant qu'un backend plus ancien peut répondre — l'écran
+ * retombe alors sur « Membre n ».
  */
 export const memberLocationSchema = z.object({
   userId: z.string(),
+  fullName: z.string().optional(),
   lat: z.number(),
   lng: z.number(),
   updatedAt: z.string(),
