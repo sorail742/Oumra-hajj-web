@@ -1592,5 +1592,26 @@
     "reviews": "{note} / 5 · {count, plural, one {# avis} other {# avis}}",
     "profile": "Voir le profil",
     "packages": "Ses forfaits"
+  },
+  "specialNeeds": {
+    "title": "Besoins spéciaux",
+    "description": "Ce que votre agence et votre guide doivent savoir pour bien vous accompagner pendant le voyage.",
+    "privacy": "Visible seulement par l'agence de vos réservations et le guide de votre groupe — jamais par l'administration de la plateforme. Laissez vide ce que vous ne souhaitez pas partager ; un champ vidé est effacé.",
+    "mobility": "Mobilité",
+    "mobilityLevels": {
+      "none": "Aucune difficulté",
+      "reduced": "Mobilité réduite",
+      "wheelchair": "Fauteuil roulant"
+    },
+    "dietary": "Régime alimentaire",
+    "dietaryPlaceholder": "Ex. : diabétique, sans sel, allergie aux arachides",
+    "medical": "Information médicale",
+    "medicalPlaceholder": "Traitement à prendre, condition que le guide doit connaître",
+    "assistance": "Accompagnement souhaité",
+    "assistancePlaceholder": "Ex. : aide pour monter dans le bus, accompagnement au Tawaf",
+    "save": "Enregistrer mes besoins",
+    "saved": "Besoins spéciaux enregistrés.",
+    "error": "L'enregistrement a échoué. Réessayez.",
+    "updatedOn": "Mis à jour le {date}"
   }
 }
