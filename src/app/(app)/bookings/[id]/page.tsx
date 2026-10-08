@@ -9,6 +9,7 @@ import { DocumentUploader } from "@/features/documents/components/DocumentUpload
 import { FamilyShareCard } from "@/features/family-view/components/FamilyShareCard";
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
+import { SavingsPlanCard } from "@/features/payments/components/SavingsPlanCard";
 import { AvisReservation } from "./AvisReservation";
 
 /**
@@ -40,6 +41,7 @@ export default async function BookingDetailPage({
       <Can role="pilgrim">
         <AvisReservation bookingId={id} />
         <InitiatePaymentFlow bookingId={id} />
+        <SavingsPlanCard bookingId={id} />
         <DocumentUploader bookingId={id} />
         <ChecklistPanel bookingId={id} />
         <FamilyShareCard bookingId={id} />
