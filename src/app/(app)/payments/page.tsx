@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { Can } from "@/components/shared/Can";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { PaymentsListScreen } from "@/features/payments/components/PaymentsListScreen";
+import { AccountingExportCard } from "@/features/payments/components/AccountingExportCard";
 import { TreasuryCard } from "@/features/payments/components/TreasuryCard";
 
 export default async function PaymentsPage() {
@@ -12,6 +13,7 @@ export default async function PaymentsPage() {
       <PageHeader title={t("title")} description={t("description")} />
       <Can role="agency">
         <TreasuryCard />
+        <AccountingExportCard />
       </Can>
       <PaymentsListScreen />
     </div>

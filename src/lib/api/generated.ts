@@ -164,6 +164,22 @@ export interface paths {
         patch: operations["UsersController_updateProfile"];
         trace?: never;
     };
+    "/api/v1/users/me/special-needs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["UsersController_getSpecialNeeds"];
+        put: operations["UsersController_replaceSpecialNeeds"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users": {
         parameters: {
             query?: never;
@@ -564,6 +580,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/groups/{id}/roster": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GroupsController_getRoster"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/groups/{id}/roster/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GroupsController_getRosterCsv"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/groups/{id}/guide": {
         parameters: {
             query?: never;
@@ -908,6 +956,38 @@ export interface paths {
             cookie?: never;
         };
         get: operations["PaymentsController_treasury"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payments/agency/accounting": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PaymentsController_accountingJournal"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/payments/agency/accounting/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PaymentsController_accountingJournalCsv"];
         put?: never;
         post?: never;
         delete?: never;
@@ -1508,6 +1588,70 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/emergency/numbers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["EmergencyController_listNumbers"];
+        put?: never;
+        post: operations["EmergencyController_createNumber"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/emergency/numbers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["EmergencyController_deleteNumber"];
+        options?: never;
+        head?: never;
+        patch: operations["EmergencyController_updateNumber"];
+        trace?: never;
+    };
+    "/api/v1/emergency/contacts/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["EmergencyController_findMyContacts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/directory/agencies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["DirectoryController_listAgencies"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/quiz/questions": {
         parameters: {
             query?: never;
@@ -1620,6 +1764,198 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/rooms/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RoomsController_findMine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rooms/blocks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RoomsController_listBlocks"];
+        put?: never;
+        post: operations["RoomsController_createBlock"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rooms/blocks/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RoomsController_getBlock"];
+        put?: never;
+        post?: never;
+        delete: operations["RoomsController_deleteBlock"];
+        options?: never;
+        head?: never;
+        patch: operations["RoomsController_updateBlock"];
+        trace?: never;
+    };
+    "/api/v1/rooms/blocks/{id}/assignments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["RoomsController_assign"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rooms/blocks/{id}/assignments/{bookingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["RoomsController_unassign"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/rooms/blocks/{id}/rooming-list/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RoomsController_roomingList"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/disputes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["DisputesController_list"];
+        put?: never;
+        post: operations["DisputesController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/disputes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["DisputesController_findOne"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/disputes/{id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DisputesController_addMessage"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/disputes/{id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DisputesController_resolve"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/disputes/{id}/escalate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DisputesController_escalate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/disputes/{id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DisputesController_decide"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1706,6 +2042,24 @@ export interface components {
             emergencyContact?: components["schemas"]["EmergencyContactDto"];
             bloodType?: string;
             passportNumber?: string;
+        };
+        SpecialNeedsShape: {
+            mobility: Record<string, never>;
+            dietary?: string;
+            medical?: string;
+            assistance?: string;
+            /** Format: date-time */
+            updatedAt?: string;
+        };
+        UpdateSpecialNeedsDto: {
+            /** @enum {string} */
+            mobility: "none" | "reduced" | "wheelchair";
+            /** @description Régime alimentaire */
+            dietary?: string;
+            /** @description Traitement, allergie, condition à connaître */
+            medical?: string;
+            /** @description Accompagnement souhaité */
+            assistance?: string;
         };
         UserSummaryShape: {
             id: string;
@@ -1866,6 +2220,7 @@ export interface components {
         };
         MemberLocationShape: {
             userId: string;
+            fullName: string;
             lat: number;
             lng: number;
             /** Format: date-time */
@@ -1880,6 +2235,24 @@ export interface components {
             memberIds: string[];
             itinerary: components["schemas"]["ItineraryStepShape"][];
             locations: components["schemas"]["MemberLocationShape"][];
+        };
+        GroupRosterMemberShape: {
+            userId: string;
+            fullName: string;
+            phone?: string;
+            email?: string;
+            bookingId?: string;
+            /** @enum {string} */
+            bookingStatus?: "pending_payment" | "confirmed" | "cancelled" | "completed";
+            emergencyContact?: components["schemas"]["EmergencyContactShape"];
+            specialNeeds?: components["schemas"]["SpecialNeedsShape"];
+        };
+        GroupRosterShape: {
+            groupId: string;
+            groupTitle: string;
+            /** Format: date-time */
+            generatedAt: string;
+            members: components["schemas"]["GroupRosterMemberShape"][];
         };
         AssignGuideDto: {
             guideUserId: string;
@@ -1991,6 +2364,32 @@ export interface components {
             totalCollected: number;
             outstandingBalance: number;
             projections: components["schemas"]["TreasuryProjectionItemShape"][];
+        };
+        AccountingEntryShape: {
+            /** Format: date-time */
+            date: string;
+            journal: Record<string, never>;
+            pieceRef: string;
+            label: string;
+            debit: number;
+            credit: number;
+            currency: string;
+            /** @enum {string} */
+            method: "mobile_money_orange" | "mobile_money_mtn" | "card";
+            providerReference: string;
+            bookingId: string;
+            installmentNumber: number;
+            pilgrimName: string;
+            packageTitle: string;
+        };
+        AccountingExportShape: {
+            from: string;
+            to: string;
+            currency: string;
+            totalCollected: number;
+            totalRefunded: number;
+            net: number;
+            entries: components["schemas"]["AccountingEntryShape"][];
         };
         PaymentWebhookDto: {
             providerReference: string;
@@ -2367,6 +2766,67 @@ export interface components {
             /** @description Horodatage de l'envoi côté client */
             clientSentAt: string;
         };
+        EmergencyNumberShape: {
+            id: string;
+            label: string;
+            category: Record<string, never>;
+            phone: string;
+            country: string;
+            city?: string;
+            notes?: string;
+            order: number;
+        };
+        CreateEmergencyNumberDto: {
+            /** @description Intitulé affiché (ex. : « Police ») */
+            label: string;
+            /** @enum {string} */
+            category: "police" | "medical" | "civil_defense" | "embassy" | "other";
+            /** @description Numéro à composer */
+            phone: string;
+            /** @description Pays, code ISO 3166-1 alpha-2 (SA, GN…) */
+            country: string;
+            city?: string;
+            notes?: string;
+            /** @default 0 */
+            order: number;
+        };
+        UpdateEmergencyNumberDto: {
+            /** @description Intitulé affiché (ex. : « Police ») */
+            label?: string;
+            /** @enum {string} */
+            category?: "police" | "medical" | "civil_defense" | "embassy" | "other";
+            /** @description Numéro à composer */
+            phone?: string;
+            /** @description Pays, code ISO 3166-1 alpha-2 (SA, GN…) */
+            country?: string;
+            city?: string;
+            notes?: string;
+            /** @default 0 */
+            order: number;
+        };
+        EmergencyAgencyContactShape: {
+            agencyId: string;
+            legalName: string;
+            phone: string;
+        };
+        EmergencyGuideContactShape: {
+            groupId: string;
+            groupTitle: string;
+            fullName: string;
+            phone?: string;
+        };
+        MyEmergencyContactsShape: {
+            agencies: components["schemas"]["EmergencyAgencyContactShape"][];
+            guides: components["schemas"]["EmergencyGuideContactShape"][];
+        };
+        AgencyDirectoryEntryShape: {
+            id: string;
+            legalName: string;
+            address?: string;
+            /** Format: date-time */
+            validatedAt?: string;
+            trustScore: components["schemas"]["AgencyTrustScoreShape"];
+        };
         CreateQuizQuestionDto: {
             riteSheetId: string;
             question: string;
@@ -2428,6 +2888,112 @@ export interface components {
             correctAttempts: number;
             scorePercentage: number;
             attempts: components["schemas"]["QuizAttemptWithRiteShape"][];
+        };
+        MyRoomShape: {
+            hotelName: string;
+            city: string;
+            roomType: Record<string, never>;
+            roomNumber: number;
+            packageTitle: string;
+            /** Format: date-time */
+            startDate?: string;
+            /** Format: date-time */
+            endDate?: string;
+        };
+        RoomOccupantShape: {
+            bookingId: string;
+            pilgrimName: string;
+        };
+        RoomShape: {
+            number: number;
+            occupants: components["schemas"]["RoomOccupantShape"][];
+        };
+        RoomBlockShape: {
+            id: string;
+            packageId: string;
+            packageTitle: string;
+            stageId?: string;
+            hotelName: string;
+            city: string;
+            roomType: Record<string, never>;
+            roomCount: number;
+            bedsPerRoom: number;
+            totalBeds: number;
+            assignedBeds: number;
+            /** Format: date-time */
+            releaseDate?: string;
+            notes?: string;
+            rooms: components["schemas"]["RoomShape"][];
+            unassigned: components["schemas"]["RoomOccupantShape"][];
+        };
+        CreateRoomBlockDto: {
+            packageId: string;
+            stageId?: string;
+            hotelName?: string;
+            city?: string;
+            /** @enum {string} */
+            roomType: "double" | "triple" | "quadruple" | "quintuple";
+            roomCount: number;
+            /** @description Date limite de rétrocession à l’hôtel */
+            releaseDate?: string;
+            notes?: string;
+        };
+        UpdateRoomBlockDto: {
+            hotelName?: string;
+            city?: string;
+            roomCount?: number;
+            releaseDate?: string;
+            notes?: string;
+        };
+        AssignRoomDto: {
+            bookingId: string;
+            roomNumber?: number;
+        };
+        CreateDisputeDto: {
+            bookingId: string;
+            /** @enum {string} */
+            category: "payment" | "refund" | "accommodation" | "transport" | "documents" | "service" | "other";
+            subject: string;
+            message: string;
+        };
+        DisputeMessageShape: {
+            id: string;
+            /** @enum {string} */
+            authorRole: "pilgrim" | "agency" | "guide" | "admin";
+            authorName: string;
+            content: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        DisputeShape: {
+            id: string;
+            bookingId: string;
+            packageTitle: string;
+            agencyId: string;
+            agencyName: string;
+            pilgrimName: string;
+            category: Record<string, never>;
+            subject: string;
+            /** @enum {string} */
+            status: "open" | "agency_responded" | "escalated" | "resolved" | "closed";
+            decision?: string;
+            /** Format: date-time */
+            escalatedAt?: string;
+            /** Format: date-time */
+            closedAt?: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            /** Format: date-time */
+            escalationAvailableAt: string;
+            messages?: components["schemas"]["DisputeMessageShape"][];
+        };
+        DisputeMessageDto: {
+            content: string;
+        };
+        DisputeDecisionDto: {
+            decision: string;
         };
     };
     responses: never;
@@ -2671,6 +3237,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["UserShape"];
+                };
+            };
+        };
+    };
+    UsersController_getSpecialNeeds: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpecialNeedsShape"];
+                };
+            };
+        };
+    };
+    UsersController_replaceSpecialNeeds: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSpecialNeedsDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SpecialNeedsShape"];
                 };
             };
         };
@@ -3297,6 +3905,48 @@ export interface operations {
             };
         };
     };
+    GroupsController_getRoster: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GroupRosterShape"];
+                };
+            };
+        };
+    };
+    GroupsController_getRosterCsv: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
     GroupsController_assignGuide: {
         parameters: {
             query?: never;
@@ -3792,6 +4442,54 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TreasuryProjectionShape"];
+                };
+            };
+        };
+    };
+    PaymentsController_accountingJournal: {
+        parameters: {
+            query?: {
+                /** @description Début de période inclus (défaut : 1er du mois courant) */
+                from?: string;
+                /** @description Fin de période incluse (défaut : aujourd'hui) */
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AccountingExportShape"];
+                };
+            };
+        };
+    };
+    PaymentsController_accountingJournalCsv: {
+        parameters: {
+            query?: {
+                /** @description Début de période inclus (défaut : 1er du mois courant) */
+                from?: string;
+                /** @description Fin de période incluse (défaut : aujourd'hui) */
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
                 };
             };
         };
@@ -4784,6 +5482,130 @@ export interface operations {
             };
         };
     };
+    EmergencyController_listNumbers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmergencyNumberShape"][];
+                };
+            };
+        };
+    };
+    EmergencyController_createNumber: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateEmergencyNumberDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmergencyNumberShape"];
+                };
+            };
+        };
+    };
+    EmergencyController_deleteNumber: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    EmergencyController_updateNumber: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateEmergencyNumberDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmergencyNumberShape"];
+                };
+            };
+        };
+    };
+    EmergencyController_findMyContacts: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyEmergencyContactsShape"];
+                };
+            };
+        };
+    };
+    DirectoryController_listAgencies: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AgencyDirectoryEntryShape"][];
+                };
+            };
+        };
+    };
     QuizController_createQuestion: {
         parameters: {
             query?: never;
@@ -4927,6 +5749,359 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["QuizStatsShape"];
+                };
+            };
+        };
+    };
+    RoomsController_findMine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyRoomShape"][];
+                };
+            };
+        };
+    };
+    RoomsController_listBlocks: {
+        parameters: {
+            query?: {
+                packageId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoomBlockShape"][];
+                };
+            };
+        };
+    };
+    RoomsController_createBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRoomBlockDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoomBlockShape"];
+                };
+            };
+        };
+    };
+    RoomsController_getBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoomBlockShape"];
+                };
+            };
+        };
+    };
+    RoomsController_deleteBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RoomsController_updateBlock: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateRoomBlockDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoomBlockShape"];
+                };
+            };
+        };
+    };
+    RoomsController_assign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AssignRoomDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoomBlockShape"];
+                };
+            };
+        };
+    };
+    RoomsController_unassign: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                bookingId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RoomBlockShape"];
+                };
+            };
+        };
+    };
+    RoomsController_roomingList: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
+    DisputesController_list: {
+        parameters: {
+            query?: {
+                status?: "open" | "agency_responded" | "escalated" | "resolved" | "closed";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"][];
+                };
+            };
+        };
+    };
+    DisputesController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateDisputeDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"];
+                };
+            };
+        };
+    };
+    DisputesController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"];
+                };
+            };
+        };
+    };
+    DisputesController_addMessage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DisputeMessageDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"];
+                };
+            };
+        };
+    };
+    DisputesController_resolve: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"];
+                };
+            };
+        };
+    };
+    DisputesController_escalate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"];
+                };
+            };
+        };
+    };
+    DisputesController_decide: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DisputeDecisionDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DisputeShape"];
                 };
             };
         };

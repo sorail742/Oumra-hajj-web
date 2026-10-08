@@ -5,6 +5,7 @@ import { Croissant } from "@/components/shared/illustrations/Geometrie";
 import { decoderPayloadUtile } from "@/lib/auth/jwt";
 import { lireJetons } from "@/lib/auth/session";
 import { UserMenu } from "./UserMenu";
+import { DisplaySettings } from "./DisplaySettings";
 import { MobileNav } from "./MobileNav";
 import { NotificationBell } from "./NotificationBell";
 import { PageContext } from "./PageContext";
@@ -57,6 +58,7 @@ export async function AppShell({
             aria-label={t("mainNav")}
             className="flex items-center gap-1 text-sm"
           >
+            <DisplaySettings />
             <Link
               href="/otp"
               className="hover:bg-muted hidden rounded-md px-3 py-2 sm:inline-flex"
@@ -97,10 +99,11 @@ export async function AppShell({
           <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4 sm:px-6">
             <div className="flex min-w-0 items-center gap-2">
               <MobileNav marque={<SidebarBrand role={role} />} />
-              <span className="lg:hidden">{marque}</span>
+              <span className="hidden sm:inline lg:hidden">{marque}</span>
               <PageContext />
             </div>
             <div className="flex items-center gap-2">
+              <DisplaySettings />
               <ThemeToggle />
               <NotificationBell />
               <UserMenu />
