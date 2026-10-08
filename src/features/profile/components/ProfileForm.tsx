@@ -141,7 +141,7 @@ export function ProfileForm({
       <form
         onSubmit={form.handleSubmit(enregistrer)}
         noValidate
-        className="max-w-(--content-form) space-y-6 pb-24 sm:pb-0"
+        className="max-w-(--content-form) space-y-6"
       >
         <Can role="pilgrim">
           {sansContact && (
@@ -293,7 +293,9 @@ export function ProfileForm({
           </div>
         </FormSection>
 
-        <div className="bg-background/95 fixed inset-x-0 bottom-0 z-10 flex items-center gap-4 border-t p-4 backdrop-blur sm:static sm:border-0 sm:bg-transparent sm:p-0">
+        {/* Collée en bas tant que le formulaire est à l'écran (mobile), mais
+            jamais par-dessus la section suivante (besoins spéciaux). */}
+        <div className="bg-panel/95 sticky bottom-0 z-10 -mx-4 flex items-center gap-4 border-t px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:p-0">
           <Button
             type="submit"
             disabled={miseAJour.isPending}
