@@ -8,6 +8,8 @@ import {
 /**
  * Seul composant qui donne une couleur à un statut d'API — voir
  * `config/status-registry.ts`. Jamais un mapping local dans un écran.
+ * La pastille double le ton, le libellé reste la seule information
+ * (jamais la couleur seule).
  */
 
 const CLASSES_PAR_TON: Record<Tone, string> = {
@@ -30,11 +32,12 @@ export function StatusBadge({ kind, value, className }: StatusBadgeProps) {
   return (
     <span
       className={cn(
-        "rounded-sm px-2 py-0.5 text-2xs font-medium",
+        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium whitespace-nowrap",
         CLASSES_PAR_TON[tone],
         className,
       )}
     >
+      <span aria-hidden className="size-1.5 shrink-0 rounded-full bg-current" />
       {label}
     </span>
   );

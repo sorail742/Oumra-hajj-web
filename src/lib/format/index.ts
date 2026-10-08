@@ -122,6 +122,11 @@ export function formatDateHeure(iso: string | Date): string {
   return format(versDate(iso), "dd/MM/yyyy 'à' HH:mm", OPTIONS_DATE);
 }
 
+/** Date en toutes lettres (« jeudi 8 octobre 2026 ») — en-tête d'accueil. */
+export function formatDateLongue(iso: string | Date): string {
+  return format(versDate(iso), "EEEE d MMMM yyyy", OPTIONS_DATE);
+}
+
 export function formatDateCourte(iso: string | Date): string {
   return format(versDate(iso), "dd/MM", OPTIONS_DATE);
 }

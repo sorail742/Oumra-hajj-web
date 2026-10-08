@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useTresorerie } from "../api/use-treasury";
 import { AsyncBoundary } from "@/components/shared/AsyncBoundary";
 import { Money } from "@/components/shared/Money";
-import { StatCard } from "@/components/shared/StatCard";
+import { StatCard, StatGrid } from "@/components/shared/StatCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatMois } from "@/lib/format";
 
@@ -31,7 +31,7 @@ export function TreasuryCard() {
       >
         {(tresorerie) => (
           <div className="space-y-4">
-            <div className="grid gap-3 sm:grid-cols-3">
+            <StatGrid columns={3}>
               <StatCard
                 title={t("expected")}
                 value={<Money montant={tresorerie.totalExpected} />}
@@ -44,11 +44,11 @@ export function TreasuryCard() {
                 title={t("outstanding")}
                 value={<Money montant={tresorerie.outstandingBalance} />}
               />
-            </div>
+            </StatGrid>
             {tresorerie.projections.length > 0 && (
               <div className="space-y-2">
                 <h3 className="text-sm font-medium">{t("byMonth")}</h3>
-                <ul className="bg-card divide-y rounded-xl border">
+                <ul className="bg-card divide-y rounded-lg border shadow-(--shadow-card)">
                   {tresorerie.projections.map((p) => (
                     <li
                       key={p.month}

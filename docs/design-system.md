@@ -132,6 +132,23 @@ constantes d'ergonomie d'interface, pas des choix liés au domaine SMS :
   entre sections, `p-6` pour l'intérieur d'une carte.
 - Rayons : `rounded-sm` badges · `rounded-md` champs et boutons ·
   `rounded-lg` cartes · `rounded-xl` modales.
+
+> **2026-10-08 — refonte visuelle de l'espace authentifié.** `--radius`
+> passe de 8 à 10 px (cartes 10 px, modales 14 px) et une ombre de carte
+> très légère (`--shadow-card`) détache les surfaces du fond. La coquille
+> sépare désormais un **canevas** (`--canvas`, ton de la barre latérale) et
+> un **panneau** de contenu (`--panel`) posé dessus, arrondi sur grand
+> écran. Barre latérale en sections (`GROUPES_NAVIGATION`,
+> `config/navigation.ts`), entrée active en relief blanc marquée d'un trait
+> de marque ; KPI réunis en une surface par `StatGrid` ; en-têtes de
+> tableau sur `--table-header`, lignes à `--row-height-relaxed`,
+> pagination numérotée (`TablePagination`) ; `StatusBadge` en pastille
+> arrondie avec point de ton (le libellé reste l'information). Les règles
+> de § 1 tiennent : ni dégradé, ni icône décorative sur les cartes, le
+> vert reste réservé aux actions et à l'état actif. Les survols `outline` /
+> `ghost` passent sur `muted` (ils prenaient l'or d'`accent`, réservé à la
+> confiance).
+
 - `--size-field: 36px` pour `Input`/`SelectTrigger`/`PhoneInput`/
   `Button size="md"` ; `--size-touch: 44px` pour la zone tactile — deux
   tokens distincts, jamais de hauteur en dur (`h-8`, `h-9`…) sur un champ.

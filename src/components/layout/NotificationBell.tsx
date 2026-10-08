@@ -21,13 +21,13 @@ export function NotificationBell() {
     <Link
       href="/notifications"
       aria-label={t("bellLabel", { count: nonLues })}
-      className="text-muted-foreground hover:bg-muted hover:text-foreground relative inline-flex size-10 items-center justify-center rounded-md"
+      className="text-muted-foreground hover:bg-muted hover:text-foreground relative inline-flex size-10 items-center justify-center rounded-md border"
     >
       <Bell aria-hidden className="size-5" />
       {nonLues > 0 && (
         <span
           aria-hidden
-          className="bg-destructive text-destructive-foreground absolute top-1 right-1 inline-flex min-w-4 items-center justify-center rounded-full px-1 text-2xs font-semibold"
+          className="bg-destructive text-destructive-foreground absolute -top-1 -right-1 inline-flex min-w-4 items-center justify-center rounded-full px-1 text-2xs font-semibold"
         >
           {nonLues > PLAFOND_AFFICHE ? `${PLAFOND_AFFICHE}+` : nonLues}
         </span>
