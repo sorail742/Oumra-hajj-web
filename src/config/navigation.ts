@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import {
+  BadgeCheck,
   BookOpen,
   Calculator,
   Building2,
@@ -87,6 +88,13 @@ export const NAVIGATION: readonly EntreeNavigation[] = [
     cle: "packages",
     icone: Package,
     roles: TOUS,
+    groupe: "main",
+  },
+  {
+    href: "/agencies/directory",
+    cle: "directory",
+    icone: BadgeCheck,
+    roles: ["pilgrim", "guide"],
     groupe: "main",
   },
   {

@@ -72,7 +72,8 @@
       "toDark": "Passer en mode sombre",
       "toLight": "Passer en mode clair"
     },
-    "emergency": "Urgences"
+    "emergency": "Urgences",
+    "directory": "Agences validées"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -1579,5 +1580,17 @@
       "countryInvalid": "Deux lettres, par exemple SA ou GN.",
       "orderInvalid": "Nombre entier positif."
     }
+  },
+  "directory": {
+    "title": "Agences validées",
+    "description": "Les agences dont le dossier a été vérifié et approuvé par l'administration de la plateforme. Vérifiez votre agence avant de payer.",
+    "search": "Rechercher une agence",
+    "emptyTitle": "Aucune agence validée pour le moment.",
+    "noMatch": "Aucune agence ne correspond à cette recherche.",
+    "validatedOn": "Validée le {date}",
+    "noReviews": "Pas encore d'avis",
+    "reviews": "{note} / 5 · {count, plural, one {# avis} other {# avis}}",
+    "profile": "Voir le profil",
+    "packages": "Ses forfaits"
   }
 }
