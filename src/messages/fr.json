@@ -664,7 +664,7 @@
   },
   "agencyCompliance": {
     "title": "Conformité documentaire",
-    "description": "Documents légaux dont l'échéance approche ou est dépassée.",
+    "description": "Les documents légaux de votre agence : dépôt, échéances et alertes.",
     "columnDocument": "Document",
     "columnExpiry": "Échéance",
     "columnStatus": "Statut",
@@ -673,7 +673,31 @@
     "openError": "Impossible d'ouvrir le document. Réessayez.",
     "emptyTitle": "Aucune alerte de conformité pour le moment.",
     "emptyDescription": "Tous vos documents légaux sont à jour ou sans échéance renseignée.",
-    "roleUnsupportedTitle": "Réservé à l'espace agence."
+    "roleUnsupportedTitle": "Réservé à l'espace agence.",
+    "alertsTitle": "Alertes d'échéance",
+    "upload": {
+      "title": "Déposer un document légal",
+      "description": "Agrément, licence, attestation d'assurance… Renseignez l'échéance quand le document en a une : les alertes en dépendent.",
+      "label": "Intitulé du document",
+      "labelPlaceholder": "Ex. : agrément du ministère",
+      "labelRequired": "Indiquez l'intitulé du document (2 caractères minimum).",
+      "expiresAt": "Date d'échéance (facultative)",
+      "expiresAtHint": "Laissez vide pour un document sans échéance, comme les statuts de la société.",
+      "success": "Document déposé.",
+      "errors": {
+        "tooLarge": "Le fichier dépasse la taille autorisée (10 Mo).",
+        "invalid": "Le dépôt a été refusé : vérifiez l'intitulé et la date.",
+        "error": "Le dépôt a échoué. Réessayez."
+      }
+    },
+    "library": {
+      "title": "Tous les documents",
+      "uploaded": "Déposé le {date}",
+      "expires": "échéance le {date}",
+      "noExpiry": "sans échéance",
+      "emptyTitle": "Aucun document légal déposé",
+      "emptyDescription": "Déposez vos documents ci-dessus : l'administration les consulte pour valider votre agence."
+    }
   },
   "packages": {
     "title": "Forfaits",
