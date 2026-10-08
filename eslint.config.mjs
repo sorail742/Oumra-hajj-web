@@ -22,6 +22,8 @@ const config = [
       "node_modules/**",
       "storybook-static/**",
       "coverage/**",
+      // Worker MapLibre copié au build (scripts/copier-worker-maplibre.mjs).
+      "public/vendor/**",
       "next-env.d.ts",
       // Fichier généré depuis openapi.json — le linter n'a rien à y dire, et
       // ses erreurs se corrigent côté backend.
