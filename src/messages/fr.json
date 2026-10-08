@@ -220,7 +220,8 @@
       "hint": "Mettez à jour chaque étape : le pèlerin voit le changement dans son dossier.",
       "label": "Statut de l'étape « {step} »",
       "saved": "Étape mise à jour.",
-      "error": "La mise à jour n'a pas abouti. Réessayez."
+      "error": "La mise à jour n'a pas abouti. Réessayez.",
+      "paymentAuto": "Suit les paiements confirmés"
     },
     "cancel": {
       "action": "Annuler la réservation",
