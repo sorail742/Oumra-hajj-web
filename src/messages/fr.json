@@ -67,6 +67,10 @@
       "journey": "Suivi du voyage",
       "agency": "Mon agence",
       "learning": "Apprendre"
+    },
+    "theme": {
+      "toDark": "Passer en mode sombre",
+      "toLight": "Passer en mode clair"
     }
   },
   "auth": {
