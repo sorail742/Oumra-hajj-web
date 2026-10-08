@@ -61,6 +61,9 @@ export const agencySchema = z.object({
   contactEmail: z.string(),
   contactPhone: z.string(),
   address: z.string().optional(),
+  // Idée #37 : mentions légales des factures et contrats.
+  taxId: z.string().optional(),
+  tradeRegister: z.string().optional(),
   legalDocuments: z.array(legalDocumentSchema),
   validationStatus: agencyValidationStatusSchema,
   rejectionReason: z.string().optional(),

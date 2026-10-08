@@ -23,6 +23,8 @@ export function useMyAgency() {
 
 export interface MiseAJourAgence {
   address?: string;
+  taxId?: string;
+  tradeRegister?: string;
   bankDetails?: {
     accountName: string;
     accountNumber: string;

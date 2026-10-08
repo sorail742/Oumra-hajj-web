@@ -10,6 +10,7 @@ import { FamilyShareCard } from "@/features/family-view/components/FamilyShareCa
 import { MessagingSection } from "@/features/messaging/components/MessagingSection";
 import { InitiatePaymentFlow } from "@/features/payments/components/InitiatePaymentFlow";
 import { SavingsPlanCard } from "@/features/payments/components/SavingsPlanCard";
+import { BillingLinks } from "@/features/payments/components/BillingLinks";
 import { AvisReservation } from "./AvisReservation";
 import { RattachementGroupe } from "./RattachementGroupe";
 
@@ -39,6 +40,7 @@ export default async function BookingDetailPage({
       )}
       <BookingExpiryAlerts bookingId={id} />
       <BookingDetailScreen id={id} />
+      <BillingLinks bookingId={id} />
       <Can role="pilgrim">
         <AvisReservation bookingId={id} />
         <InitiatePaymentFlow bookingId={id} />
