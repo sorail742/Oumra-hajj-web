@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { useGroup } from "../api/use-groups";
 import type { Group } from "../api/schemas";
+import { GroupRoster } from "./GroupRoster";
 import { ItineraryStepForm } from "./ItineraryStepForm";
 import { LocationSharingCard } from "./LocationSharingCard";
 import { LostButton } from "./LostButton";
@@ -97,6 +98,9 @@ export function GroupDetailScreen({
             </div>
             <Can role={["pilgrim", "guide"]}>
               <LocationSharingCard groupId={group.id} />
+            </Can>
+            <Can role={["agency", "guide"]}>
+              <GroupRoster groupId={group.id} />
             </Can>
             <MemberLocations group={group} />
             {apres?.(group)}

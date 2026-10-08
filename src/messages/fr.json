@@ -644,6 +644,23 @@
       "guideNotLocated": "Guide non localisé",
       "isGuide": "C'est la position du guide",
       "copyCoordinates": "Copier les coordonnées"
+    },
+    "roster": {
+      "title": "Liste du groupe",
+      "description": "Coordonnées, dossier, contact d'urgence et besoins spéciaux de chaque membre. Données personnelles : à ne partager qu'avec l'équipe du voyage.",
+      "download": "Télécharger (CSV)",
+      "member": "Membre",
+      "booking": "Réservation",
+      "emergencyContact": "Contact d'urgence",
+      "needs": "Besoins spéciaux",
+      "noNeeds": "Aucun besoin déclaré",
+      "noEmergencyContact": "Aucun contact d'urgence",
+      "mobility": {
+        "reduced": "Mobilité réduite",
+        "wheelchair": "Fauteuil roulant"
+      },
+      "emptyTitle": "Aucun membre dans ce groupe",
+      "emptyDescription": "Rattachez des réservations à ce groupe depuis leur détail pour y ajouter les pèlerins."
     }
   },
   "messaging": {
