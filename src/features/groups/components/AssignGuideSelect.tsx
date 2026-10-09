@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useAssignerGuide } from "../api/use-groups";
 import { Button } from "@/components/ui/button";
+import { resoudreErreurFormulaire } from "@/lib/api/form-errors";
 
 /**
  * Assignation d'un guide au groupe par l'agence (ticket #64). Les guides
@@ -42,7 +43,15 @@ export function AssignGuideSelect({
         assignation
           .mutateAsync(choix)
           .then(() => toast.success(t("assigned")))
-          .catch(() => toast.error(t("error")));
+          // Guide déjà pris ou indisponible (idée #42) : le backend dit
+          // pourquoi, le message est affiché tel quel.
+          .catch((erreur: unknown) =>
+            toast.error(
+              resoudreErreurFormulaire(erreur, [], t("error")).bandeau.join(
+                " ",
+              ),
+            ),
+          );
       }}
     >
       <div className="space-y-1">

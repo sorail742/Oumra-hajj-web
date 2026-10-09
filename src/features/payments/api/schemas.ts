@@ -24,13 +24,3 @@ export const paymentSchema = z.object({
 });
 
 export type Payment = z.infer<typeof paymentSchema>;
-
-/**
- * Forme minimale de `GET /bookings/:id` utile ici : seul `status` compte
- * pour l'aperçu du barème de remboursement. Ne réutilise pas
- * `features/bookings/api/schemas.ts` (règle 2, `features/x` n'importe
- * jamais `features/y`).
- */
-export const bookingStatusSchema = z.object({
-  status: z.enum(["pending_payment", "confirmed", "cancelled", "completed"]),
-});

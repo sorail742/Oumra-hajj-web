@@ -23,8 +23,8 @@ import type { Agency } from "../api/schemas";
 import { useUpdateMyAgency, type MiseAJourAgence } from "../api/use-my-agency";
 
 /**
- * Modification du profil de l'agence (ticket #47) : adresse et
- * coordonnées bancaires. Les trois champs bancaires vont ensemble (le
+ * Modification du profil de l'agence (ticket #47) : adresse, mentions
+ * légales des factures (NIF, RCCM — idée #37) et coordonnées bancaires. Les trois champs bancaires vont ensemble (le
  * backend les exige ensemble). Le numéro de compte n'est jamais
  * pré-rempli : tant qu'il reste vide, les coordonnées existantes ne sont
  * pas modifiées.
@@ -44,6 +44,8 @@ export function MyAgencyForm({ agence }: Readonly<{ agence: Agency }>) {
       z
         .object({
           address: z.string().trim().max(300),
+          taxId: z.string().trim().max(40),
+          tradeRegister: z.string().trim().max(60),
           accountName: z.string().trim().max(120),
           bankName: z.string().trim().max(120),
           accountNumber: z.string().trim().max(64),
@@ -68,6 +70,8 @@ export function MyAgencyForm({ agence }: Readonly<{ agence: Agency }>) {
     resolver: zodResolver(schema),
     defaultValues: {
       address: agence.address ?? "",
+      taxId: agence.taxId ?? "",
+      tradeRegister: agence.tradeRegister ?? "",
       accountName: agence.bankDetails?.accountName ?? "",
       bankName: agence.bankDetails?.bankName ?? "",
       // Jamais pré-rempli : le numéro n'est ressaisi que pour le changer.
@@ -79,6 +83,10 @@ export function MyAgencyForm({ agence }: Readonly<{ agence: Agency }>) {
     setRetour(null);
     const corps: MiseAJourAgence = {
       ...(valeurs.address ? { address: valeurs.address } : {}),
+      ...(valeurs.taxId ? { taxId: valeurs.taxId } : {}),
+      ...(valeurs.tradeRegister
+        ? { tradeRegister: valeurs.tradeRegister }
+        : {}),
       ...(valeurs.accountNumber
         ? {
             bankDetails: {
@@ -120,6 +128,26 @@ export function MyAgencyForm({ agence }: Readonly<{ agence: Agency }>) {
               </FormItem>
             )}
           />
+        </FormSection>
+        <FormSection titre={t("legalIdsTitle")} aide={t("legalIdsHint")}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {(["taxId", "tradeRegister"] as const).map((nom) => (
+              <FormField
+                key={nom}
+                control={form.control}
+                name={nom}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t(nom)}</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="font-mono" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ))}
+          </div>
         </FormSection>
         <FormSection titre={t("bankTitle")} aide={t("bankHint")}>
           <div className="grid gap-4 sm:grid-cols-2">
