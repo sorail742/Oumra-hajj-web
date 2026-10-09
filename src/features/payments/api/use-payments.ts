@@ -5,7 +5,7 @@ import { z } from "zod";
 import { api } from "@/lib/api/client";
 import { keys } from "@/lib/api/query-keys";
 import { useRole } from "@/lib/auth/role-context";
-import { bookingStatusSchema, paymentSchema, type Payment } from "./schemas";
+import { paymentSchema, type Payment } from "./schemas";
 
 /** `GET /payments/mine` (pèlerin) ou `GET /payments/agency` (agence) — même pattern que `useBookings`. */
 export function usePayments() {
@@ -24,21 +24,10 @@ export function usePayments() {
   });
 }
 
-/** Statut de la réservation associée à un paiement — pour `RefundRequestFlow` uniquement, voir `schemas.ts`. */
-export function useBookingStatusForRefund(bookingId: string, actif: boolean) {
-  return useQuery({
-    queryKey: keys.payments.bookingStatus(bookingId),
-    queryFn: async () => {
-      const donnees = await api.get<unknown>(`/api/bookings/${bookingId}`);
-      return bookingStatusSchema.parse(donnees).status;
-    },
-    enabled: actif,
-  });
-}
-
 /**
  * `POST /payments/:id/refund` — sans corps : le montant est calculé côté
- * serveur à partir du barème réel (voir `lib/refund-policy.ts`), jamais
+ * serveur à partir du barème figé sur la réservation (voir
+ * `use-refund-policy.ts`, aperçu `GET /payments/:id/refund-preview`), jamais
  * envoyé par le client.
  */
 export function useRequestRefund() {
