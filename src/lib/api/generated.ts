@@ -1956,6 +1956,102 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/on-call/booking/{bookingId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["OnCallController_findForBooking"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/on-call/shifts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["OnCallController_listShifts"];
+        put?: never;
+        post: operations["OnCallController_createShift"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/on-call/shifts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["OnCallController_deleteShift"];
+        options?: never;
+        head?: never;
+        patch: operations["OnCallController_updateShift"];
+        trace?: never;
+    };
+    "/api/v1/on-call/coverage/{packageId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["OnCallController_coverage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/capacity/simulation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CapacityController_simulate"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/profitability/simulation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ProfitabilityController_simulate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2994,6 +3090,157 @@ export interface components {
         };
         DisputeDecisionDto: {
             decision: string;
+        };
+        OnCallContactShape: {
+            staffName: string;
+            staffRole: Record<string, never>;
+            phone: string;
+            /** Format: date-time */
+            startsAt: string;
+            /** Format: date-time */
+            endsAt: string;
+        };
+        MyOnCallShape: {
+            bookingId: string;
+            agencyName: string;
+            agencyPhone: string;
+            current: components["schemas"]["OnCallContactShape"][];
+            next?: components["schemas"]["OnCallContactShape"];
+        };
+        OnCallShiftShape: {
+            id: string;
+            packageId?: string;
+            packageTitle?: string;
+            staffName: string;
+            staffRole: Record<string, never>;
+            phone: string;
+            /** Format: date-time */
+            startsAt: string;
+            /** Format: date-time */
+            endsAt: string;
+            notes?: string;
+        };
+        CreateOnCallShiftDto: {
+            packageId?: string;
+            staffName: string;
+            /** @enum {string} */
+            staffRole: "guide" | "coordinator" | "manager" | "other";
+            /** @example +224620000000 */
+            phone: string;
+            startsAt: string;
+            endsAt: string;
+            /** @description Consigne interne, non montrée au pèlerin */
+            notes?: string;
+        };
+        UpdateOnCallShiftDto: {
+            staffName?: string;
+            /** @enum {string} */
+            staffRole?: "guide" | "coordinator" | "manager" | "other";
+            /** @example +224620000000 */
+            phone?: string;
+            startsAt?: string;
+            endsAt?: string;
+            notes?: string;
+        };
+        OnCallPeriodShape: {
+            /** Format: date-time */
+            from: string;
+            /** Format: date-time */
+            to: string;
+        };
+        OnCallCoverageShape: {
+            packageId: string;
+            packageTitle: string;
+            /** Format: date-time */
+            from: string;
+            /** Format: date-time */
+            to: string;
+            coveredHours: number;
+            totalHours: number;
+            gaps: components["schemas"]["OnCallPeriodShape"][];
+        };
+        CapacityTripShape: {
+            packageId: string;
+            title: string;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+            capacity: number;
+            seatsTaken: number;
+            guidesNeeded: number;
+            guidesAssigned: number;
+        };
+        CapacityPeriodShape: {
+            /** Format: date-time */
+            from: string;
+            /** Format: date-time */
+            to: string;
+            packageIds: string[];
+            plannedPilgrims: number;
+            soldPilgrims: number;
+            guidesNeeded: number;
+            guidesNeededForSold: number;
+        };
+        CapacitySimulationShape: {
+            pilgrimsPerGuide: number;
+            guides: number;
+            extraGuides: number;
+            staff: number;
+            trips: components["schemas"]["CapacityTripShape"][];
+            periods: components["schemas"]["CapacityPeriodShape"][];
+            peak?: components["schemas"]["CapacityPeriodShape"];
+            spareGuidesAtPeak: number;
+            extraPilgrimsAtPeak: number;
+        };
+        CostLineDto: {
+            /** @example Billet d’avion */
+            label: string;
+            amount: number;
+        };
+        ProfitabilitySimulationDto: {
+            packageId?: string;
+            /** @description Requis sans packageId */
+            price?: number;
+            /**
+             * @description Ignorée avec packageId
+             * @example GNF
+             */
+            currency?: string;
+            /** @description Requis sans packageId */
+            capacity?: number;
+            /** @description Défaut : la capacité */
+            expectedPilgrims?: number;
+            /** @description Coûts par pèlerin */
+            costsPerPilgrim: components["schemas"]["CostLineDto"][];
+            /** @description Coûts fixes du voyage */
+            fixedCosts: components["schemas"]["CostLineDto"][];
+        };
+        ProfitabilityScenarioShape: {
+            kind: Record<string, never>;
+            pilgrims: number;
+            revenue: number;
+            platformCommission: number;
+            variableCosts: number;
+            fixedCosts: number;
+            margin: number;
+            marginRate?: number;
+            marginPerPilgrim?: number;
+        };
+        ProfitabilitySimulationShape: {
+            packageId?: string;
+            packageTitle?: string;
+            currency: string;
+            price: number;
+            capacity: number;
+            commissionRate: number;
+            costPerPilgrim: number;
+            fixedCostsTotal: number;
+            unitContribution: number;
+            breakEvenPilgrims?: number;
+            breakEvenReachable: boolean;
+            minimumPrice?: number;
+            scenarios: components["schemas"]["ProfitabilityScenarioShape"][];
         };
     };
     responses: never;
@@ -6102,6 +6349,185 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["DisputeShape"];
+                };
+            };
+        };
+    };
+    OnCallController_findForBooking: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                bookingId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyOnCallShape"];
+                };
+            };
+        };
+    };
+    OnCallController_listShifts: {
+        parameters: {
+            query?: {
+                packageId?: string;
+                from?: string;
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnCallShiftShape"][];
+                };
+            };
+        };
+    };
+    OnCallController_createShift: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateOnCallShiftDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnCallShiftShape"];
+                };
+            };
+        };
+    };
+    OnCallController_deleteShift: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    OnCallController_updateShift: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateOnCallShiftDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnCallShiftShape"];
+                };
+            };
+        };
+    };
+    OnCallController_coverage: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                packageId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OnCallCoverageShape"];
+                };
+            };
+        };
+    };
+    CapacityController_simulate: {
+        parameters: {
+            query?: {
+                /** @description Pèlerins encadrés par guide — repère propre à l’agence */
+                pilgrimsPerGuide?: number;
+                /** @description Guides hypothétiques ajoutés (recrutement saisonnier) */
+                extraGuides?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CapacitySimulationShape"];
+                };
+            };
+        };
+    };
+    ProfitabilityController_simulate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProfitabilitySimulationDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProfitabilitySimulationShape"];
                 };
             };
         };
