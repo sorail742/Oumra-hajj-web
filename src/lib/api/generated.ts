@@ -2228,6 +2228,182 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/loyalty/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["LoyaltyController_getMine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/loyalty/program/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["LoyaltyController_getOwnProgram"];
+        put: operations["LoyaltyController_replaceOwnTiers"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/loyalty/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["LoyaltyController_listMembers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/loyalty/program/agency/{agencyId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["LoyaltyController_getProgram"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quotes/shared/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["QuotesController_getShared"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quotes/shared/{token}/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["QuotesController_accept"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quotes/shared/{token}/decline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["QuotesController_decline"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quotes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["QuotesController_list"];
+        put?: never;
+        post: operations["QuotesController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/quotes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["QuotesController_get"];
+        put?: never;
+        post?: never;
+        delete: operations["QuotesController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["QuotesController_update"];
+        trace?: never;
+    };
+    "/api/v1/quotes/{id}/send": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["QuotesController_send"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/seasons/comparison": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["SeasonsController_compare"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -3568,6 +3744,185 @@ export interface components {
             breakEvenReachable: boolean;
             minimumPrice?: number;
             scenarios: components["schemas"]["ProfitabilityScenarioShape"][];
+        };
+        LoyaltyTierShape: {
+            minTrips: number;
+            label: string;
+            benefit: string;
+        };
+        LoyaltyNextTierShape: {
+            minTrips: number;
+            label: string;
+            benefit: string;
+            tripsToGo: number;
+        };
+        MyLoyaltyShape: {
+            agencyId: string;
+            agencyName: string;
+            trips: number;
+            tier?: components["schemas"]["LoyaltyTierShape"];
+            nextTier?: components["schemas"]["LoyaltyNextTierShape"];
+        };
+        LoyaltyProgramShape: {
+            agencyId: string;
+            agencyName: string;
+            tiers: components["schemas"]["LoyaltyTierShape"][];
+        };
+        LoyaltyTierDto: {
+            /** @example 2 */
+            minTrips: number;
+            /** @example Fidèle */
+            label: string;
+            /** @example Transfert aéroport offert */
+            benefit: string;
+        };
+        ReplaceLoyaltyTiersDto: {
+            tiers: components["schemas"]["LoyaltyTierDto"][];
+        };
+        LoyaltyMemberShape: {
+            pilgrimId: string;
+            pilgrimName: string;
+            trips: number;
+            /** Format: date-time */
+            lastTripEnd: string;
+            tier?: components["schemas"]["LoyaltyTierShape"];
+        };
+        QuoteIssuerShape: {
+            name: string;
+            phone: string;
+            email: string;
+            address?: string;
+        };
+        QuoteLineShape: {
+            label: string;
+            quantity: number;
+            unitPrice: number;
+            total: number;
+        };
+        SharedQuoteShape: {
+            number: string;
+            issuer: components["schemas"]["QuoteIssuerShape"];
+            clientName: string;
+            packageTitle?: string;
+            pilgrimsCount: number;
+            conditions?: string;
+            /** Format: date-time */
+            validUntil: string;
+            /** @enum {string} */
+            status: "draft" | "sent" | "accepted" | "declined";
+            expired: boolean;
+            /** Format: date-time */
+            respondedAt?: string;
+            currency: string;
+            lines: components["schemas"]["QuoteLineShape"][];
+            subtotal: number;
+            discountRate: number;
+            discountAmount: number;
+            totalAmount: number;
+        };
+        QuoteShape: {
+            id: string;
+            number: string;
+            packageId?: string;
+            packageTitle?: string;
+            clientName: string;
+            clientType: Record<string, never>;
+            contactName: string;
+            contactPhone?: string;
+            contactEmail?: string;
+            pilgrimsCount: number;
+            conditions?: string;
+            /** Format: date-time */
+            validUntil: string;
+            /** @enum {string} */
+            status: "draft" | "sent" | "accepted" | "declined";
+            expired: boolean;
+            shareToken?: string;
+            /** Format: date-time */
+            sentAt?: string;
+            /** Format: date-time */
+            respondedAt?: string;
+            /** Format: date-time */
+            createdAt: string;
+            currency: string;
+            lines: components["schemas"]["QuoteLineShape"][];
+            subtotal: number;
+            discountRate: number;
+            discountAmount: number;
+            totalAmount: number;
+        };
+        QuoteLineDto: {
+            /** @example Forfait Oumra — chambre quadruple */
+            label: string;
+            quantity: number;
+            unitPrice: number;
+        };
+        CreateQuoteDto: {
+            /** @description Forfait de référence (devise reprise) */
+            packageId?: string;
+            /** @example Mosquée de quartier (fictive) */
+            clientName: string;
+            /** @enum {string} */
+            clientType: "company" | "mosque" | "association" | "other";
+            contactName: string;
+            /** @example +224620000000 */
+            contactPhone?: string;
+            contactEmail?: string;
+            pilgrimsCount: number;
+            /**
+             * @description Ignorée avec packageId
+             * @example GNF
+             */
+            currency?: string;
+            lines: components["schemas"]["QuoteLineDto"][];
+            /** @default 0 */
+            discountRate: number;
+            /** @description Conditions négociées (acompte, échéances...) */
+            conditions?: string;
+            /** @description Date limite de validité du devis */
+            validUntil: string;
+        };
+        UpdateQuoteDto: {
+            /** @example Mosquée de quartier (fictive) */
+            clientName?: string;
+            /** @enum {string} */
+            clientType?: "company" | "mosque" | "association" | "other";
+            contactName?: string;
+            /** @example +224620000000 */
+            contactPhone?: string;
+            contactEmail?: string;
+            pilgrimsCount?: number;
+            lines?: components["schemas"]["QuoteLineDto"][];
+            /** @default 0 */
+            discountRate: number;
+            /** @description Conditions négociées (acompte, échéances...) */
+            conditions?: string;
+            /** @description Date limite de validité du devis */
+            validUntil?: string;
+        };
+        SeasonAmountShape: {
+            currency: string;
+            amount: number;
+        };
+        SeasonShape: {
+            year: number;
+            type: string;
+            packages: number;
+            capacity: number;
+            bookings: number;
+            cancellations: number;
+            fillRate?: number;
+            cancellationRate?: number;
+            averagePrice?: components["schemas"]["SeasonAmountShape"][];
+            collected: components["schemas"]["SeasonAmountShape"][];
+            reviews: number;
+            averageRating?: number;
+            disputes: number;
+        };
+        SeasonComparisonShape: {
+            fromYear: number;
+            toYear: number;
+            seasons: components["schemas"]["SeasonShape"][];
         };
     };
     responses: never;
@@ -7127,6 +7482,324 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ProfitabilitySimulationShape"];
+                };
+            };
+        };
+    };
+    LoyaltyController_getMine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MyLoyaltyShape"][];
+                };
+            };
+        };
+    };
+    LoyaltyController_getOwnProgram: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyProgramShape"];
+                };
+            };
+        };
+    };
+    LoyaltyController_replaceOwnTiers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReplaceLoyaltyTiersDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyProgramShape"];
+                };
+            };
+        };
+    };
+    LoyaltyController_listMembers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyMemberShape"][];
+                };
+            };
+        };
+    };
+    LoyaltyController_getProgram: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agencyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LoyaltyProgramShape"];
+                };
+            };
+        };
+    };
+    QuotesController_getShared: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SharedQuoteShape"];
+                };
+            };
+        };
+    };
+    QuotesController_accept: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SharedQuoteShape"];
+                };
+            };
+        };
+    };
+    QuotesController_decline: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SharedQuoteShape"];
+                };
+            };
+        };
+    };
+    QuotesController_list: {
+        parameters: {
+            query?: {
+                status?: "draft" | "sent" | "accepted" | "declined";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteShape"][];
+                };
+            };
+        };
+    };
+    QuotesController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateQuoteDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteShape"];
+                };
+            };
+        };
+    };
+    QuotesController_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteShape"];
+                };
+            };
+        };
+    };
+    QuotesController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    QuotesController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateQuoteDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteShape"];
+                };
+            };
+        };
+    };
+    QuotesController_send: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuoteShape"];
+                };
+            };
+        };
+    };
+    SeasonsController_compare: {
+        parameters: {
+            query?: {
+                /** @description Défaut : deux ans avant `toYear` */
+                fromYear?: number;
+                /** @description Défaut : année en cours */
+                toYear?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SeasonComparisonShape"];
                 };
             };
         };
