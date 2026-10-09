@@ -155,6 +155,21 @@ export const keys = {
     mine: () => [...keys.rooms.all, "mine"] as const,
   },
 
+  onCall: {
+    all: ["on-call"] as const,
+    shifts: (f: Filtres) => [...keys.onCall.all, "shifts", f] as const,
+    coverage: (packageId: string) =>
+      [...keys.onCall.all, "coverage", packageId] as const,
+    booking: (bookingId: string) =>
+      [...keys.onCall.all, "booking", bookingId] as const,
+  },
+
+  capacity: {
+    all: ["capacity"] as const,
+    simulation: (f: Filtres) =>
+      [...keys.capacity.all, "simulation", f] as const,
+  },
+
   disputes: {
     all: ["disputes"] as const,
     list: (f: Filtres) => [...keys.disputes.all, "list", f] as const,
