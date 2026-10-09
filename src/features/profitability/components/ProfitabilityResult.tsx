@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { Profitability } from "../api/schemas";
-import { Montant } from "./Montant";
+import { Money } from "@/components/shared/Money";
 import { StatCard, StatGrid } from "@/components/shared/StatCard";
 import {
   Table,
@@ -33,10 +33,10 @@ export function ProfitabilityResult({
       <StatGrid columns={3}>
         <StatCard
           title={t("unitContribution")}
-          value={<Montant valeur={r.unitContribution} devise={devise} />}
+          value={<Money montant={r.unitContribution} devise={devise} />}
         >
           {t("commission", {
-            rate: formatPourcentage(r.commissionRate),
+            rate: formatPourcentage(r.commissionRate * 100),
           })}
         </StatCard>
         <StatCard
@@ -59,7 +59,7 @@ export function ProfitabilityResult({
             r.minimumPrice === undefined ? (
               "—"
             ) : (
-              <Montant valeur={r.minimumPrice} devise={devise} />
+              <Money montant={r.minimumPrice} devise={devise} />
             )
           }
         >
@@ -87,16 +87,16 @@ export function ProfitabilityResult({
                   {formatNombre(s.pilgrims)}
                 </TableCell>
                 <TableCell className="text-right">
-                  <Montant valeur={s.revenue} devise={devise} />
+                  <Money montant={s.revenue} devise={devise} />
                 </TableCell>
                 <TableCell className="text-right">
-                  <Montant valeur={s.platformCommission} devise={devise} />
+                  <Money montant={s.platformCommission} devise={devise} />
                 </TableCell>
                 <TableCell className="text-right">
-                  <Montant valeur={s.variableCosts} devise={devise} />
+                  <Money montant={s.variableCosts} devise={devise} />
                 </TableCell>
                 <TableCell className="text-right">
-                  <Montant valeur={s.fixedCosts} devise={devise} />
+                  <Money montant={s.fixedCosts} devise={devise} />
                 </TableCell>
                 <TableCell
                   className={cn(
@@ -104,10 +104,10 @@ export function ProfitabilityResult({
                     s.margin < 0 && "text-destructive",
                   )}
                 >
-                  <Montant valeur={s.margin} devise={devise} />
+                  <Money montant={s.margin} devise={devise} />
                   {s.marginRate !== undefined && (
                     <span className="text-muted-foreground ml-1 text-xs">
-                      ({formatPourcentage(s.marginRate)})
+                      ({formatPourcentage(s.marginRate * 100)})
                     </span>
                   )}
                 </TableCell>

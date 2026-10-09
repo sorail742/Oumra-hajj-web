@@ -38,3 +38,14 @@ describe("proxy — lien de réinitialisation (ticket #73)", () => {
     expect(redirection("/reset-password", true)).toBeNull();
   });
 });
+
+describe("proxy — devis (backend idée #49)", () => {
+  it("ouvre le lien client sans session", () => {
+    expect(redirection("/quote/jeton-factice")).toBeNull();
+  });
+
+  it("garde la gestion des devis derrière une session", () => {
+    expect(redirection("/quotes")).toContain("/login?next=%2Fquotes");
+    expect(redirection("/quotes/devis-1")).toContain("/login");
+  });
+});

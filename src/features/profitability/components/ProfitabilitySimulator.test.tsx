@@ -89,5 +89,10 @@ describe("ProfitabilitySimulator (idée #48)", () => {
     });
     expect(corps).not.toHaveProperty("commissionRate");
     expect(screen.getByText("12")).toBeInTheDocument();
+    // Taux en fraction côté API : 0,05 s'affiche 5,0 %, pas 0,1 %.
+    expect(
+      screen.getByText(/commission de la plateforme \(5,0/),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/\(17,5/)).toBeInTheDocument();
   });
 });

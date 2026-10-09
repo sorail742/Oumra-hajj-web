@@ -103,7 +103,10 @@
     "audit": "Journal d'audit",
     "onCall": "Astreinte",
     "capacity": "Capacité",
-    "profitability": "Rentabilité"
+    "profitability": "Rentabilité",
+    "quotes": "Devis",
+    "loyalty": "Fidélité",
+    "seasons": "Saisons"
   },
   "auth": {
     "backHome": "Retour à l'accueil",
@@ -2147,7 +2150,8 @@
       "capacityRequired": "Indiquez la capacité envisagée.",
       "expectedTooHigh": "Le remplissage attendu dépasse la capacité.",
       "submit": "Simuler",
-      "error": "La simulation n'a pas pu être calculée."
+      "error": "La simulation n'a pas pu être calculée.",
+      "placeholderAmount": "Montant"
     },
     "result": {
       "title": "Résultat",
@@ -2177,5 +2181,172 @@
       "three_quarters": "Aux trois quarts",
       "full": "Complet"
     }
+  },
+  "loyalty": {
+    "title": "Fidélité",
+    "description": "Les voyages effectués avec une agence ouvrent ses paliers et leurs avantages.",
+    "program": {
+      "title": "Paliers de fidélité",
+      "hint": "Cinq paliers au plus. L'avantage est accordé par votre agence : aucune remise n'est appliquée automatiquement aux paiements.",
+      "none": "Aucun palier : votre agence n'a pas de programme de fidélité.",
+      "tier": "Palier {number}",
+      "minTrips": "À partir de (voyages)",
+      "label": "Nom du palier",
+      "benefit": "Avantage",
+      "remove": "Retirer le palier {number}",
+      "add": "Ajouter un palier",
+      "save": "Enregistrer les paliers",
+      "saved": "Paliers enregistrés.",
+      "error": "Les paliers n'ont pas pu être enregistrés.",
+      "tripsInvalid": "Entre 1 et 50 voyages.",
+      "labelInvalid": "Entre 2 et 40 caractères.",
+      "benefitInvalid": "Entre 2 et 200 caractères.",
+      "duplicate": "Un autre palier demande déjà ce nombre de voyages."
+    },
+    "members": {
+      "title": "Pèlerins fidèles",
+      "emptyTitle": "Aucun voyage effectué pour l'instant",
+      "emptyDescription": "Les pèlerins apparaissent ici dès leur premier voyage terminé avec votre agence.",
+      "pilgrim": "Pèlerin",
+      "trips": "Voyages",
+      "tier": "Palier",
+      "lastTrip": "Dernier retour"
+    },
+    "mine": {
+      "emptyTitle": "Pas encore de voyage effectué",
+      "emptyDescription": "Votre fidélité auprès d'une agence s'affichera ici après votre premier voyage avec elle.",
+      "trips": "{count, plural, one {# voyage effectué} other {# voyages effectués}}",
+      "noTier": "Pas encore de palier atteint auprès de cette agence.",
+      "next": "Encore {count, plural, one {# voyage} other {# voyages}} pour « {label} ».",
+      "grantedBy": "Avantage accordé directement par l'agence."
+    }
+  },
+  "quotes": {
+    "title": "Devis",
+    "description": "Devis pour une entreprise, une mosquée ou une association, envoyés par lien au client.",
+    "detailTitle": "Devis",
+    "filterStatus": "Statut",
+    "allStatuses": "Tous les statuts",
+    "statuses": {
+      "draft": "Brouillon",
+      "sent": "Envoyé",
+      "accepted": "Accepté",
+      "declined": "Refusé"
+    },
+    "emptyTitle": "Aucun devis",
+    "emptyDescription": "Préparez un devis pour un groupe : il reste modifiable jusqu'à son envoi.",
+    "summary": "{count, plural, one {# pèlerin} other {# pèlerins}} · valable jusqu'au {date}",
+    "clientTypes": {
+      "company": "Entreprise",
+      "mosque": "Mosquée",
+      "association": "Association",
+      "other": "Autre"
+    },
+    "lines": {
+      "subtotal": "Sous-total",
+      "discount": "Remise ({rate})",
+      "totalAmount": "Total du devis",
+      "title": "Détail du devis"
+    },
+    "create": {
+      "action": "Nouveau devis",
+      "title": "Nouveau devis",
+      "description": "Le devis reste un brouillon modifiable jusqu'à son envoi. Les totaux sont calculés par la plateforme.",
+      "clientName": "Client",
+      "clientType": "Type de client",
+      "contactName": "Contact",
+      "contactPhone": "Téléphone (facultatif)",
+      "contactEmail": "Email (facultatif)",
+      "package": "Forfait de référence",
+      "noPackage": "Aucun (offre sur mesure)",
+      "packageLine": "Forfait {title}",
+      "pilgrimsCount": "Nombre de pèlerins",
+      "lines": "Lignes du devis",
+      "lineLabel": "Désignation de la ligne {number}",
+      "lineQuantity": "Quantité de la ligne {number}",
+      "lineUnitPrice": "Prix unitaire de la ligne {number}",
+      "removeLine": "Retirer la ligne {number}",
+      "addLine": "Ajouter une ligne",
+      "totalsHint": "Sous-total, remise et total sont calculés à l'enregistrement.",
+      "discountPercent": "Remise en % (facultatif, 50 au plus)",
+      "validUntil": "Valable jusqu'au",
+      "conditions": "Conditions (facultatif)",
+      "conditionsHint": "Acompte, échéances, prestations incluses… Visible du client.",
+      "required": "Champ requis.",
+      "integerInvalid": "Nombre entier entre 1 et 10 000.",
+      "amountInvalid": "Montant positif, deux décimales au plus.",
+      "discountInvalid": "Entre 0 et 50 %, une décimale au plus.",
+      "phoneInvalid": "Numéro au format international, par exemple +224620000000.",
+      "emailInvalid": "Adresse email invalide.",
+      "dateInvalid": "Indiquez une date.",
+      "submit": "Créer le brouillon",
+      "created": "Devis {number} créé.",
+      "error": "Le devis n'a pas pu être créé.",
+      "placeholderLabel": "Désignation",
+      "placeholderQuantity": "Qté",
+      "placeholderUnitPrice": "Prix unitaire"
+    },
+    "detail": {
+      "pilgrims": "{count, plural, one {# pèlerin} other {# pèlerins}}",
+      "contact": "Contact",
+      "validUntil": "Valable jusqu'au",
+      "respondedAt": "Réponse du client le {date}",
+      "conditions": "Conditions",
+      "send": "Envoyer au client",
+      "sendTitle": "Envoyer ce devis ?",
+      "sendDescription": "Le devis sera figé et un lien sera créé pour que le client l'accepte ou le refuse.",
+      "sent": "Devis envoyé : transmettez le lien au client.",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer ce brouillon ?",
+      "deleteDescription": "Le brouillon sera définitivement supprimé.",
+      "deleted": "Brouillon supprimé.",
+      "draftHint": "Pour corriger un brouillon, supprimez-le et créez-en un nouveau.",
+      "linkTitle": "Lien à transmettre au client",
+      "linkHint": "Le client consulte le devis et répond par ce lien, sans créer de compte. Ne le partagez qu'avec lui.",
+      "copyLink": "Copier le lien"
+    },
+    "shared": {
+      "notFoundTitle": "Devis introuvable",
+      "notFound": "Ce lien ne correspond à aucun devis. Vérifiez-le auprès de l'agence.",
+      "title": "Devis pour {client}",
+      "issuer": "Émis par {agency}",
+      "pilgrims": "{count, plural, one {# pèlerin} other {# pèlerins}}",
+      "conditions": "Conditions",
+      "validUntil": "Valable jusqu'au {date}.",
+      "accept": "Accepter le devis",
+      "acceptTitle": "Accepter ce devis ?",
+      "acceptDescription": "L'agence sera prévenue de votre accord. Cette réponse est définitive.",
+      "decline": "Refuser",
+      "declineTitle": "Refuser ce devis ?",
+      "declineDescription": "L'agence sera prévenue de votre refus. Cette réponse est définitive.",
+      "accepted": "Merci, l'agence est prévenue de votre accord.",
+      "declined": "L'agence est prévenue de votre refus.",
+      "error": "La réponse n'a pas pu être enregistrée.",
+      "expired": "Ce devis n'est plus valable : contactez l'agence pour une nouvelle proposition.",
+      "answered": "Réponse enregistrée le {date}."
+    }
+  },
+  "seasons": {
+    "title": "Saisons",
+    "description": "Comparez vos saisons : remplissage, annulations, encaissements et satisfaction.",
+    "from": "De",
+    "to": "À",
+    "emptyTitle": "Aucun voyage sur cette période",
+    "emptyDescription": "Choisissez d'autres années, ou publiez vos forfaits.",
+    "types": {
+      "oumra": "Oumra",
+      "hadj": "Hadj"
+    },
+    "season": "Saison",
+    "packages": "Forfaits",
+    "fill": "Réservations / places",
+    "fillCell": "{bookings} / {capacity}",
+    "cancellations": "Annulations",
+    "averagePrice": "Prix moyen",
+    "collected": "Encaissé net",
+    "rating": "Note moyenne",
+    "ratingCell": "{rating} ({count} avis)",
+    "disputes": "Litiges",
+    "hint": "Saison : année de départ du forfait. Encaissé net des remboursements, par devise."
   }
 }

@@ -33,7 +33,9 @@ export function CoverageCard({ packageId }: Readonly<{ packageId: string }>) {
                   covered: formatNombre(c.coveredHours),
                   total: formatNombre(c.totalHours),
                   rate: formatPourcentage(
-                    c.totalHours > 0 ? c.coveredHours / c.totalHours : 0,
+                    c.totalHours > 0
+                      ? (c.coveredHours / c.totalHours) * 100
+                      : 0,
                     0,
                   ),
                 })}
