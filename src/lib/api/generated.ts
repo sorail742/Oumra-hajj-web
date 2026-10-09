@@ -1028,6 +1028,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/payments/{id}/refund-preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["PaymentsController_refundPreview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/payments/{id}/refund": {
         parameters: {
             query?: never;
@@ -1054,6 +1070,38 @@ export interface paths {
         get: operations["PaymentsController_getSavingsPlan"];
         put?: never;
         post: operations["PaymentsController_setupSavingsPlan"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/refund-policies/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RefundPolicyController_getMine"];
+        put: operations["RefundPolicyController_replaceMine"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/refund-policies/agency/{agencyId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["RefundPolicyController_getForAgency"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1956,6 +2004,134 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/audit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["AuditController_list"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/audit/csv": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["AuditController_exportCsv"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/bookings/{id}/invoice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["BillingController_getInvoice"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/bookings/{id}/contract": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["BillingController_getContract"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/guide-planning": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GuidePlanningController_getAgencySchedule"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/guide-planning/mine": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GuidePlanningController_getMine"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/guide-planning/unavailabilities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["GuidePlanningController_addUnavailability"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/guide-planning/unavailabilities/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["GuidePlanningController_deleteUnavailability"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/on-call/booking/{bookingId}": {
         parameters: {
             query?: never;
@@ -2197,6 +2373,8 @@ export interface components {
             contactEmail: string;
             contactPhone: string;
             address?: string;
+            taxId?: string;
+            tradeRegister?: string;
             legalDocuments: components["schemas"]["LegalDocumentShape"][];
             /** @enum {string} */
             validationStatus: "pending" | "approved" | "rejected";
@@ -2214,6 +2392,10 @@ export interface components {
         };
         UpdateAgencyDto: {
             address?: string;
+            /** @description NIF — numéro d'identification fiscale */
+            taxId?: string;
+            /** @description RCCM — registre du commerce */
+            tradeRegister?: string;
             bankDetails?: components["schemas"]["BankDetailsDto"];
         };
         CreateGuideDto: {
@@ -2492,6 +2674,19 @@ export interface components {
             /** @enum {string} */
             status: "pending" | "succeeded" | "failed" | "refunded";
         };
+        RefundPolicyTierShape: {
+            minDaysBeforeDeparture: number;
+            rate: number;
+        };
+        RefundPreviewShape: {
+            paymentId: string;
+            eligibleRate: number;
+            refundableAmount: number;
+            currency: string;
+            rule: Record<string, never>;
+            daysBeforeDeparture: number;
+            tiers: components["schemas"]["RefundPolicyTierShape"][];
+        };
         SetupSavingsPlanDto: {
             /** @description Montant à prélever à chaque itération */
             deductAmount?: number;
@@ -2512,6 +2707,19 @@ export interface components {
             frequency?: string;
             /** Format: date-time */
             nextDeductDate?: string;
+        };
+        RefundPolicyShape: {
+            agencyId: string;
+            tiers: components["schemas"]["RefundPolicyTierShape"][];
+        };
+        RefundPolicyTierDto: {
+            /** @example 30 */
+            minDaysBeforeDeparture: number;
+            /** @example 0.5 */
+            rate: number;
+        };
+        ReplaceRefundPolicyDto: {
+            tiers: components["schemas"]["RefundPolicyTierDto"][];
         };
         UploadDocumentDto: {
             bookingId: string;
@@ -3090,6 +3298,125 @@ export interface components {
         };
         DisputeDecisionDto: {
             decision: string;
+        };
+        AuditLogShape: {
+            id: string;
+            actorId?: string;
+            actorName?: string;
+            /** @enum {string} */
+            actorRole?: "pilgrim" | "agency" | "guide" | "admin";
+            action: string;
+            entityType: string;
+            entityId?: string;
+            metadata?: Record<string, never>;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        BillingPartyShape: {
+            name: string;
+            address?: string;
+            email?: string;
+            phone?: string;
+            taxId?: string;
+            tradeRegister?: string;
+        };
+        InvoicePaymentShape: {
+            /** Format: date-time */
+            date: string;
+            amount: number;
+            /** @enum {string} */
+            method: "mobile_money_orange" | "mobile_money_mtn" | "card";
+            /** @enum {string} */
+            status: "pending" | "succeeded" | "failed" | "refunded";
+            receiptRef?: string;
+            refundedAmount?: number;
+        };
+        InvoiceShape: {
+            number: string;
+            /** Format: date-time */
+            issuedAt: string;
+            bookingId: string;
+            seller: components["schemas"]["BillingPartyShape"];
+            buyer: components["schemas"]["BillingPartyShape"];
+            packageTitle: string;
+            packageType: string;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+            totalAmount: number;
+            currency: string;
+            payments: components["schemas"]["InvoicePaymentShape"][];
+            paid: number;
+            refunded: number;
+            balanceDue: number;
+        };
+        ContractStageShape: {
+            city: string;
+            hotelName: string;
+            distanceToMosqueMeters?: number;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+        };
+        ContractShape: {
+            bookingId: string;
+            /** Format: date-time */
+            generatedAt: string;
+            /** Format: date-time */
+            bookedAt: string;
+            agency: components["schemas"]["BillingPartyShape"];
+            pilgrim: components["schemas"]["BillingPartyShape"];
+            packageTitle: string;
+            packageType: string;
+            description?: string;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+            stages: components["schemas"]["ContractStageShape"][];
+            inclusions: string[];
+            price: number;
+            currency: string;
+            /** Format: date-time */
+            balanceDueDate: string;
+            refundTiers: components["schemas"]["RefundPolicyTierShape"][];
+        };
+        PlanningEntryShape: {
+            kind: Record<string, never>;
+            id: string;
+            label: string;
+            packageTitle?: string;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+        };
+        PlanningConflictShape: {
+            firstId: string;
+            secondId: string;
+            /** Format: date-time */
+            startDate: string;
+            /** Format: date-time */
+            endDate: string;
+        };
+        GuideScheduleShape: {
+            guideId: string;
+            guideName: string;
+            entries: components["schemas"]["PlanningEntryShape"][];
+            conflicts: components["schemas"]["PlanningConflictShape"][];
+        };
+        CreateUnavailabilityDto: {
+            guideId: string;
+            /** @example 2026-11-01 */
+            startDate: string;
+            /**
+             * @description Incluse
+             * @example 2026-11-10
+             */
+            endDate: string;
+            reason?: string;
         };
         OnCallContactShape: {
             staffName: string;
@@ -4785,6 +5112,27 @@ export interface operations {
             };
         };
     };
+    PaymentsController_refundPreview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefundPreviewShape"];
+                };
+            };
+        };
+    };
     PaymentsController_requestRefund: {
         parameters: {
             query?: never;
@@ -4848,6 +5196,69 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["SavingsPlanShape"];
+                };
+            };
+        };
+    };
+    RefundPolicyController_getMine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefundPolicyShape"];
+                };
+            };
+        };
+    };
+    RefundPolicyController_replaceMine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReplaceRefundPolicyDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefundPolicyShape"];
+                };
+            };
+        };
+    };
+    RefundPolicyController_getForAgency: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                agencyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RefundPolicyShape"];
                 };
             };
         };
@@ -6350,6 +6761,194 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["DisputeShape"];
                 };
+            };
+        };
+    };
+    AuditController_list: {
+        parameters: {
+            query?: {
+                /** @description Début inclus (défaut : il y a 30 jours) */
+                from?: string;
+                /** @description Fin incluse (défaut : aujourd'hui) */
+                to?: string;
+                action?: string;
+                entityType?: string;
+                entityId?: string;
+                actorId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditLogShape"][];
+                };
+            };
+        };
+    };
+    AuditController_exportCsv: {
+        parameters: {
+            query?: {
+                /** @description Début inclus (défaut : il y a 30 jours) */
+                from?: string;
+                /** @description Fin incluse (défaut : aujourd'hui) */
+                to?: string;
+                action?: string;
+                entityType?: string;
+                entityId?: string;
+                actorId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": string;
+                };
+            };
+        };
+    };
+    BillingController_getInvoice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvoiceShape"];
+                };
+            };
+        };
+    };
+    BillingController_getContract: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContractShape"];
+                };
+            };
+        };
+    };
+    GuidePlanningController_getAgencySchedule: {
+        parameters: {
+            query?: {
+                /** @description Début (défaut : aujourd'hui) */
+                from?: string;
+                /** @description Fin incluse (défaut : dans un an) */
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GuideScheduleShape"][];
+                };
+            };
+        };
+    };
+    GuidePlanningController_getMine: {
+        parameters: {
+            query?: {
+                /** @description Début (défaut : aujourd'hui) */
+                from?: string;
+                /** @description Fin incluse (défaut : dans un an) */
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GuideScheduleShape"];
+                };
+            };
+        };
+    };
+    GuidePlanningController_addUnavailability: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateUnavailabilityDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["GuideScheduleShape"];
+                };
+            };
+        };
+    };
+    GuidePlanningController_deleteUnavailability: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

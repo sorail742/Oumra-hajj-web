@@ -88,17 +88,16 @@ export const keys = {
     detail: (id: string) => [...keys.payments.all, "detail", id] as const,
     byBooking: (bookingId: string) =>
       [...keys.payments.all, "booking", bookingId] as const,
-    /**
-     * Statut de réservation minimal, pour l'aperçu du barème de
-     * remboursement (`RefundRequestFlow`). Clé distincte de
-     * `keys.bookings.detail` : un `features/x` n'importe jamais depuis
-     * `features/y` (voir `CLAUDE.md` règle 2), donc ce hook reparse sa
-     * propre forme minimale plutôt que de réutiliser le cache du domaine
-     * `bookings` — partager la clé mélangerait deux formes différentes
-     * sous la même entrée de cache.
-     */
-    bookingStatus: (bookingId: string) =>
-      [...keys.payments.all, "booking-status", bookingId] as const,
+    refundPreview: (paymentId: string) =>
+      [...keys.payments.all, "refund-preview", paymentId] as const,
+    refundPolicy: (agencyId: string) =>
+      [...keys.payments.all, "refund-policy", agencyId] as const,
+    myRefundPolicy: () =>
+      [...keys.payments.all, "refund-policy", "mine"] as const,
+    invoice: (bookingId: string) =>
+      [...keys.payments.all, "invoice", bookingId] as const,
+    contract: (bookingId: string) =>
+      [...keys.payments.all, "contract", bookingId] as const,
   },
 
   reviews: {
@@ -147,6 +146,17 @@ export const keys = {
   directory: {
     all: ["directory"] as const,
     agencies: () => [...keys.directory.all, "agencies"] as const,
+  },
+
+  guidePlanning: {
+    all: ["guide-planning"] as const,
+    agency: (f: Filtres) => [...keys.guidePlanning.all, "agency", f] as const,
+    mine: (f: Filtres) => [...keys.guidePlanning.all, "mine", f] as const,
+  },
+
+  audit: {
+    all: ["audit"] as const,
+    list: (f: Filtres) => [...keys.audit.all, "list", f] as const,
   },
 
   rooms: {

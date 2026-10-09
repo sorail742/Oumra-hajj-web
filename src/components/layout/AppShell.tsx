@@ -46,7 +46,7 @@ export async function AppShell({
   if (!role) {
     return (
       <div className="flex min-h-svh flex-col">
-        <header className="bg-background flex h-14 shrink-0 items-center justify-between gap-2 border-b px-4 sm:px-6">
+        <header className="bg-background flex h-14 shrink-0 items-center justify-between gap-2 border-b px-4 sm:px-6 print:hidden">
           <Link
             href="/"
             className="flex items-center gap-2 text-sm font-semibold tracking-tight"
@@ -82,7 +82,7 @@ export async function AppShell({
 
   return (
     <div data-slot="app-shell" className="bg-canvas flex h-svh">
-      <aside className="hidden w-(--sidebar-width) shrink-0 flex-col lg:flex">
+      <aside className="hidden w-(--sidebar-width) shrink-0 flex-col lg:flex print:hidden">
         <div className="p-3">
           <SidebarBrand role={role} />
         </div>
@@ -96,7 +96,7 @@ export async function AppShell({
 
       <div className="flex min-w-0 flex-1 flex-col lg:py-2 lg:pr-2">
         <div className="bg-panel flex min-h-0 flex-1 flex-col overflow-hidden lg:rounded-xl lg:border lg:shadow-(--shadow-card)">
-          <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4 sm:px-6">
+          <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4 sm:px-6 print:hidden">
             <div className="flex min-w-0 items-center gap-2">
               <MobileNav marque={<SidebarBrand role={role} />} />
               <span className="hidden sm:inline lg:hidden">{marque}</span>

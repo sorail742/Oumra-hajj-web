@@ -545,6 +545,47 @@
 }
 
 /* ------------------------------------------------------------
+   4 bis. IMPRESSION
+   Factures et contrats (idée #37) s'impriment — ou s'enregistrent en
+   PDF — depuis l'espace authentifié : la coquille s'efface, le
+   document occupe la page, en noir sur blanc quel que soit le thème.
+   ------------------------------------------------------------ */
+@media print {
+  :root,
+  .dark {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0 0 0);
+    --card: oklch(1 0 0);
+    --panel: oklch(1 0 0);
+    --canvas: oklch(1 0 0);
+    --muted-foreground: oklch(0.35 0 0);
+    --border: oklch(0.75 0 0);
+  }
+
+  body:has([data-slot="app-shell"]) {
+    overflow: visible;
+  }
+
+  /* Seuls les conteneurs de la coquille : jamais les composants. */
+  [data-slot="app-shell"],
+  [data-slot="app-shell"] > div,
+  [data-slot="app-shell"] > div > div,
+  [data-slot="app-shell"] main {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  [data-nextjs-toast],
+  nextjs-portal {
+    display: none !important;
+  }
+}
+
+/* ------------------------------------------------------------
    5. UTILITAIRES
    ------------------------------------------------------------ */
 @layer utilities {
