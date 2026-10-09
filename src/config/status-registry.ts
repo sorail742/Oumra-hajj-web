@@ -109,6 +109,18 @@ export const statusRegistry = {
     resolved: { label: "Résolu à l'amiable", tone: "success" },
     closed: { label: "Tranché", tone: "success" },
   },
+  /**
+   * Devis groupes et entreprises (backend idée #49) : `expired` n'est pas un
+   * statut de l'API mais l'état d'un devis `sent` dont la validité est
+   * passée (champ `expired`), affiché comme tel.
+   */
+  quote: {
+    draft: { label: "Brouillon", tone: "pending" },
+    sent: { label: "Envoyé", tone: "progress" },
+    accepted: { label: "Accepté", tone: "success" },
+    declined: { label: "Refusé", tone: "danger" },
+    expired: { label: "Expiré", tone: "warning" },
+  },
 } as const satisfies Record<string, Record<string, StatusEntry>>;
 
 export type StatusKind = keyof typeof statusRegistry;

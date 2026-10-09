@@ -174,6 +174,25 @@ export const keys = {
       [...keys.onCall.all, "booking", bookingId] as const,
   },
 
+  loyalty: {
+    all: ["loyalty"] as const,
+    program: () => [...keys.loyalty.all, "program"] as const,
+    members: () => [...keys.loyalty.all, "members"] as const,
+    mine: () => [...keys.loyalty.all, "mine"] as const,
+  },
+
+  quotes: {
+    all: ["quotes"] as const,
+    list: (f: Filtres) => [...keys.quotes.all, "list", f] as const,
+    detail: (id: string) => [...keys.quotes.all, "detail", id] as const,
+    shared: (token: string) => [...keys.quotes.all, "shared", token] as const,
+  },
+
+  seasons: {
+    all: ["seasons"] as const,
+    comparison: (f: Filtres) => [...keys.seasons.all, "comparison", f] as const,
+  },
+
   capacity: {
     all: ["capacity"] as const,
     simulation: (f: Filtres) =>

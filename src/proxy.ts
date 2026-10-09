@@ -52,6 +52,9 @@ const PREFIXES_PUBLIC_CONTENU = [
   "/micro-courses",
   "/family",
   "/emergency",
+  // Lien de devis reçu par un client sans compte (backend idée #49) ; la
+  // gestion des devis reste sous `/quotes`, préfixe distinct et protégé.
+  "/quote",
 ];
 
 /**
